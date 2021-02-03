@@ -9,8 +9,8 @@
 </select>
 
 <insert id="insertSelectKey">
-<selectKey keyProperty="no" order="BEFORE" resultType="long">
-select MAX(no)+1 from restaurant
+<selectKey order="AFTER" resultType="long">
+select no from restaurant
 </selectKey>
 
 insert into restaurant (mountain_no, rName, rLoc, contact, menu, description)
