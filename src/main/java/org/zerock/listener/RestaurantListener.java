@@ -10,12 +10,12 @@ import javax.servlet.annotation.WebListener;
  *
  */
 
-public class BoardListener implements ServletContextListener {
+public class RestaurantListener implements ServletContextListener {
 
     /**
      * Default constructor. 
      */
-    public BoardListener() {
+    public RestaurantListener() {
         // TODO Auto-generated constructor stub
     }
 
