@@ -1,6 +1,9 @@
 package org.zerock.controller;
 
+import java.io.File;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,11 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.PageDTO;
 import org.zerock.domain.RestaurantVO;
 import org.zerock.service.RestaurantService;
+import org.zerock.upload.UploadFile;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -24,6 +29,9 @@ import lombok.extern.log4j.Log4j;
 public class RestaurantController {
 	private RestaurantService service;
 
+	@Resource(name="uploadPath")
+	private String uploadPath;
+	
 	@GetMapping("/list")
 	public void list(Model model, @ModelAttribute("cri") Criteria cri) {
 		List<RestaurantVO> list = service.getList(cri);
@@ -37,7 +45,23 @@ public class RestaurantController {
 	}
 	
 	@PostMapping("/register")
-	public String register(RestaurantVO restaurant, RedirectAttributes rttr) {
+	public String register(RestaurantVO restaurant, RedirectAttributes rttr, MultipartFile file) throws Exception {
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFile.calcPath(imgUploadPath);
+		String fileName = null;
+
+		if(file != null) {
+		 fileName = UploadFile.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else {
+		 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+		}
+		log.info("********************************************");
+		log.info("**************" + ymdPath +"****************");
+		log.info("**************" + fileName +"****************");
+		log.info("**************" + imgUploadPath +"****************");
+		log.info("********************************************");
+		
+		restaurant.setImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 		service.register(restaurant);
 		rttr.addFlashAttribute("result", restaurant.getNo());
 		rttr.addFlashAttribute("message", "상호 " + restaurant.getNo() + "번 글이 등록되었습니다");

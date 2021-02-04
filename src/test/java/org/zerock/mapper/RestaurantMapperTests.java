@@ -37,8 +37,8 @@ public class RestaurantMapperTests {
 		res.setContact("02-987-6543");
 		res.setDescription("맛집입니다!!!!!!!");
 		res.setMenu("닭볶음탕");
-		res.setRName("도리도리");
-		res.setRLoc("서울시 종로구");
+		res.setRname("도리도리");
+		res.setRloc("서울시 종로구");
 		int before = mapper.getList().size();
 		mapper.insertSelectKey(res);
 		int after = mapper.getList().size();
@@ -54,8 +54,8 @@ public class RestaurantMapperTests {
 		res.setContact("02-987-6543");
 		res.setDescription("맛집입니다");
 		res.setMenu("닭볶음탕");
-		res.setRName("도리도리");
-		res.setRLoc("서울시 종로구");
+		res.setRname("도리도리");
+		res.setRloc("서울시 종로구");
 		
 		mapper.insertSelectKey(res);
 		int before = mapper.getList().size();
@@ -74,8 +74,8 @@ public class RestaurantMapperTests {
 		res.setContact("02-987-6543");
 		res.setDescription("맛집입니다");
 		res.setMenu("닭볶음탕");
-		res.setRName("도리도리");
-		res.setRLoc("서울시 종로구");
+		res.setRname("도리도리");
+		res.setRloc("서울시 종로구");
 		
 		mapper.insertSelectKey(res);
 		RestaurantVO readRes = mapper.read(res.getNo());
@@ -91,8 +91,8 @@ public class RestaurantMapperTests {
 		res.setContact("02-987-6543");
 		res.setDescription("맛집입니다");
 		res.setMenu("닭볶음탕");
-		res.setRName("도리도리");
-		res.setRLoc("서울시 종로구");
+		res.setRname("도리도리");
+		res.setRloc("서울시 종로구");
 		
 		mapper.insertSelectKey(res);
 		log.info("*******************" +res +"*****************");
@@ -100,8 +100,8 @@ public class RestaurantMapperTests {
 		res.setContact("02-987-0000");
 		res.setDescription("수정 맛집입니다");
 		res.setMenu("수정 닭볶음탕");
-		res.setRName("수정 도리도리");
-		res.setRLoc("서울시 종로구 수정");
+		res.setRname("수정 도리도리");
+		res.setRloc("서울시 종로구 수정");
 		int cnt = mapper.update(res);
 		assertEquals(1, cnt);
 		
@@ -109,8 +109,8 @@ public class RestaurantMapperTests {
 		assertEquals("02-987-0000", upRes.getContact());
 		assertEquals("수정 맛집입니다", upRes.getDescription());
 		assertEquals("수정 닭볶음탕", upRes.getMenu());
-		assertEquals("수정 도리도리", upRes.getRName());
-		assertEquals("서울시 종로구 수정", upRes.getRLoc());
+		assertEquals("수정 도리도리", upRes.getRname());
+		assertEquals("서울시 종로구 수정", upRes.getRloc());
 	}
 
 	@Test // 성공

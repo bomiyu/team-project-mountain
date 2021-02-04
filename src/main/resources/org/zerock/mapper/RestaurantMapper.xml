@@ -26,10 +26,10 @@
 </sql>
 
 <select id="getListPaging" resultType="org.zerock.domain.RestaurantVO">
-<![CDATA[SELECT no, mountain_no, rName, rLoc, contact, menu, description
+<![CDATA[SELECT no, mountain_no, rname, rloc, contact, menu, description, img
 FROM
 (SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn,
-no, mountain_no, rName, rLoc, contact, menu, description
+no, mountain_no, rname, rloc, contact, menu, description, img
 FROM restaurant
 ]]>
 	 <include refid="criteria"></include>
@@ -45,11 +45,11 @@ WHERE rn BETWEEN (#{pageNo} -1) * #{amount} + 1 AND #{pageNo} * #{amount}]]>
 
 <insert id="insertSelectKey">
 <selectKey keyProperty="no" order="BEFORE" resultType="long">
-select MAX(no)+1 from restaurant
+select seq_restaurant.nextval from dual
 </selectKey>
 
-insert into restaurant (mountain_no, rName, rLoc, contact, menu, description)
-values (#{mountain_no}, #{rName}, #{rLoc}, #{contact}, #{menu}, #{description})
+insert into restaurant (no, mountain_no, rname, rloc, contact, menu, description, img)
+values (#{no}, #{mountain_no}, #{rname}, #{rloc}, #{contact}, #{menu}, #{description}, #{img})
 </insert>
 
 <delete id="delete">
@@ -57,8 +57,8 @@ delete from restaurant where no = #{no}
 </delete>
 
 <update id="update">
-update restaurant set rName= #{rName}, rLoc= #{rLoc}, contact= #{contact}, menu= #{menu}, 
-description= #{description} where no = #{no}
+update restaurant set rname= #{rname}, rloc= #{rloc}, contact= #{contact}, menu= #{menu}, 
+description= #{description}, img= #{img} where no = #{no}
 </update>
 
 <select id="read" resultType="org.zerock.domain.RestaurantVO">
