@@ -65,7 +65,7 @@ description= #{description} where no = #{no}
 SELECT*FROM restaurant WHERE no = #{no}
 </select>
 
-<select id="getTotalCount" resultType="int">
+<select id="getTotalCnt" resultType="int">
 	SELECT count(*) FROM restaurant <include refid="criteria"></include>
 </select>
 
