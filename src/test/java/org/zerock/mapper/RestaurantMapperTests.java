@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.RestaurantVO;
 
 import lombok.Setter;
@@ -23,13 +24,13 @@ public class RestaurantMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private RestaurantMapper mapper;
 	
-	@Test
+	@Test // 성공
 	public void testGetList() {
 		List<RestaurantVO> list = mapper.getList();
 		assertNotEquals(list.size(), 0);
 	}
 	
-	@Test
+	@Test // 성공
 	public void testInsertSelectKey() {
 		RestaurantVO res = new RestaurantVO();
 		res.setMountain_no(2L);
@@ -46,7 +47,7 @@ public class RestaurantMapperTests {
 		assertNotEquals(res.getNo(), new Long(0));
 	}
 
-	@Test
+	@Test // 성공
 	public void testDelete() {
 		RestaurantVO res = new RestaurantVO();
 		res.setMountain_no(2L);
@@ -66,7 +67,7 @@ public class RestaurantMapperTests {
 		assertEquals(before - 1, after);
 	}
 	
-	@Test
+	@Test // 성공
 	public void testRead() {
 		RestaurantVO res = new RestaurantVO();
 		res.setMountain_no(2L);
@@ -83,7 +84,7 @@ public class RestaurantMapperTests {
 		assertEquals(readRes.getNo(), res.getNo());
 	}
 	
-	@Test
+	@Test // 성공
 	public void testUpdate() {
 		RestaurantVO res = new RestaurantVO();
 		res.setMountain_no(3L);
@@ -94,6 +95,7 @@ public class RestaurantMapperTests {
 		res.setRLoc("서울시 종로구");
 		
 		mapper.insertSelectKey(res);
+		log.info("*******************" +res +"*****************");
 		
 		res.setContact("02-987-0000");
 		res.setDescription("수정 맛집입니다");
@@ -109,6 +111,20 @@ public class RestaurantMapperTests {
 		assertEquals("수정 닭볶음탕", upRes.getMenu());
 		assertEquals("수정 도리도리", upRes.getRName());
 		assertEquals("서울시 종로구 수정", upRes.getRLoc());
+	}
+
+	@Test // 성공
+	public void testPaging() {
+		Criteria cri = new Criteria(1, 5);
+		List<RestaurantVO> list = mapper.getListPaging(cri);
+		
+		assertEquals(5, list.size());
+		
+		cri = new Criteria(1, 10);
+		list = mapper.getListPaging(cri);
+		
+		assertEquals(10, list.size());
+		list.forEach(restaurant -> log.info("NUMBER : " + restaurant.getNo()));
 	}
 	
 }

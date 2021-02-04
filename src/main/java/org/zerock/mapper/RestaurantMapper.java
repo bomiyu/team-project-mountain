@@ -7,13 +7,11 @@ import org.zerock.domain.RestaurantVO;
 
 public interface RestaurantMapper {
 	
-	public void insert(RestaurantVO restaurant);
-	
 	public void insertSelectKey(RestaurantVO restaurant);
 	
 	public List<RestaurantVO> getList();
 	
-	public List<RestaurantVO> getList(Criteria cri);
+	public List<RestaurantVO> getListPaging(Criteria cri);
 	
 	public int delete(Long no);
 	
