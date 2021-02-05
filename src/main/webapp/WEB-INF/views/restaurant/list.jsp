@@ -57,8 +57,17 @@
 
 							actionForm.submit();
 						});
+
 			});
 </script>
+<style type="text/css">
+.card mb-3 div {
+	max-width: auto; 
+	max-height: 250px;"
+}
+.col-md-4 {float: right;}
+.col-md-8 {float: left;}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
@@ -66,124 +75,153 @@
 		<div class="row">
 			<div class="col-1 col-sm-2"></div>
 			<div class="col-10 col-sm-8 mt-3">
-			
-			   <form action="${root }/restaurant/list" id="searchForm" class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
-			<a href="${root }/restaurant/list" class="mr-auto p-2 bd-highlight"><button class="btn btn-outline-info my-2 my-sm-0" type="button">목록</button></a> 
-      <select name="type" class="custom-select my-1 mr-sm-2 bd-highlight" id="inlineFormCustomSelectPref">
-	    <option value="M" ${page.cri.type eq 'M' ? 'selected' : ''}>산</option>
-	    <option value="N" ${page.cri.type eq 'N' ? 'selected' : ''}>상호</option>
-	    <option value="L" ${page.cri.type eq 'L' ? 'selected' : ''}>지역</option>
-	    <option value="F" ${pager.cri.type eq 'F' ? 'selected' : ''}>메뉴</option>
-	  </select> <input class="form-control mr-sm-2 p-2 bd-highlight" type="search" name="keyword" value="${page.cri.keyword }"
-					placeholder="Search" aria-label="Search" required="required">
-					<input type="hidden" name="pageNo" value="1" />
-					<input type="hidden" name="amount" value="${page.cri.amount }" />
-				
-				<button class="btn btn-outline-info my-2 my-sm-0 p-2 bd-highlight" type="submit">Search</button>	</form>
-			<c:forEach items="${list }" var="res">
-				<div class="card mb-3" style="max-width: auto;">
-					<div class="row no-gutters">
-						<div class="col-md-4">
-							<img src="${root }/${res.img }" class="card-img" alt="...">
-						</div>
-						<div class="col-md-8">
-							<div class="card-body">
-								<h5 class="card-title">${res.rname }</h5>
-								<p class="card-text">${res.description }<br>
-								</p>
-								<p class="card-text">
-									<small class="text-muted">${res.rloc }<br>${res.contact }</small>
-								</p>
+
+				<form action="${root }/restaurant/list" id="searchForm"
+					class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
+					<div class="mr-auto p-2 bd-highlight">
+					<a href="${root }/restaurant/list" ><button
+							class="btn btn-outline-info my-2 my-sm-0" type="button">목록</button></a>
+								<a href="${root }/restaurant/register"><button
+							class="btn btn-outline-info my-2 my-sm-0" type="button">등록</button></a></div>
+					<select name="type" class="custom-select my-1 mr-sm-2 bd-highlight"
+						id="inlineFormCustomSelectPref">
+						<option value="M" ${page.cri.type eq 'M' ? 'selected' : ''}>산</option>
+						<option value="N" ${page.cri.type eq 'N' ? 'selected' : ''}>상호</option>
+						<option value="L" ${page.cri.type eq 'L' ? 'selected' : ''}>지역</option>
+						<option value="F" ${pager.cri.type eq 'F' ? 'selected' : ''}>메뉴</option>
+					</select> <input class="form-control mr-sm-2 p-2 bd-highlight" type="search"
+						name="keyword" value="${page.cri.keyword }" placeholder="Search"
+						aria-label="Search" required="required"> <input
+						type="hidden" name="pageNo" value="1" /> <input type="hidden"
+						name="amount" value="${page.cri.amount }" />
+
+					<button class="btn btn-outline-info my-2 my-sm-0 p-2 bd-highlight"
+						type="submit">Search</button>
+				</form>
+				<c:forEach items="${list }" var="res">
+					<div class="card mb-3">
+						<div class="row no-gutters">
+							<div class="col-sm-4">
+								<img src="${root }/${res.img }" class="card-img" alt="..." style="width: 250px; height: 225px;">
 							</div>
+							<div class="col-sm-8">
+								<div class="card-body">
+									<h5 class="card-title">${res.rname }</h5>
+									<p class="card-text">${res.description }<br>
+									</p>
+									<p class="card-text">
+										<small class="text-muted">${res.rloc }<br>${res.contact }</small>
+
+									</p>
+									<c:if test="${true }">
+									<div class="d-flex justify-content-end">
+										<c:url value="/restaurant/modify" var="modifyLink">
+											<c:param name="no" value="${res.no }"></c:param>
+											<c:param name="pageNo" value="${cri.pageNo }"></c:param>
+											<c:param name="amount" value="${cri.amount }"></c:param>
+											<c:param name="type" value="${cri.type }"></c:param>
+											<c:param name="keyword" value="${cri.keyword }"></c:param>
+										</c:url>
+										<a href="${modifyLink }">
+											<button class="btn btn-outline-info my-2 my-sm-0"  
+		 										type="submit">수정</button>
+										</a>
+										<form action="${root }/restaurant/remove" method="post">
+										<input type="hidden" name="no" value="${res.no}">
+										<input type="hidden" name="gdsImg" value="${res.img }">
+										<button class="btn btn-outline-info my-2 my-sm-0" id="removeBtn"
+											type="submit">삭제</button>
+											</form>
+									</div>
+									</c:if>
+								</div>
+								
+							</div>
+							
 						</div>
 					</div>
-				</div>
 				</c:forEach>
 			</div>
-						<div class="container-sm mt-3">
-					<div class="row justify-content-center">
-						<nav aria-label="Page navigation example">
-							<ul class="pagination">
+			<div class="container-sm mt-3">
+				<div class="row justify-content-center">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
 
-								<c:if test="${page.prev }">
-									<c:url value="/restaurant/list" var="prevLink">
-										<c:param value="${page.startPage -1 }" name="pageNo" />
-										<c:param value="${page.cri.amount }" name="amount" />
-										<c:param name="type" value="${page.cri.type }" />
-										<c:param name="keyword" value="${page.cri.keyword }" />
-									</c:url>
-									<li class="page-item">
-										<%-- <a class="page-link" href="${prevLink }">Previous</a> --%>
-										<a class="page-link" href="${page.startPage -1 }">Previous</a>
-									</li>
-								</c:if>
+							<c:if test="${page.prev }">
+								<c:url value="/restaurant/list" var="prevLink">
+									<c:param value="${page.startPage -1 }" name="pageNo" />
+									<c:param value="${page.cri.amount }" name="amount" />
+									<c:param name="type" value="${page.cri.type }" />
+									<c:param name="keyword" value="${page.cri.keyword }" />
+								</c:url>
+								<li class="page-item">
+									<%-- <a class="page-link" href="${prevLink }">Previous</a> --%>
+									<a class="page-link" href="${page.startPage -1 }">Previous</a>
+								</li>
+							</c:if>
 
-								<c:forEach var="num" begin="${page.startPage }"
-									end="${page.endPage }">
-									<c:url value="/restaurant/list" var="pageLink">
-										<c:param name="pageNo" value="${num }" />
-										<c:param name="amount" value="${page.cri.amount }" />
-										<c:param name="type" value="${page.cri.type }" />
-										<c:param name="keyword" value="${page.cri.keyword }" />
-									</c:url>
-									<li
-										class="page-item ${page.cri.pageNo eq num ? 'active' : '' }">
-										<%-- <a class="page-link" href="${pageLink }">${num }</a> --%>
-										<a class="page-link" href="${num }">${num }</a>
-									</li>
-								</c:forEach>
+							<c:forEach var="num" begin="${page.startPage }"
+								end="${page.endPage }">
+								<c:url value="/restaurant/list" var="pageLink">
+									<c:param name="pageNo" value="${num }" />
+									<c:param name="amount" value="${page.cri.amount }" />
+									<c:param name="type" value="${page.cri.type }" />
+									<c:param name="keyword" value="${page.cri.keyword }" />
+								</c:url>
+								<li class="page-item ${page.cri.pageNo eq num ? 'active' : '' }">
+									<%-- <a class="page-link" href="${pageLink }">${num }</a> --%>
+									<a class="page-link" href="${num }">${num }</a>
+								</li>
+							</c:forEach>
 
-								<c:if test="${page.next }">
-									<c:url value="/restaurant/list" var="nextLink">
-										<c:param name="pageNo" value="${page.endPage +1 }" />
-										<c:param name="amount" value="${page.cri.amount }" />
-										<c:param name="type" value="${page.cri.type }" />
-										<c:param name="keyword" value="${page.cri.keyword }" />
-									</c:url>
-									<li class="page-item">
-										<%-- <a class="page-link" href="${nextLink }">Next</a> --%> <a
-										class="page-link" href="${page.endPage +1 }">Next</a>
-									</li>
-								</c:if>
-							</ul>
-						</nav>
-					</div>
+							<c:if test="${page.next }">
+								<c:url value="/restaurant/list" var="nextLink">
+									<c:param name="pageNo" value="${page.endPage +1 }" />
+									<c:param name="amount" value="${page.cri.amount }" />
+									<c:param name="type" value="${page.cri.type }" />
+									<c:param name="keyword" value="${page.cri.keyword }" />
+								</c:url>
+								<li class="page-item">
+									<%-- <a class="page-link" href="${nextLink }">Next</a> --%> <a
+									class="page-link" href="${page.endPage +1 }">Next</a>
+								</li>
+							</c:if>
+						</ul>
+					</nav>
 				</div>
-				<div class="col-1 col-sm-2">
-				
-				</div>
+			</div>
+			<div class="col-1 col-sm-2"></div>
 		</div>
 	</div>
-		<div class="modal" id="myModal" tabindex="-1">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">알림</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<p>처리가 완료 되었습니다.</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Close</button>
-					</div>
+	<div class="modal" id="myModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">알림</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>처리가 완료 되었습니다.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<div class="d-none">
-			<form id="actionForm" action="${root }/restaurant/list">
-				<input name="pageNo" value="${page.cri.pageNo }" /> <input
-					name="amount" value="${page.cri.amount }" /> <input
-					name="type" value="${page.cri.type }" /> <input
-					name="keyword" value="${page.cri.keyword }" /> <input
-					type="submit" />
-			</form>
-		</div>
+	<div class="d-none">
+		<form id="actionForm" action="${root }/restaurant/list">
+			<input name="pageNo" value="${page.cri.pageNo }" /> <input
+				name="amount" value="${page.cri.amount }" /> <input name="type"
+				value="${page.cri.type }" /> <input name="keyword"
+				value="${page.cri.keyword }" /> <input type="submit" />
+		</form>
+	</div>
 	</div>
 </body>
 </html>

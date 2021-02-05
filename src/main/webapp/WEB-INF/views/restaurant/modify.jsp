@@ -15,8 +15,9 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 <style type="text/css">
-.address-form #sample3_address {width: 370px;}
-.address-form #sample3_detailAddress {width:none;}
+.address-form #sample3_address {width: 60%;}
+.address-form #sample3_detailAddress {width:25%;}
+.address-form #address_btn {width:100px;}
 #wrap {width: 350px; height: 450px;}
 </style>
 <title>Insert title here</title>
@@ -26,21 +27,21 @@
 		<div class="row">
 			<div class="col-1 col-md-2"></div>
 			<div class="col-10 col-md-8">
-				<form action="${root }/restaurant/register" method="post" enctype="multipart/form-data">
-				<!-- 산 선택해서 번호부여 -->
-				<input type="hidden" name="mountain_no" value="7">
+				<form action="${root }/restaurant/modify" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="no" value="${param.no }">
+				<input type="hidden" name="mountain_no" value="${restaurant.mountain_no }">
   <div class="form-group">
     <label for="input1">상호</label>
-    <input type="text" class="form-control" id="input1" name="rname">
+    <input type="text" class="form-control" id="input1" name="rname" value="${restaurant.rname }">
   </div>
   <div class="form-group address-form">
     <label for="input2">지역</label>
 <p>
 <input type="hidden" id="sample3_postcode" placeholder="우편번호">
-<input type="text" name="address1" id="sample3_address" placeholder="주소">
-<input type="text" name="address2" id="sample3_detailAddress" placeholder="상세주소">
+<input type="text" name="address1" id="sample3_address" value=${restaurant.rloc }>
+<input type="text" name="address2" id="sample3_detailAddress">
 <input type="hidden" name="address3" id="sample3_extraAddress" placeholder="참고항목">
-<input type="button" onclick="sample3_execDaumPostcode()" value="검색"><br>
+<input type="button" onclick="sample3_execDaumPostcode()" id="address_btn" value="검색"><br>
 </p>
 <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
 <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
@@ -50,27 +51,29 @@
   </div>
     <div class="form-group">
     <label for="input3">연락처</label>
-    <input type="text" class="form-control" id="input3" name="contact">
+    <input type="text" class="form-control" id="input3" name="contact" value="${restaurant.contact }">
   </div>
       <div class="form-group">
     <label for="input4">메뉴</label>
-    <input type="text" class="form-control" id="input4" name="menu">
+    <input type="text" class="form-control" id="input4" name="menu" value="${restaurant.menu }">
   </div>
         <div class="form-group">
     <label for="input5">설명</label>
-    <input type="text" class="form-control" id="input5" name="description">
+    <input type="text" class="form-control" id="input5" name="description" value="${restaurant.description }">
   </div>
 <div class="inputArea">
  <label for="gdsImg">이미지</label>
- <input type="file" id="gdsImg" name="file" />
- <div class="select_img"><img src="" /></div>
+ <input type="file" id="gdsImg" name="file"/>
+ <div class="select_img"><img src="${root }/${restaurant.img }" />
+ <input type="hidden" name="gdsImg" value="${restaurant.img }">
+ </div>
  
  <script>
   $("#gdsImg").change(function(){
    if(this.files && this.files[0]) {
     var reader = new FileReader;
     reader.onload = function(data) {
-     $(".select_img img").attr("src", data.target.result).width(200);        
+     $(".select_img img").attr("src", data.target.result).width(100);        
     }
     reader.readAsDataURL(this.files[0]);
    }

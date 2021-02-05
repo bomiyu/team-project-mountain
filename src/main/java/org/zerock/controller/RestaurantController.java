@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,7 +84,10 @@ public class RestaurantController {
 	}
 	
 	@PostMapping("/remove")
-	public String remove(Long no, RedirectAttributes rttr, Criteria cri) {
+	public String remove(Long no, RedirectAttributes rttr, Criteria cri, MultipartFile file, HttpServletRequest req) throws Exception {
+		
+		new File(uploadPath + req.getParameter("gdsImg")).delete();
+		
 		if(service.remove(no)) {
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", no + "번 글이 삭제되었습니다");
@@ -97,7 +101,30 @@ public class RestaurantController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(RestaurantVO restaurant, RedirectAttributes rttr, Criteria cri) {
+	public String modify(RestaurantVO restaurant, RedirectAttributes rttr, Criteria cri, MultipartFile file, HttpServletRequest req, AddressVO addr) throws Exception {
+		log.info("**********************" + file.getOriginalFilename() + "*******************");
+		log.info("**********************" + req.getParameter("gdsImg") + "*******************");
+		
+		if(file.getOriginalFilename() != null && !file.getOriginalFilename().equals("")) {
+			  // 기존 파일을 삭제
+			  new File(uploadPath + req.getParameter("gdsImg")).delete();
+			  
+			  // 새로 첨부한 파일을 등록
+			  String imgUploadPath = uploadPath + File.separator + "imgUpload";
+			  String ymdPath = UploadFile.calcPath(imgUploadPath);
+			  String fileName = UploadFile.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+			  
+			  restaurant.setImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+			  
+			 } else {  // 새로운 파일이 등록되지 않았다면
+			  // 기존 이미지를 그대로 사용
+				 restaurant.setImg(req.getParameter("gdsImg"));
+			  
+			 }
+		String address = addr.getAddress1() + ", " + addr.getAddress2();
+		log.info("**************************" + address + "******************************");
+		restaurant.setRloc(address);
+		
 		if(service.modify(restaurant)) {
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", restaurant.getNo() + "번 글이 수정되었습니다");
