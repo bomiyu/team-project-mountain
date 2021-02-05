@@ -17,33 +17,172 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script>
+	$(document).ready(
+			function() {
+
+				var result = '${result}';
+				var message = '${message}';
+
+				//checkModal(result);
+				checkModal2(message);
+
+				history.replaceState({}, null, null);
+
+				function checkModal2(message) {
+					if (message && history.state == null) {
+						$("#myModal .modal-body p").html(message);
+						$("#myModal").modal("show");
+					}
+				}
+
+				function checkModal(result) {
+					if (result === '' || history.state) {
+						return;
+					}
+
+					if (parseInt(result) > 0) {
+						$("#myModal .modal-body p").html(
+								"게시글 " + result + "번이 등록되었습니다.");
+					}
+					$("#myModal").modal("show");
+				}
+				var actionForm = $("#actionForm");
+				$(".pagination a").click(
+						function(e) {
+							e.preventDefault();
+
+							actionForm.find("[name='pageNo']").val(
+									$(this).attr('href'));
+
+							actionForm.submit();
+						});
+			});
+</script>
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="container-md">
+	<div class="container-sm mt-3">
 		<div class="row">
-			<div class="col-1 col-md-2"></div>
-			<div class="col-10 col-md-8">
-				<div class="card mb-3" style="max-width: 540px;">
+			<div class="col-1 col-sm-2"></div>
+			<div class="col-10 col-sm-8 mt-3">
+			
+			   <form action="${root }/restaurant/list" id="searchForm" class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
+			<a href="${root }/restaurant/list" class="mr-auto p-2 bd-highlight"><button class="btn btn-outline-info my-2 my-sm-0" type="button">목록</button></a> 
+      <select name="type" class="custom-select my-1 mr-sm-2 bd-highlight" id="inlineFormCustomSelectPref">
+	    <option value="M" ${page.cri.type eq 'M' ? 'selected' : ''}>산</option>
+	    <option value="N" ${page.cri.type eq 'N' ? 'selected' : ''}>상호</option>
+	    <option value="L" ${page.cri.type eq 'L' ? 'selected' : ''}>지역</option>
+	    <option value="F" ${pager.cri.type eq 'F' ? 'selected' : ''}>메뉴</option>
+	  </select> <input class="form-control mr-sm-2 p-2 bd-highlight" type="search" name="keyword" value="${page.cri.keyword }"
+					placeholder="Search" aria-label="Search" required="required">
+					<input type="hidden" name="pageNo" value="1" />
+					<input type="hidden" name="amount" value="${page.cri.amount }" />
+				
+				<button class="btn btn-outline-info my-2 my-sm-0 p-2 bd-highlight" type="submit">Search</button>	</form>
+			<c:forEach items="${list }" var="res">
+				<div class="card mb-3" style="max-width: auto;">
 					<div class="row no-gutters">
 						<div class="col-md-4">
-							<img src="..." class="card-img" alt="...">
+							<img src="${root }/${res.img }" class="card-img" alt="...">
 						</div>
 						<div class="col-md-8">
 							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This is a wider card with supporting
-									text below as a natural lead-in to additional content. This
-									content is a little bit longer.</p>
+								<h5 class="card-title">${res.rname }</h5>
+								<p class="card-text">${res.description }<br>
+								</p>
 								<p class="card-text">
-									<small class="text-muted">Last updated 3 mins ago</small>
+									<small class="text-muted">${res.rloc }<br>${res.contact }</small>
 								</p>
 							</div>
 						</div>
 					</div>
 				</div>
+				</c:forEach>
 			</div>
-				<div class="col-1 col-md-2"></div>
+						<div class="container-sm mt-3">
+					<div class="row justify-content-center">
+						<nav aria-label="Page navigation example">
+							<ul class="pagination">
+
+								<c:if test="${page.prev }">
+									<c:url value="/restaurant/list" var="prevLink">
+										<c:param value="${page.startPage -1 }" name="pageNo" />
+										<c:param value="${page.cri.amount }" name="amount" />
+										<c:param name="type" value="${page.cri.type }" />
+										<c:param name="keyword" value="${page.cri.keyword }" />
+									</c:url>
+									<li class="page-item">
+										<%-- <a class="page-link" href="${prevLink }">Previous</a> --%>
+										<a class="page-link" href="${page.startPage -1 }">Previous</a>
+									</li>
+								</c:if>
+
+								<c:forEach var="num" begin="${page.startPage }"
+									end="${page.endPage }">
+									<c:url value="/restaurant/list" var="pageLink">
+										<c:param name="pageNo" value="${num }" />
+										<c:param name="amount" value="${page.cri.amount }" />
+										<c:param name="type" value="${page.cri.type }" />
+										<c:param name="keyword" value="${page.cri.keyword }" />
+									</c:url>
+									<li
+										class="page-item ${page.cri.pageNo eq num ? 'active' : '' }">
+										<%-- <a class="page-link" href="${pageLink }">${num }</a> --%>
+										<a class="page-link" href="${num }">${num }</a>
+									</li>
+								</c:forEach>
+
+								<c:if test="${page.next }">
+									<c:url value="/restaurant/list" var="nextLink">
+										<c:param name="pageNo" value="${page.endPage +1 }" />
+										<c:param name="amount" value="${page.cri.amount }" />
+										<c:param name="type" value="${page.cri.type }" />
+										<c:param name="keyword" value="${page.cri.keyword }" />
+									</c:url>
+									<li class="page-item">
+										<%-- <a class="page-link" href="${nextLink }">Next</a> --%> <a
+										class="page-link" href="${page.endPage +1 }">Next</a>
+									</li>
+								</c:if>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<div class="col-1 col-sm-2">
+				
+				</div>
+		</div>
+	</div>
+		<div class="modal" id="myModal" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">알림</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>처리가 완료 되었습니다.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="d-none">
+			<form id="actionForm" action="${root }/restaurant/list">
+				<input name="pageNo" value="${page.cri.pageNo }" /> <input
+					name="amount" value="${page.cri.amount }" /> <input
+					name="type" value="${page.cri.type }" /> <input
+					name="keyword" value="${page.cri.keyword }" /> <input
+					type="submit" />
+			</form>
 		</div>
 	</div>
 </body>

@@ -13,6 +13,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<style type="text/css">
+.address-form #sample3_address {width: 370px;}
+.address-form #sample3_detailAddress {width:none;}
+#wrap {width: 350px; height: 450px;}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
@@ -26,9 +32,20 @@
     <label for="input1">상호</label>
     <input type="text" class="form-control" id="input1" name="rname">
   </div>
-  <div class="form-group">
+  <div class="form-group address-form">
     <label for="input2">지역</label>
-    <input type="text" class="form-control" id="input2" name="rloc">
+<p>
+<input type="hidden" id="sample3_postcode" placeholder="우편번호">
+<input type="text" name="address1" id="sample3_address" placeholder="주소">
+<input type="text" name="address2" id="sample3_detailAddress" placeholder="상세주소">
+<input type="hidden" name="address3" id="sample3_extraAddress" placeholder="참고항목">
+<input type="button" onclick="sample3_execDaumPostcode()" value="검색"><br>
+</p>
+<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
+<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+</div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="${root }/resources/js/addressAPI.js"></script>
   </div>
     <div class="form-group">
     <label for="input3">연락처</label>
@@ -52,14 +69,13 @@
    if(this.files && this.files[0]) {
     var reader = new FileReader;
     reader.onload = function(data) {
-     $(".select_img img").attr("src", data.target.result).width(300);        
+     $(".select_img img").attr("src", data.target.result).width(200);        
     }
     reader.readAsDataURL(this.files[0]);
    }
   });
  </script>
 </div>
-<%= request.getRealPath("/") %>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 			</div>

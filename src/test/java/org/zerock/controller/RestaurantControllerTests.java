@@ -104,8 +104,8 @@ public class RestaurantControllerTests {
 		vo.setDescription("맛있습니다!!!!!!!!!!");
 		vo.setMenu("순대국");
 		vo.setMountain_no(6L);
-		vo.setRLoc("서울시 마포구");
-		vo.setRName("원조 순대국집");
+		vo.setRloc("서울시 마포구");
+		vo.setRname("원조 순대국집");
 		
 		mapper.insertSelectKey(vo);
 		Long key = vo.getNo();
@@ -129,8 +129,8 @@ public class RestaurantControllerTests {
 		vo.setDescription("맛있습니다!!!!!!!!!!");
 		vo.setMenu("순대국");
 		vo.setMountain_no(6L);
-		vo.setRLoc("서울시 마포구");
-		vo.setRName("원조 순대국집");
+		vo.setRloc("서울시 마포구");
+		vo.setRname("원조 순대국집");
 		
 		mapper.insertSelectKey(vo);
 		Long key = vo.getNo();
@@ -142,9 +142,9 @@ public class RestaurantControllerTests {
 		RestaurantVO up = mapper.read(key);
 		
 		
-		assertEquals("이삭토스트", up.getRName());
+		assertEquals("이삭토스트", up.getRname());
 		// assertEquals("5", up.getMountain_no());
-		assertEquals("서울시 금천구", up.getRLoc());
+		assertEquals("서울시 금천구", up.getRloc());
 		assertEquals("02-3333-5555", up.getContact());
 		assertEquals("햄치즈토스트", up.getMenu());
 		assertEquals("든든하고 맛있어요!!!", up.getDescription());

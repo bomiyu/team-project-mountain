@@ -6,16 +6,15 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 /**
- * Application Lifecycle Listener implementation class BoardListener
+ * Application Lifecycle Listener implementation class MountainListener
  *
  */
-
-public class RestaurantListener implements ServletContextListener {
+public class MountainListener implements ServletContextListener {
 
     /**
      * Default constructor. 
      */
-    public RestaurantListener() {
+    public MountainListener() {
         // TODO Auto-generated constructor stub
     }
 
@@ -30,10 +29,9 @@ public class RestaurantListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce)  { 
-    	ServletContext app = sce.getServletContext();
-    	String contextRoot = app.getContextPath();
-    	
-    	app.setAttribute("root", contextRoot);
+    	// Context Root -> Application 영역에 추가
+    	ServletContext application = sce.getServletContext();
+    	application.setAttribute("root", application.getContextPath());
     }
 	
 }

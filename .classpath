@@ -40,5 +40,6 @@
 	<classpathentry kind="lib" path="D:/myworkspace/jdbclib/osdt_cert.jar"/>
 	<classpathentry kind="lib" path="D:/myworkspace/jdbclib/osdt_core.jar"/>
 	<classpathentry kind="lib" path="D:/myworkspace/jdbclib/ucp.jar"/>
+	<classpathentry kind="lib" path="D:/myworkspace/sts-bundle/sts-3.9.13.RELEASE/lombok.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -24,11 +24,7 @@ public class UploadFile {
 
 	  File target = new File(imgPath, newFileName);
 	  FileCopyUtils.copy(fileData, target);
-	  File image = new File(imgPath + File.separator + newFileName);
 
-	  if (image.exists()) {
-
-	  }
 	  return newFileName;
 	 }
 
