@@ -4,26 +4,27 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.LikeMapper">
 
-<insert id="insertSelectKey">
-<selectKey keyProperty="lno" order="BEFORE" resultType="long">
-select seq_restaurant_like.nextval from dual
+<insert id="insertLike">
+<selectKey keyProperty="likeno" order="BEFORE" resultType="long">
+select seq_res_like.nextval from dual
 </selectKey>
 
-insert into restaurant_like (lno, bno, uno, like_check)
-values (#{lno}, #{bno}, #{uno}, #{like_check})
+insert into res_like (likeno, userno, resno)
+values (#{likeno}, #{userno}, #{resno})
 </insert>
 
-<delete id="delete">
-delete from restaurant where no = #{no}
+<delete id="deleteLike">
+      DELETE FROM res_like
+      WHERE likeno = #{likeno} AND userno = #{userno}
 </delete>
 
-<update id="update">
-update restaurant set rname= #{rname}, rloc= #{rloc}, contact= #{contact}, menu= #{menu}, 
-description= #{description} where no = #{no}
-</update>
+<select id="updateLike">
+      UPDATE restaurant SET likecnt = (SELECT COUNT(*)
+      FROM res_like WHERE resno = #{resno}) WHERE resno = #{resno}
+</select>
 
-<select id="likeCount" resultType="int">
-	SELECT count(*) FROM restaurant_like where bno = #{bno}
+<select id="getLike" resultType="int">
+      SELECT COUNT(likeno) FROM res_like WHERE resno = #{resno} AND userno = #{userno}
 </select>
 
 </mapper>

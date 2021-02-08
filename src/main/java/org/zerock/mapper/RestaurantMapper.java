@@ -2,6 +2,7 @@ package org.zerock.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.RestaurantVO;
 
@@ -20,5 +21,6 @@ public interface RestaurantMapper {
 	public RestaurantVO read(Long no);
 	
 	public int getTotalCnt(Criteria cri);
+	
 
 }

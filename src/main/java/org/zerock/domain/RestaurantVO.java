@@ -13,5 +13,6 @@ public class RestaurantVO {
 	private String description;
 	private String img;
 	private String mname;
+	private Long likecnt;
 
 }

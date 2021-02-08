@@ -57,7 +57,19 @@
 
 							actionForm.submit();
 						});
-
+				$("#like-btn").click(function() {
+					$.ajax({
+						url: "",
+						type: "post",
+						data: {
+							resno : ${res.no},
+						    userno : ${authUser.no}
+						}
+					})
+				});
+				$("#dislike-btn").click(function() {
+					
+				});
 			});
 </script>
 <style type="text/css">
@@ -114,6 +126,8 @@
 									</p>
 									<p class="card-text">
 										<small class="text-muted">${res.description }<br>${res.contact }</small>
+										<i class="far fa-thumbs-up" id="like-btn"></i>
+										<i class="far fa-thumbs-down" id="dislike-btn"></i>
 
 									</p>
 									<c:if test="${true }">

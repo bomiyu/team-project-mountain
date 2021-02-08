@@ -20,6 +20,7 @@ import org.zerock.domain.AddressVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.PageDTO;
 import org.zerock.domain.RestaurantVO;
+import org.zerock.service.LikeService;
 import org.zerock.service.RestaurantService;
 import org.zerock.upload.UploadFile;
 
@@ -32,17 +33,20 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class RestaurantController {
 	private RestaurantService service;
+	private LikeService likeSvc;
 
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
 	@GetMapping("/list")
-	public void list(Model model, @ModelAttribute("cri") Criteria cri) {
+	public void list(Model model, @ModelAttribute("cri") Criteria cri, HttpServletRequest req) {
 		List<RestaurantVO> list = service.getList(cri);
-		
+		RestaurantVO vo = new RestaurantVO();
+		// userno 세션 가져오기 
+		int userno = (authUser) req.getSession().getAttribute("authUser").getUserno(); 
 		int total = service.getTotal(cri);
 		PageDTO dto = new PageDTO(cri, total);
-		
+		int like = likeSvc.getLike(vo.getNo(), userno);
 		model.addAttribute("list", list);
 		model.addAttribute("page", dto);
 		
@@ -50,7 +54,7 @@ public class RestaurantController {
 	
 	@PostMapping("/register")
 	public String register(RestaurantVO restaurant, RedirectAttributes rttr, MultipartFile file, AddressVO addr) throws Exception {
-		
+		// manager 세션 가져오기
 		log.info("**************************" + restaurant.getMname() + "******************************");
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFile.calcPath(imgUploadPath);
@@ -88,6 +92,7 @@ public class RestaurantController {
 	}
 	
 	@PostMapping("/remove")
+	// manager 세션 가져오기
 	public String remove(Long no, RedirectAttributes rttr, Criteria cri, MultipartFile file, HttpServletRequest req) throws Exception {
 		
 		new File(uploadPath + req.getParameter("gdsImg")).delete();
@@ -105,6 +110,7 @@ public class RestaurantController {
 	}
 	
 	@PostMapping("/modify")
+	// manager 세션 가져오기
 	public String modify(RestaurantVO restaurant, RedirectAttributes rttr, Criteria cri, MultipartFile file, HttpServletRequest req, AddressVO addr) throws Exception {
 		log.info("**********************" + file.getOriginalFilename() + "*******************");
 		log.info("**********************" + req.getParameter("gdsImg") + "*******************");

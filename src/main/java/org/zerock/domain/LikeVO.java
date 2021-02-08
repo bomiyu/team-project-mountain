@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class LikeVO {
-	private Long lno;
-	private Long bno;
-	private Long uno;
-	private Long likeCheck;
+	private Long no;
+	private Long likeno;
+	private Long userno;
+	private Long resno;
 }

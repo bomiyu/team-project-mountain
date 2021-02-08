@@ -6,13 +6,15 @@ import org.zerock.domain.LikeVO;
 
 public interface LikeMapper {
 	
-	public void insertSelectKey(LikeVO like);
+	public int insertLike(LikeVO likeVO);
 	
-	public int likeCount(Long bno);
+//	public int likeCount(Long resno);
 	
-	public int delete(Long uno);
+//	public int dislikeCount(Long resno);
 	
-	public int likeCheck(Long likeCheck);
-
-	public List<LikeVO> getList();
+	public int likeDelete(Long userno, Long resno);
+	
+	public int likeUpdate(Long resno);
+	
+	public int getLike(Long userno, Long resno);
 }
