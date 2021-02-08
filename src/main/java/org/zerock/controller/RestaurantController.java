@@ -50,6 +50,8 @@ public class RestaurantController {
 	
 	@PostMapping("/register")
 	public String register(RestaurantVO restaurant, RedirectAttributes rttr, MultipartFile file, AddressVO addr) throws Exception {
+		
+		log.info("**************************" + restaurant.getMname() + "******************************");
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFile.calcPath(imgUploadPath);
 		String fileName = null;
@@ -61,7 +63,7 @@ public class RestaurantController {
 		}
 	
 		restaurant.setImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
-		String address = addr.getAddress1() + ", " + addr.getAddress2();
+		String address = addr.getAddress1() + " " + addr.getAddress2();
 		log.info("**************************" + address + "******************************");
 		restaurant.setRloc(address);
 		
@@ -80,6 +82,8 @@ public class RestaurantController {
 	@GetMapping({"/modify"})
 	public void get(Long no, Model model, @ModelAttribute("cri") Criteria cri) {
 		RestaurantVO vo = service.read(no);
+		log.info("********* modify get *************" + vo.getRloc() + "*******************");
+		
 		model.addAttribute("restaurant", vo);
 	}
 	

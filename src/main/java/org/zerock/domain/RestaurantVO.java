@@ -12,4 +12,6 @@ public class RestaurantVO {
 	private String menu;
 	private String description;
 	private String img;
+	private String mname;
+
 }

@@ -86,8 +86,9 @@
 					<select name="type" class="custom-select my-1 mr-sm-2 bd-highlight"
 						id="inlineFormCustomSelectPref">
 						<option value="M" ${page.cri.type eq 'M' ? 'selected' : ''}>산</option>
-						<option value="N" ${page.cri.type eq 'N' ? 'selected' : ''}>상호</option>
 						<option value="L" ${page.cri.type eq 'L' ? 'selected' : ''}>지역</option>
+						<option value="ML" ${page.cri.type eq 'ML' ? 'selected' : ''}>산 + 지역</option>
+						<option value="N" ${page.cri.type eq 'N' ? 'selected' : ''}>상호</option>
 						<option value="F" ${pager.cri.type eq 'F' ? 'selected' : ''}>메뉴</option>
 					</select> <input class="form-control mr-sm-2 p-2 bd-highlight" type="search"
 						name="keyword" value="${page.cri.keyword }" placeholder="Search"
@@ -107,10 +108,12 @@
 							<div class="col-sm-8">
 								<div class="card-body">
 									<h5 class="card-title">${res.rname }</h5>
-									<p class="card-text">${res.description }<br>
+									<p class="card-text">
+									${res.mname }<br>
+									${res.rloc }<br>
 									</p>
 									<p class="card-text">
-										<small class="text-muted">${res.rloc }<br>${res.contact }</small>
+										<small class="text-muted">${res.description }<br>${res.contact }</small>
 
 									</p>
 									<c:if test="${true }">

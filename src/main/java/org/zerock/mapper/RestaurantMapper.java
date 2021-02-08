@@ -20,4 +20,5 @@ public interface RestaurantMapper {
 	public RestaurantVO read(Long no);
 	
 	public int getTotalCnt(Criteria cri);
+
 }

@@ -3,22 +3,25 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.RestaurantMapper">
+<sql id = "mountain_no">
+SELECT no FROM mountain WHERE mname LIKE '%' || #{mname} || '%'
+</sql>
 
 <sql id="criteria">
 		<where>
 		<foreach item="type" collection="typeArr" separator="OR">
 			<choose>
 				<when test="type == 'M'.toString()">
-					mountain_no == #{keyword}
+					mountain_no = (SELECT no FROM mountain WHERE mname LIKE '%' || #{keyword} || '%' OR mloc LIKE '%' || #{keyword} || '%')
 				</when>
 				<when test="type == 'N'.toString()">
-					rName LIKE '%' || #{keyword} || '%'
+					rname LIKE '%' || #{keyword} || '%'
 				</when>
 				<when test="type == 'L'.toString()">
-					rLoc LIKE '%' || #{keyword} || '%'
+					rloc LIKE '%' || #{keyword} || '%'
 				</when>
 				<when test="type == 'F'.toString()">
-					menuLIKE '%' || #{keyword} || '%'
+					menu LIKE '%' || #{keyword} || '%'
 				</when>
 			</choose>
 		</foreach>
@@ -26,17 +29,15 @@
 </sql>
 
 <select id="getListPaging" resultType="org.zerock.domain.RestaurantVO">
-<![CDATA[SELECT no, mountain_no, rname, rloc, contact, menu, description, img
+<![CDATA[SELECT no, mountain_no, rname, rloc, contact, menu, description, img, mname
 FROM
-(SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn,
-no, mountain_no, rname, rloc, contact, menu, description, img
-FROM restaurant
+(SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, mountain_no, rname, rloc, contact, menu, description, img, mname FROM res_view
 ]]>
 	 <include refid="criteria"></include>
 
 <![CDATA[
 )
-WHERE rn BETWEEN (#{pageNo} -1) * #{amount} + 1 AND #{pageNo} * #{amount}]]>
+WHERE rn BETWEEN (#{pageNo} -1) * #{amount} + 1 AND #{pageNo} * #{amount}]]> 
 </select>
 
 <select id="getList" resultType="org.zerock.domain.RestaurantVO">
@@ -49,7 +50,7 @@ select seq_restaurant.nextval from dual
 </selectKey>
 
 insert into restaurant (no, mountain_no, rname, rloc, contact, menu, description, img)
-values (#{no}, #{mountain_no}, #{rname}, #{rloc}, #{contact}, #{menu}, #{description}, #{img})
+values (#{no}, (<include refid="mountain_no"></include>), #{rname}, #{rloc}, #{contact}, #{menu}, #{description}, #{img})
 </insert>
 
 <delete id="delete">
@@ -57,12 +58,14 @@ delete from restaurant where no = #{no}
 </delete>
 
 <update id="update">
-update restaurant set rname= #{rname}, rloc= #{rloc}, contact= #{contact}, menu= #{menu}, 
+update restaurant set mountain_no= (<include refid="mountain_no"></include>), rname= #{rname}, rloc= #{rloc}, contact= #{contact}, menu= #{menu}, 
 description= #{description}, img= #{img} where no = #{no}
 </update>
 
 <select id="read" resultType="org.zerock.domain.RestaurantVO">
-SELECT*FROM restaurant WHERE no = #{no}
+SELECT no, mountain_no, rname, rloc, contact, menu, description, img, mname FROM
+(SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, mountain_no, rname, rloc, contact, menu, description, img, mname FROM res_view)
+WHERE no = #{no}
 </select>
 
 <select id="getTotalCnt" resultType="int">
