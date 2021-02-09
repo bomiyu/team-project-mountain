@@ -129,7 +129,7 @@
 <!-- 										<img id="like-img" src="resources/like_empty.png" onclick="like_func()"> -->
 									<button class="btn-primary" id="like-btn">like</button> ${res.likecnt }
 									</div>
-									<c:if test="${true }">
+									<c:if test="${true }"> <!--  ${authUser.manager == 1} -->
 										<div class="d-flex justify-content-end">
 											<c:url value="/restaurant/modify" var="modifyLink">
 												<c:param name="no" value="${res.no }"></c:param>

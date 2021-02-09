@@ -64,8 +64,8 @@ description= #{description}, img= #{img} where no = #{no}
 </update>
 
 <select id="read" resultType="org.zerock.domain.RestaurantVO">
-SELECT no, mountain_no, rname, rloc, contact, menu, description, img, mname FROM
-(SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, mountain_no, rname, rloc, contact, menu, description, img, mname FROM res_view)
+SELECT no, mountain_no, rname, rloc, contact, menu, description, img, likecnt, mname FROM
+(SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, mountain_no, rname, rloc, contact, menu, description, img, likecnt, mname FROM res_view)
 WHERE no = #{no}
 </select>
 
@@ -73,7 +73,4 @@ WHERE no = #{no}
 	SELECT count(*) FROM restaurant <include refid="criteria"></include>
 </select>
 
-<update id="updateLikeCnt">
-update restaurant set likecnt= likecnt + #{amount}, dislikecnt = #{dislikecnt} + #{amount} where no = #{no}
-</update>
 </mapper>

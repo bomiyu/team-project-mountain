@@ -14,17 +14,17 @@ values (#{likeno}, #{userno}, #{resno})
 </insert>
 
 <delete id="deleteLike">
-      DELETE FROM res_like
+      DELETE FROM res_like 
       WHERE resno = #{resno} AND userno = #{userno}
 </delete>
 
-<select id="updateLike">
+<update id="updateLike">
       UPDATE restaurant SET likecnt = (SELECT COUNT(*)
       FROM res_like WHERE resno = #{resno}) WHERE no = #{resno}
-</select>
+</update>
 
 <select id="getLike" resultType="int">
-     SELECT COUNT(*) FROM (SELECT * FROM res_like WHERE resno=#{resno}) WHERE userno=#{userno};
+     SELECT COUNT(*) FROM WHERE resno=#{resno} AND userno=#{userno};
 </select>
 
 <select id="getCount" resultType="int">

@@ -53,7 +53,8 @@ public class RestaurantController {
 	
 	@PostMapping("/register")
 	public String register(RestaurantVO restaurant, RedirectAttributes rttr, MultipartFile file, AddressVO addr) throws Exception {
-		// manager 세션 가져오기
+		// manager == 1 세션 가져오기
+		// User authUser = (User) req.getSession().getAttribute("authUser"); 
 		log.info("**************************" + restaurant.getMname() + "******************************");
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFile.calcPath(imgUploadPath);

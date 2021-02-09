@@ -16,7 +16,7 @@ public class LikeServiceImpl implements LikeService {
 	private LikeMapper mapper;
 
 	@Override
-	public void likeRegister(LikeVO like) {
+	public void likeInsert(LikeVO like) {
 		mapper.insertLike(like);
 		mapper.likeUpdate(like.getLikeno());
 	}

@@ -42,8 +42,8 @@ public class RestaurantSrviceTests {
 		res.setContact("02-987-6543");
 		res.setDescription("맛집입니다");
 		res.setMenu("닭볶음탕");
-		res.setRName("도리도리");
-		res.setRLoc("서울시 중랑구");
+		res.setRname("도리도리");
+		res.setRloc("서울시 중랑구");
 		
 		int before = mapper.getList().size();
 		service.register(res);
@@ -69,8 +69,8 @@ public class RestaurantSrviceTests {
 		res.setContact("02-987-6543");
 		res.setDescription("맛집입니다");
 		res.setMenu("닭볶음탕");
-		res.setRName("도리도리");
-		res.setRLoc("서울시 중랑구");
+		res.setRname("도리도리");
+		res.setRloc("서울시 중랑구");
 		service.register(res);
 		
 		RestaurantVO readRes = service.read(res.getNo());
@@ -85,8 +85,8 @@ public class RestaurantSrviceTests {
 		res.setContact("02-987-6543");
 		res.setDescription("맛집입니다");
 		res.setMenu("닭볶음탕");
-		res.setRName("도리도리");
-		res.setRLoc("서울시 중랑구");
+		res.setRname("도리도리");
+		res.setRloc("서울시 중랑구");
 		service.register(res);
 		
 		assertTrue(service.remove(res.getNo()));
@@ -99,8 +99,8 @@ public class RestaurantSrviceTests {
 		res.setContact("02-987-6543");
 		res.setDescription("맛집입니다");
 		res.setMenu("닭볶음탕");
-		res.setRName("도리도리");
-		res.setRLoc("서울시 중랑구");
+		res.setRname("도리도리");
+		res.setRloc("서울시 중랑구");
 		service.register(res);
 		
 		RestaurantVO updateRes = new RestaurantVO();
@@ -108,8 +108,8 @@ public class RestaurantSrviceTests {
 		updateRes.setContact("02-987-0000");
 		updateRes.setDescription("수-맛집입니다-정");
 		updateRes.setMenu("수-닭볶음탕-정");
-		updateRes.setRName("수-도리도리-정");
-		updateRes.setRLoc("서울시 구로구");
+		updateRes.setRname("수-도리도리-정");
+		updateRes.setRloc("서울시 구로구");
 	
 		assertTrue(service.modify(updateRes));
 		
@@ -117,7 +117,7 @@ public class RestaurantSrviceTests {
 		assertEquals("02-987-0000", up2.getContact());
 		assertEquals("수-맛집입니다-정", up2.getDescription());
 		assertEquals("수-닭볶음탕-정", up2.getMenu());
-		assertEquals("수-도리도리-정", up2.getRName());
-		assertEquals("서울시 구로구", up2.getRLoc());
+		assertEquals("수-도리도리-정", up2.getRname());
+		assertEquals("서울시 구로구", up2.getRloc());
 	}
 }
