@@ -3,7 +3,7 @@ package org.zerock.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.zerock.domain.Criteria;
+import org.zerock.domain.Rcriteria;
 import org.zerock.domain.RestaurantVO;
 import org.zerock.mapper.RestaurantMapper;
 
@@ -38,12 +38,12 @@ public class RestaurantServiceImpl implements RestaurantService{
 	}
 
 	@Override
-	public List<RestaurantVO> getList(Criteria cri) {
+	public List<RestaurantVO> getList(Rcriteria cri) {
 		return mapper.getListPaging(cri);
 	}
 
 	@Override
-	public int getTotal(Criteria cri) {
+	public int getTotal(Rcriteria cri) {
 		return mapper.getTotalCnt(cri);
 	}
 

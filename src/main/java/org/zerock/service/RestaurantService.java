@@ -2,7 +2,7 @@ package org.zerock.service;
 
 import java.util.List;
 
-import org.zerock.domain.Criteria;
+import org.zerock.domain.Rcriteria;
 import org.zerock.domain.RestaurantVO;
 
 public interface RestaurantService {
@@ -14,8 +14,8 @@ public interface RestaurantService {
 
 	public boolean remove(Long no);
 	
-	public List<RestaurantVO> getList(Criteria cri);
+	public List<RestaurantVO> getList(Rcriteria cri);
 	
-	public int getTotal(Criteria cri);
+	public int getTotal(Rcriteria cri);
 
 }

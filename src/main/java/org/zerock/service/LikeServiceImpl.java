@@ -17,13 +17,14 @@ public class LikeServiceImpl implements LikeService {
 
 	@Override
 	public void likeRegister(LikeVO like) {
-		mapper.likeUpdate(like.getLikeno());
 		mapper.insertLike(like);
+		mapper.likeUpdate(like.getLikeno());
 	}
 
 	@Override
-	public boolean likeRemove(Long resno, Long userno) {
-		return mapper.likeDelete(userno, resno) == 1;
+	public void likeRemove(Long resno, Long userno) {
+		 mapper.likeDelete(userno, resno);
+		 mapper.likeUpdate(resno);
 	}
 
 	@Override

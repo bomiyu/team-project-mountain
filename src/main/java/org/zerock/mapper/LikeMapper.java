@@ -8,7 +8,7 @@ public interface LikeMapper {
 	
 	public int insertLike(LikeVO likeVO);
 	
-//	public int likeCount(Long resno);
+	public int getCount(Long resno);
 	
 //	public int dislikeCount(Long resno);
 	

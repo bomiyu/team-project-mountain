@@ -23,7 +23,6 @@
 
 				var result = '${result}';
 				var message = '${message}';
-
 				//checkModal(result);
 				checkModal2(message);
 
@@ -57,28 +56,24 @@
 
 							actionForm.submit();
 						});
-				$("#like-btn").click(function() {
-					$.ajax({
-						url: "",
-						type: "post",
-						data: {
-							resno : ${res.no},
-						    userno : ${authUser.no}
-						}
-					})
-				});
-				$("#dislike-btn").click(function() {
-					
-				});
+
+
 			});
 </script>
 <style type="text/css">
 .card mb-3 div {
-	max-width: auto; 
-	max-height: 250px;"
+	max-width: auto;
+	max-height: 250px;
+	"
 }
-.col-md-4 {float: right;}
-.col-md-8 {float: left;}
+
+.col-md-4 {
+	float: right;
+}
+
+.col-md-8 {
+	float: left;
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -91,15 +86,17 @@
 				<form action="${root }/restaurant/list" id="searchForm"
 					class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
 					<div class="mr-auto p-2 bd-highlight">
-					<a href="${root }/restaurant/list" ><button
-							class="btn btn-outline-info my-2 my-sm-0" type="button">목록</button></a>
-								<a href="${root }/restaurant/register"><button
-							class="btn btn-outline-info my-2 my-sm-0" type="button">등록</button></a></div>
+						<a href="${root }/restaurant/list"><button
+								class="btn btn-outline-info my-2 my-sm-0" type="button">목록</button></a>
+						<a href="${root }/restaurant/register"><button
+								class="btn btn-outline-info my-2 my-sm-0" type="button">등록</button></a>
+					</div>
 					<select name="type" class="custom-select my-1 mr-sm-2 bd-highlight"
 						id="inlineFormCustomSelectPref">
 						<option value="M" ${page.cri.type eq 'M' ? 'selected' : ''}>산</option>
 						<option value="L" ${page.cri.type eq 'L' ? 'selected' : ''}>지역</option>
-						<option value="ML" ${page.cri.type eq 'ML' ? 'selected' : ''}>산 + 지역</option>
+						<option value="ML" ${page.cri.type eq 'ML' ? 'selected' : ''}>산
+							+ 지역</option>
 						<option value="N" ${page.cri.type eq 'N' ? 'selected' : ''}>상호</option>
 						<option value="F" ${pager.cri.type eq 'F' ? 'selected' : ''}>메뉴</option>
 					</select> <input class="form-control mr-sm-2 p-2 bd-highlight" type="search"
@@ -115,46 +112,48 @@
 					<div class="card mb-3">
 						<div class="row no-gutters">
 							<div class="col-sm-4">
-								<img src="${root }/${res.img }" class="card-img" alt="..." style="width: 250px; height: 225px;">
+								<img src="${root }/${res.img }" class="card-img" alt="..."
+									style="width: 250px; height: 225px;">
 							</div>
 							<div class="col-sm-8">
 								<div class="card-body">
 									<h5 class="card-title">${res.rname }</h5>
 									<p class="card-text">
-									${res.mname }<br>
-									${res.rloc }<br>
+										<input type="hidden" name="resno" value="${res.no }"
+											id="resno" /> ${res.mname }<br> ${res.rloc }<br>
 									</p>
 									<p class="card-text">
-										<small class="text-muted">${res.description }<br>${res.contact }</small>
-										<i class="far fa-thumbs-up" id="like-btn"></i>
-										<i class="far fa-thumbs-down" id="dislike-btn"></i>
-
+										<small class="text-muted">${res.description }<br>${res.contact }</small><br>
 									</p>
-									<c:if test="${true }">
-									<div class="d-flex justify-content-end">
-										<c:url value="/restaurant/modify" var="modifyLink">
-											<c:param name="no" value="${res.no }"></c:param>
-											<c:param name="pageNo" value="${cri.pageNo }"></c:param>
-											<c:param name="amount" value="${cri.amount }"></c:param>
-											<c:param name="type" value="${cri.type }"></c:param>
-											<c:param name="keyword" value="${cri.keyword }"></c:param>
-										</c:url>
-										<a href="${modifyLink }">
-											<button class="btn btn-outline-info my-2 my-sm-0"  
-		 										type="submit">수정</button>
-										</a>
-										<form action="${root }/restaurant/remove" method="post">
-										<input type="hidden" name="no" value="${res.no}">
-										<input type="hidden" name="gdsImg" value="${res.img }">
-										<button class="btn btn-outline-info my-2 my-sm-0" id="removeBtn"
-											type="submit">삭제</button>
-											</form>
+									<div style="text-align: right;">
+<!-- 										<img id="like-img" src="resources/like_empty.png" onclick="like_func()"> -->
+									<button class="btn-primary" id="like-btn">like</button> ${res.likecnt }
 									</div>
+									<c:if test="${true }">
+										<div class="d-flex justify-content-end">
+											<c:url value="/restaurant/modify" var="modifyLink">
+												<c:param name="no" value="${res.no }"></c:param>
+												<c:param name="pageNo" value="${cri.pageNo }"></c:param>
+												<c:param name="amount" value="${cri.amount }"></c:param>
+												<c:param name="type" value="${cri.type }"></c:param>
+												<c:param name="keyword" value="${cri.keyword }"></c:param>
+											</c:url>
+											<a href="${modifyLink }">
+												<button class="btn btn-outline-info my-2 my-sm-0"
+													type="submit">수정</button>
+											</a>
+											<form action="${root }/restaurant/remove" method="post">
+												<input type="hidden" name="no" value="${res.no}"> <input
+													type="hidden" name="gdsImg" value="${res.img }">
+												<button class="btn btn-outline-info my-2 my-sm-0"
+													id="removeBtn" type="submit">삭제</button>
+											</form>
+										</div>
 									</c:if>
 								</div>
-								
+
 							</div>
-							
+
 						</div>
 					</div>
 				</c:forEach>

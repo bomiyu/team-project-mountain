@@ -7,17 +7,17 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class Criteria {
+public class Rcriteria {
 	private int pageNo;
 	private int amount;
 	private String type;
 	private String keyword;
 
-	public Criteria() {
+	public Rcriteria() {
 		this(1, 5);
 	}
 
-	public Criteria(int pageNo, int amount) {
+	public Rcriteria(int pageNo, int amount) {
 		this.pageNo = pageNo;
 		this.amount = amount;
 	}

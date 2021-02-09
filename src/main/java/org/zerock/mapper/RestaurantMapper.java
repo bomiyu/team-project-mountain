@@ -3,7 +3,7 @@ package org.zerock.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.zerock.domain.Criteria;
+import org.zerock.domain.Rcriteria;
 import org.zerock.domain.RestaurantVO;
 
 public interface RestaurantMapper {
@@ -12,7 +12,7 @@ public interface RestaurantMapper {
 	
 	public List<RestaurantVO> getList();
 	
-	public List<RestaurantVO> getListPaging(Criteria cri);
+	public List<RestaurantVO> getListPaging(Rcriteria cri);
 	
 	public int delete(Long no);
 	
@@ -20,7 +20,7 @@ public interface RestaurantMapper {
 	
 	public RestaurantVO read(Long no);
 	
-	public int getTotalCnt(Criteria cri);
+	public int getTotalCnt(Rcriteria cri);
 	
 
 }

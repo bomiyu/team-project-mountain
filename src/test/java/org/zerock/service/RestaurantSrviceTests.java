@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.Criteria;
+import org.zerock.domain.Rcriteria;
 import org.zerock.domain.RestaurantVO;
 import org.zerock.mapper.RestaurantMapper;
 
@@ -54,7 +54,7 @@ public class RestaurantSrviceTests {
 	
 	@Test
 	public void testGetList() {
-		Criteria cri = new Criteria();
+		Rcriteria cri = new Rcriteria();
 		List<RestaurantVO> list = service.getList(cri);
 		
 		assertNotNull(list);

@@ -1,7 +1,5 @@
 package org.zerock.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.io.File;
 import java.util.List;
 
@@ -14,11 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.AddressVO;
-import org.zerock.domain.Criteria;
-import org.zerock.domain.PageDTO;
+import org.zerock.domain.Rcriteria;
+import org.zerock.domain.LikeVO;
+import org.zerock.domain.RpageDTO;
 import org.zerock.domain.RestaurantVO;
 import org.zerock.service.LikeService;
 import org.zerock.service.RestaurantService;
@@ -39,14 +39,13 @@ public class RestaurantController {
 	private String uploadPath;
 	
 	@GetMapping("/list")
-	public void list(Model model, @ModelAttribute("cri") Criteria cri, HttpServletRequest req) {
+	public void list(Model model, @ModelAttribute("cri") Rcriteria cri, HttpServletRequest req) {
 		List<RestaurantVO> list = service.getList(cri);
-		RestaurantVO vo = new RestaurantVO();
 		// userno 세션 가져오기 
-		int userno = (authUser) req.getSession().getAttribute("authUser").getUserno(); 
+	//	int userno = (authUser) req.getSession().getAttribute("authUser").getUserno(); 
 		int total = service.getTotal(cri);
-		PageDTO dto = new PageDTO(cri, total);
-		int like = likeSvc.getLike(vo.getNo(), userno);
+		RpageDTO dto = new RpageDTO(cri, total);
+
 		model.addAttribute("list", list);
 		model.addAttribute("page", dto);
 		
@@ -79,12 +78,12 @@ public class RestaurantController {
 	}
 	
 	@GetMapping("/register")
-	public void register(@ModelAttribute("cri") Criteria cri) {
+	public void register(@ModelAttribute("cri") Rcriteria cri) {
 		
 	}
 	
 	@GetMapping({"/modify"})
-	public void get(Long no, Model model, @ModelAttribute("cri") Criteria cri) {
+	public void get(Long no, Model model, @ModelAttribute("cri") Rcriteria cri) {
 		RestaurantVO vo = service.read(no);
 		log.info("********* modify get *************" + vo.getRloc() + "*******************");
 		
@@ -93,7 +92,7 @@ public class RestaurantController {
 	
 	@PostMapping("/remove")
 	// manager 세션 가져오기
-	public String remove(Long no, RedirectAttributes rttr, Criteria cri, MultipartFile file, HttpServletRequest req) throws Exception {
+	public String remove(Long no, RedirectAttributes rttr, Rcriteria cri, MultipartFile file, HttpServletRequest req) throws Exception {
 		
 		new File(uploadPath + req.getParameter("gdsImg")).delete();
 		
@@ -111,7 +110,7 @@ public class RestaurantController {
 	
 	@PostMapping("/modify")
 	// manager 세션 가져오기
-	public String modify(RestaurantVO restaurant, RedirectAttributes rttr, Criteria cri, MultipartFile file, HttpServletRequest req, AddressVO addr) throws Exception {
+	public String modify(RestaurantVO restaurant, RedirectAttributes rttr, Rcriteria cri, MultipartFile file, HttpServletRequest req, AddressVO addr) throws Exception {
 		log.info("**********************" + file.getOriginalFilename() + "*******************");
 		log.info("**********************" + req.getParameter("gdsImg") + "*******************");
 		
@@ -146,4 +145,36 @@ public class RestaurantController {
 		
 		return "redirect:/restaurant/list";
 	}
+	
+	@ResponseBody
+	@PostMapping(value = "/like", produces = "application/json")
+	public Long like(LikeVO like, HttpServletRequest req) {
+		log.info("********* resno *****************" + req.getAttribute("clickLike") + "******************************");
+		log.info("********* resno *****************" + req.getAttribute("resno") + "******************************");
+		log.info("********* userno *****************" + req.getAttribute("userno") + "******************************");
+		
+		Long clickLike;
+		int resLikeCnt = likeSvc.getLike(like.getUserno(), like.getResno());
+	       if(resLikeCnt >= 1) {
+	            likeSvc.likeRemove(like.getResno(), like.getUserno());
+	            clickLike = new Long(0);
+	        } else {
+	        	 likeSvc.likeRegister(like);
+	        	 clickLike = new Long(1);
+	        }
+		
+		return clickLike;
+	}
+	
+
+	@ResponseBody
+	@GetMapping(value = "/like", produces = "application/json")
+	public Long likeCheck(Model model, HttpServletRequest req) {
+		Long resno = Long.parseLong((String) req.getAttribute("resno"));
+		Long userno = Long.parseLong((String) req.getAttribute("userno"));
+		Long resLikeCnt = (long) likeSvc.getLike(userno, resno);
+		
+		return resLikeCnt;
+	}
+	
 }

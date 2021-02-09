@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.Criteria;
+import org.zerock.domain.Rcriteria;
 import org.zerock.domain.RestaurantVO;
 
 import lombok.Setter;
@@ -115,12 +115,12 @@ public class RestaurantMapperTests {
 
 	@Test // 성공
 	public void testPaging() {
-		Criteria cri = new Criteria(1, 5);
+		Rcriteria cri = new Rcriteria(1, 5);
 		List<RestaurantVO> list = mapper.getListPaging(cri);
 		
 		assertEquals(5, list.size());
 		
-		cri = new Criteria(1, 10);
+		cri = new Rcriteria(1, 10);
 		list = mapper.getListPaging(cri);
 		
 		assertEquals(10, list.size());
