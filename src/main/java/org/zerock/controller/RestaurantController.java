@@ -50,11 +50,12 @@ public class RestaurantController {
 	public String register(RestaurantVO restaurant, RedirectAttributes rttr, AddressVO addr) throws Exception {
 		// manager == 1 세션 가져오기
 		// User authUser = (User) req.getSession().getAttribute("authUser"); 
-		log.info("**************************" + restaurant.getMname() + "******************************");
+		log.info("*************** m.name ***********" + restaurant.getMname() + "******************************");
+
 		String address = addr.getAddress1() + " " + addr.getAddress2();
 		log.info("**************************" + address + "******************************");
 		restaurant.setRloc(address);
-		
+		log.info("**************************" + restaurant+ "******************************");
 		service.register(restaurant);
 		rttr.addFlashAttribute("result", restaurant.getNo());
 		rttr.addFlashAttribute("message", "상호 " + restaurant.getNo() + "번 글이 등록되었습니다");
@@ -130,6 +131,7 @@ public class RestaurantController {
 	        	 likeSvc.likeInsert(like);
 		         likeSvc.likeUpdate(like.getResno());
 	        }
+	       
 	       
 	       if(like.getLikeno() == 1) {
 	    		rttr.addAttribute("clicked_like", 1);

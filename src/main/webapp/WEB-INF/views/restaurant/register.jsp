@@ -39,8 +39,7 @@
 		<div class="row">
 			<div class="col-1 col-md-2"></div>
 			<div class="col-10 col-md-8">
-				<form action="${root }/restaurant/register" method="post"
-					enctype="multipart/form-data">
+				<form action="${root }/restaurant/register" method="post">
 					<div class="form-group">
 						<label for="input1">산</label> <select name="mname"
 							class="custom-select my-1 mr-sm-2 bd-highlight"
@@ -91,13 +90,6 @@
 					<div class="form-group">
 						<label for="input6">설명</label> <input type="text"
 							class="form-control" id="input6" name="description">
-					</div>
-					<div class="inputArea">
-						<label for="gdsImg">이미지</label> <input type="file" id="gdsImg"
-							name="file" />
-						<div class="select_img">
-							<img src="" />
-						</div>
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>

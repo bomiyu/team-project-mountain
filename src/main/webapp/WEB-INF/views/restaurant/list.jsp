@@ -58,6 +58,8 @@
 						});
 				// 해야할 것
 				// 새로고침으로 카운트 반영
+				// 게시글 like 별로 클릭할 수 있게 변경
+				// modify 확인
 			
 				$(".like-img").click(function() {
 					var userno = 1;
@@ -178,8 +180,7 @@
 													type="submit">수정</button>
 											</a>
 											<form action="${root }/restaurant/remove" method="post">
-												<input type="hidden" name="no" value="${res.no}"> <input
-													type="hidden" name="gdsImg" value="${res.img }">
+												<input type="hidden" name="no" value="${res.no}">
 												<button class="btn btn-outline-info my-2 my-sm-0"
 													id="removeBtn" type="submit">삭제</button>
 											</form>

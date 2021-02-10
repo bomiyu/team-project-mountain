@@ -73,14 +73,6 @@
     <label for="input6">설명</label>
     <input type="text" class="form-control" id="input6" name="description" value="${restaurant.description }">
   </div>
-<div class="inputArea">
- <label for="gdsImg">이미지</label>
- <input type="file" id="gdsImg" name="file"/>
- <div class="select_img"><img src="${root }/${restaurant.img }" />
- <input type="hidden" name="gdsImg" value="${restaurant.img }">
- </div>
-
-</div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 			</div>
