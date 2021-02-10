@@ -5,12 +5,12 @@
 <mapper namespace="org.zerock.mapper.LikeMapper">
 
 <insert id="insertLike">
-<selectKey keyProperty="likeno" order="BEFORE" resultType="long">
+<selectKey keyProperty="no" order="BEFORE" resultType="long">
 select seq_res_like.nextval from dual
 </selectKey>
 
-insert into res_like (likeno, userno, resno)
-values (#{likeno}, #{userno}, #{resno})
+insert into res_like (no, likeno, dislikeno, userno, resno)
+values (#{no}, #{likeno}, #{dislikeno}, #{userno}, #{resno})
 </insert>
 
 <delete id="deleteLike">
@@ -19,12 +19,17 @@ values (#{likeno}, #{userno}, #{resno})
 </delete>
 
 <update id="updateLike">
-      UPDATE restaurant SET likecnt = (SELECT COUNT(*)
-      FROM res_like WHERE resno = #{resno}) WHERE no = #{resno}
+      UPDATE restaurant 
+      SET likecnt = (SELECT COUNT(likeno) FROM res_like WHERE resno = #{resno} AND likeno = 1), 
+      dislikecnt = (SELECT COUNT(dislikeno) FROM res_like WHERE resno = #{resno} AND dislikeno = 1) WHERE no = #{resno}
 </update>
 
 <select id="getLike" resultType="int">
-     SELECT COUNT(*) FROM WHERE resno=#{resno} AND userno=#{userno};
+     SELECT COUNT(*) FROM res_like WHERE resno=#{resno} AND userno=#{userno} AND likeno =1
+</select>
+
+<select id="getDislike" resultType="int">
+     SELECT COUNT(*) FROM res_like WHERE resno=#{resno} AND userno=#{userno} AND dislikeno =1
 </select>
 
 <select id="getCount" resultType="int">

@@ -18,13 +18,11 @@ public class LikeServiceImpl implements LikeService {
 	@Override
 	public void likeInsert(LikeVO like) {
 		mapper.insertLike(like);
-		mapper.likeUpdate(like.getLikeno());
 	}
 
 	@Override
-	public void likeRemove(Long resno, Long userno) {
-		 mapper.likeDelete(userno, resno);
-		 mapper.likeUpdate(resno);
+	public boolean likeRemove(Long userno, Long resno) {
+		 return mapper.deleteLike(userno, resno) == 1;
 	}
 
 	@Override
@@ -32,4 +30,9 @@ public class LikeServiceImpl implements LikeService {
 		return mapper.getLike(userno, resno);
 	}
 
+	@Override
+	public int getDislike(Long userno, Long resno) {
+		return mapper.getDislike(userno, resno);
+	}
+	 
 }

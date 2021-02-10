@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.LikeVO;
+import org.zerock.domain.RestaurantVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -30,8 +31,10 @@ public class LikeMapperTests {
 	@Test
 	public void testInsert() {
 		LikeVO like = new LikeVO();
+		like.setLikeno(new Long(1));
+		like.setDislikeno(new Long(0));
 		like.setResno(new Long(109));
-		like.setUserno(new Long(2));
+		like.setUserno(new Long(1));
 		
 		int before = mapper.getCount(new Long(109));
 		log.info("************************ before : " + before);
@@ -46,39 +49,60 @@ public class LikeMapperTests {
 	@Test
 	public void testGetLike() {
 		LikeVO like = new LikeVO();
+		like.setLikeno(new Long(1));
+		like.setDislikeno(new Long(0));
 		like.setResno(new Long(109));
 		like.setUserno(new Long(3));
-		int val = mapper.getLike(like.getResno(), like.getUserno());
-		log.info("************************ val : " + val);
-
+		int val1 = mapper.getLike(like.getUserno(), like.getResno());
+		mapper.insertLike(like);
+		int val2 = mapper.getLike(like.getUserno(), like.getResno());
+		
+		assertEquals(val1+1, val2);
+	}
+	
+	@Test
+	public void testGetDislike() {
+		LikeVO like = new LikeVO();
+		like.setLikeno(new Long(0));
+		like.setDislikeno(new Long(1));
+		like.setResno(new Long(109));
+		like.setUserno(new Long(3));
+		int val1 = mapper.getDislike(like.getUserno(), like.getResno());
+		mapper.insertLike(like);
+		int val2 = mapper.getDislike(like.getUserno(), like.getResno());
+		assertEquals(val1+1, val2);
 	}
 	
 	@Test
 	public void testDelete() {
 		LikeVO like = new LikeVO();
+		like.setLikeno(new Long(1));
+		like.setDislikeno(new Long(0));
 		like.setResno(new Long(109));
-		like.setUserno(new Long(3));
+		like.setUserno(new Long(5));
 		mapper.insertLike(like);
 		int before = mapper.getCount(like.getResno());
 		log.info("************************ before : " + before);
 		log.info("************************ like.getResno() : " + like.getResno());
 		log.info("************************ like.getUserno() : " + like.getUserno());
-		int cnt = mapper.likeDelete(like.getResno(), like.getUserno());
+		 mapper.deleteLike(like.getUserno(), like.getResno());
 		int after = mapper.getCount(like.getResno());
 		log.info("************************ after : " + after);
 		
-		assertEquals(cnt, 1);
-		assertEquals(before+1, after);
+		assertEquals(before-1, after);
 	}
 	
 	@Test
 	public void testUpdate() {
 		LikeVO like = new LikeVO();
+		like.setLikeno(new Long(1));
+		like.setDislikeno(new Long(0));
 		like.setResno(new Long(109));
-		like.setUserno(new Long(3));
+		like.setUserno(new Long(5));
 		mapper.insertLike(like);
 		
-		mapper.likeUpdate(like.getResno());
+		mapper.updateLike(like.getResno());
 		resMapper.read(like.getResno());
+		
 	}
 }

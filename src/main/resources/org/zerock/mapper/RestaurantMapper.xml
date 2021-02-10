@@ -29,10 +29,10 @@ SELECT no FROM mountain WHERE mname LIKE '%' || #{mname} || '%'
 </sql>
 
 <select id="getListPaging" resultType="org.zerock.domain.RestaurantVO">
-<![CDATA[SELECT no, mountain_no, rname, rloc, contact, menu, description, img, likecnt, mname
+<![CDATA[SELECT no, mountain_no, rname, rloc, contact, menu, description, img, likecnt, dislikecnt, mname
 FROM
 (SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, mountain_no, rname, rloc, contact, menu, description, img, 
-likecnt, mname FROM res_view
+likecnt, dislikecnt, mname FROM res_view
 ]]>
 	 <include refid="criteria"></include>
 
@@ -64,8 +64,8 @@ description= #{description}, img= #{img} where no = #{no}
 </update>
 
 <select id="read" resultType="org.zerock.domain.RestaurantVO">
-SELECT no, mountain_no, rname, rloc, contact, menu, description, img, likecnt, mname FROM
-(SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, mountain_no, rname, rloc, contact, menu, description, img, likecnt, mname FROM res_view)
+SELECT no, mountain_no, rname, rloc, contact, menu, description, img, likecnt, dislikecnt, mname FROM
+(SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, mountain_no, rname, rloc, contact, menu, description, img, likecnt, dislikecnt, mname FROM res_view)
 WHERE no = #{no}
 </select>
 

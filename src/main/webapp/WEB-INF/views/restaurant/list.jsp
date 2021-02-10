@@ -125,9 +125,11 @@
 									<p class="card-text">
 										<small class="text-muted">${res.description }<br>${res.contact }</small><br>
 									</p>
-									<div style="text-align: right;">
-<!-- 										<img id="like-img" src="resources/like_empty.png" onclick="like_func()"> -->
-									<button class="btn-primary" id="like-btn">like</button> ${res.likecnt }
+									<div class="d-flex justify-content-end align-items-center mb-1">
+							<img id="like-img" src="${root }/resources/like_empty2.png" width="25px" height="25px"><span>&nbsp; ${res.likecnt } &nbsp;</span>
+		                    <img id="dislike-img" src="${root }/resources/dislike_empty.png" width="25px" height="25px"><span>&nbsp;${res.dislikecnt }</span>
+
+
 									</div>
 									<c:if test="${true }"> <!--  ${authUser.manager == 1} -->
 										<div class="d-flex justify-content-end">

@@ -34,9 +34,6 @@ import lombok.extern.log4j.Log4j;
 public class RestaurantController {
 	private RestaurantService service;
 	private LikeService likeSvc;
-
-	@Resource(name="uploadPath")
-	private String uploadPath;
 	
 	@GetMapping("/list")
 	public void list(Model model, @ModelAttribute("cri") Rcriteria cri, HttpServletRequest req) {
@@ -52,21 +49,10 @@ public class RestaurantController {
 	}
 	
 	@PostMapping("/register")
-	public String register(RestaurantVO restaurant, RedirectAttributes rttr, MultipartFile file, AddressVO addr) throws Exception {
+	public String register(RestaurantVO restaurant, RedirectAttributes rttr, AddressVO addr) throws Exception {
 		// manager == 1 세션 가져오기
 		// User authUser = (User) req.getSession().getAttribute("authUser"); 
 		log.info("**************************" + restaurant.getMname() + "******************************");
-		String imgUploadPath = uploadPath + File.separator + "imgUpload";
-		String ymdPath = UploadFile.calcPath(imgUploadPath);
-		String fileName = null;
-		
-		if(file != null) {
-		 fileName = UploadFile.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
-		} else {
-		 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
-		}
-	
-		restaurant.setImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 		String address = addr.getAddress1() + " " + addr.getAddress2();
 		log.info("**************************" + address + "******************************");
 		restaurant.setRloc(address);
@@ -93,9 +79,7 @@ public class RestaurantController {
 	
 	@PostMapping("/remove")
 	// manager 세션 가져오기
-	public String remove(Long no, RedirectAttributes rttr, Rcriteria cri, MultipartFile file, HttpServletRequest req) throws Exception {
-		
-		new File(uploadPath + req.getParameter("gdsImg")).delete();
+	public String remove(Long no, RedirectAttributes rttr, Rcriteria cri, HttpServletRequest req) throws Exception {
 		
 		if(service.remove(no)) {
 			rttr.addFlashAttribute("result", "success");
@@ -111,26 +95,7 @@ public class RestaurantController {
 	
 	@PostMapping("/modify")
 	// manager 세션 가져오기
-	public String modify(RestaurantVO restaurant, RedirectAttributes rttr, Rcriteria cri, MultipartFile file, HttpServletRequest req, AddressVO addr) throws Exception {
-		log.info("**********************" + file.getOriginalFilename() + "*******************");
-		log.info("**********************" + req.getParameter("gdsImg") + "*******************");
-		
-		if(file.getOriginalFilename() != null && !file.getOriginalFilename().equals("")) {
-			  // 기존 파일을 삭제
-			  new File(uploadPath + req.getParameter("gdsImg")).delete();
-			  
-			  // 새로 첨부한 파일을 등록
-			  String imgUploadPath = uploadPath + File.separator + "imgUpload";
-			  String ymdPath = UploadFile.calcPath(imgUploadPath);
-			  String fileName = UploadFile.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-			  
-			  restaurant.setImg(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
-			  
-			 } else {  // 새로운 파일이 등록되지 않았다면
-			  // 기존 이미지를 그대로 사용
-				 restaurant.setImg(req.getParameter("gdsImg"));
-			  
-			 }
+	public String modify(RestaurantVO restaurant, RedirectAttributes rttr, Rcriteria cri, HttpServletRequest req, AddressVO addr) throws Exception {
 		String address = addr.getAddress1() + ", " + addr.getAddress2();
 		log.info("**************************" + address + "******************************");
 		restaurant.setRloc(address);
@@ -149,33 +114,24 @@ public class RestaurantController {
 	
 	@ResponseBody
 	@PostMapping(value = "/like", produces = "application/json")
-	public Long like(LikeVO like, HttpServletRequest req) {
-		log.info("********* resno *****************" + req.getAttribute("clickLike") + "******************************");
+	public String like(LikeVO like, HttpServletRequest req) {
+		log.info("********* clickLike *****************" + req.getAttribute("likeno") + "******************************");
+		log.info("********* clickDislike *****************" + req.getAttribute("dislikeno") + "******************************");
 		log.info("********* resno *****************" + req.getAttribute("resno") + "******************************");
 		log.info("********* userno *****************" + req.getAttribute("userno") + "******************************");
-		
-		Long clickLike;
-		int resLikeCnt = likeSvc.getLike(like.getUserno(), like.getResno());
-	       if(resLikeCnt >= 1) {
+
+		int resLike = likeSvc.getLike(like.getUserno(), like.getResno());
+		int resDislike = likeSvc.getDislike(like.getUserno(), like.getResno());
+	       if(resLike == 1 || resDislike == 1) {
 	            likeSvc.likeRemove(like.getResno(), like.getUserno());
-	            clickLike = new Long(0);
+	            likeSvc.likeInsert(like);
 	        } else {
-	        	 likeSvc.likeRegister(like);
-	        	 clickLike = new Long(1);
+	        	 likeSvc.likeInsert(like);
 	        }
 		
-		return clickLike;
+	   	return "redirect:/restaurant/list";
 	}
 	
 
-	@ResponseBody
-	@GetMapping(value = "/like", produces = "application/json")
-	public Long likeCheck(Model model, HttpServletRequest req) {
-		Long resno = Long.parseLong((String) req.getAttribute("resno"));
-		Long userno = Long.parseLong((String) req.getAttribute("userno"));
-		Long resLikeCnt = (long) likeSvc.getLike(userno, resno);
-		
-		return resLikeCnt;
-	}
-	
+
 }

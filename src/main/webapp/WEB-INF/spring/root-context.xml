@@ -51,8 +51,8 @@
 	<context:component-scan
 		base-package="org.zerock.service" />
 	<tx:annotation-driven />
-		<context:component-scan
-		base-package="org.zerock.upload" />
-	<tx:annotation-driven />
+<!-- 		<context:component-scan -->
+<!-- 		base-package="org.zerock.upload" /> -->
+<!-- 	<tx:annotation-driven /> -->
 	
 </beans>
