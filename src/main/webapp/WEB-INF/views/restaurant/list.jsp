@@ -56,8 +56,41 @@
 
 							actionForm.submit();
 						});
+				// 해야할 것
+				// 새로고침으로 카운트 반영
+			
+				$(".like-img").click(function() {
+					var userno = 1;
+					var resno = $(this).attr("data-resNo");
+					console.log(resno);
+					$(".like-img").prop("src", "${root}/resources/like_full.png");
+					$(".dislike-img").prop("src", "${root}/resources/dislike_empty.png");
+					$.ajax({
+						url : '${root}/restaurant/like',
+						type : 'post',
+						data : {'userno' : userno, 'resno': resno, 'likeno' : 1, 'dislikeno' : 0},
+						success : function(data) {
+							console.log("성공");
 
+// 						}, error : function() {
+// 							console.log("실패");
+// 							alert("회원만 이용 가능합니다.");
+						}
+					});
+				});
 
+				$(".dislike-img").click(function() {
+					var userno = 1;
+					var resno = $(this).attr("data-resNo");
+					$(".dislike-img").prop("src", "${root}/resources/dislike_full.png");
+					$(".like-img").prop("src", "${root}/resources/like_empty2.png");
+					$.ajax({
+						url : '${root}/restaurant/like',
+						type : 'post',
+						data : {'userno' : userno, 'resno': resno, 'likeno' : 0, 'dislikeno' : 1},
+					});
+				});
+				
 			});
 </script>
 <style type="text/css">
@@ -126,9 +159,9 @@
 										<small class="text-muted">${res.description }<br>${res.contact }</small><br>
 									</p>
 									<div class="d-flex justify-content-end align-items-center mb-1">
-							<img id="like-img" src="${root }/resources/like_empty2.png" width="25px" height="25px"><span>&nbsp; ${res.likecnt } &nbsp;</span>
-		                    <img id="dislike-img" src="${root }/resources/dislike_empty.png" width="25px" height="25px"><span>&nbsp;${res.dislikecnt }</span>
-
+<!-- 								 $(this).attr("data-resNo"); -->
+							<img data-resNo="${res.no }" class="like-img" src="${root }/resources/like_empty2.png" width="25px" height="25px"><span>&nbsp; ${res.likecnt } &nbsp;</span>
+		                    <img data-resNo="${res.no }" class="dislike-img" src="${root }/resources/dislike_empty.png" width="25px" height="25px"><span>&nbsp;${res.dislikecnt }</span>
 
 									</div>
 									<c:if test="${true }"> <!--  ${authUser.manager == 1} -->

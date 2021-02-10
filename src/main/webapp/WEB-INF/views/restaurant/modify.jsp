@@ -27,7 +27,7 @@
 		<div class="row">
 			<div class="col-1 col-md-2"></div>
 			<div class="col-10 col-md-8">
-				<form action="${root }/restaurant/modify" method="post" enctype="multipart/form-data">
+				<form action="${root }/restaurant/modify" method="post">
 				<input type="hidden" name="no" value="${param.no }">
 				<input type="hidden" name="mountain_no" value="${restaurant.mountain_no }">
 									<div class="form-group">
@@ -51,7 +51,7 @@
 <p>
 <input type="hidden" id="sample3_postcode" placeholder="우편번호">
 <input type="text" name="address1" id="sample3_address" value="${restaurant.rloc }">
-<input type="text" name="address2" id="sample3_detailAddress">
+<input type="text" name="address2" id="sample3_detailAddress" value="">
 <input type="hidden" name="address3" id="sample3_extraAddress" placeholder="참고항목">
 <input type="button" onclick="sample3_execDaumPostcode()" id="address_btn" value="검색" id="input3"><br>
 </p>
@@ -79,18 +79,7 @@
  <div class="select_img"><img src="${root }/${restaurant.img }" />
  <input type="hidden" name="gdsImg" value="${restaurant.img }">
  </div>
- 
- <script>
-  $("#gdsImg").change(function(){
-   if(this.files && this.files[0]) {
-    var reader = new FileReader;
-    reader.onload = function(data) {
-     $(".select_img img").attr("src", data.target.result).width(100);        
-    }
-    reader.readAsDataURL(this.files[0]);
-   }
-  });
- </script>
+
 </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

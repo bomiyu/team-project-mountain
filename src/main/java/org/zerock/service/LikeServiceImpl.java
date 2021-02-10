@@ -34,5 +34,8 @@ public class LikeServiceImpl implements LikeService {
 	public int getDislike(Long userno, Long resno) {
 		return mapper.getDislike(userno, resno);
 	}
-	 
+	 @Override
+	public boolean likeUpdate(Long resno) {
+		return mapper.updateLike(resno) == 1;
+	}
 }
