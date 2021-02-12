@@ -3,8 +3,8 @@ package org.zerock.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.zerock.domain.Rcriteria;
-import org.zerock.domain.RestaurantVO;
+import org.zerock.domain.restaurant.Rcriteria;
+import org.zerock.domain.restaurant.RestaurantVO;
 
 public interface RestaurantMapper {
 	

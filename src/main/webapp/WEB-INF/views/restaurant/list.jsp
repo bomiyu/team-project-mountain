@@ -18,11 +18,12 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript"
-	src="${root }/resources/js/LikeDislike.js"></script>
+	src="${root }/resources/js/restaurant/LikeDislike.js"></script>
+
 <script>
 	$(document).ready(
 			function() {
@@ -32,26 +33,20 @@
 				//checkModal(result);
 				checkModal2(message);
 
-				history.replaceState({}, null, null);
+	//			history.replaceState({}, null, null);
+				history.pushState(null, document.title, location.href);  // push 
+				window.addEventListener('popstate', function(event) {    //  뒤로가기 이벤트 등록
+				    // 특정 페이지로 가고싶다면 location.href = '';
+				   history.pushState(null, document.title, location.href);  // 다시 push함으로 뒤로가기 Block
+				   location.href = root + '/restaurant/list';
+				});
 
 				function checkModal2(message) {
 					if (message && history.state == null) {
-						$("#myModal .modal-body p").html(message);
-						$("#myModal").modal("show");
+						swal(message, "","success");
 					}
 				}
 
-				function checkModal(result) {
-					if (result === '' || history.state) {
-						return;
-					}
-
-					if (parseInt(result) > 0) {
-						$("#myModal .modal-body p").html(
-								"게시글 " + result + "번이 등록되었습니다.");
-					}
-					$("#myModal").modal("show");
-				}
 				var actionForm = $("#actionForm");
 				$(".pagination a").click(
 						function(e) {
@@ -61,13 +56,56 @@
 									$(this).attr('href'));
 
 							actionForm.submit();
+
 						});
-				// 해야할 것
-				// 새로고침으로 카운트 반영
-				// 게시글 like 별로 클릭할 수 있게 변경
-				// modify 확인
+				var removeForm = $("#removeForm");
 
+				$("#removeBtn").on('click', function(e) {
+				    e.preventDefault();
+					var resno = $(this).attr("data-resNo");
+					console.log(resno);
+					swal({
+						  title: "삭제 하시겠습니까?",
+						  icon: "warning",
+						  buttons: {
+							  confirm : {
+								  text : '확인',
+								  value : true,
+								  className : 'btn btn-danger'
+							  },
+							  cancle : {
+								  text : '취소',
+								  value : false,
+								  className : 'btn btn-secondary'
+							  }
+						  }
+						}).then((result) => {
+							console.log(result);
+							if(result) {
+								swal({
+									  title: resno + "번 게시물이 삭제되었습니다",
+									  icon: "success",
+									  buttons: {
+										  confirm : {
+											  text : '확인',
+											  value : true,
+											  className : 'btn btn-info'
+										  }
+									  }
+								
+								}).then((result) => {
+									console.log(result);
+									if(result) {
+										removeForm.submit();
+									}
+								});
 
+							} else {
+								swal.close();
+							}
+							
+						});
+				});
 			});
 </script>
 <style type="text/css">
@@ -84,6 +122,13 @@
 .col-md-8 {
 	float: left;
 }
+.swal-footer {
+	text-align: center;
+}
+.swal {
+    position : top-start;
+}
+
 </style>
 <title>Insert title here</title>
 </head>
@@ -160,10 +205,10 @@
 												<button class="btn btn-outline-info my-2 my-sm-0"
 													type="submit">수정</button>
 											</a>
-											<form action="${root }/restaurant/remove" method="post">
+											<form action="${root }/restaurant/remove" method="post" id="removeForm">
 												<input type="hidden" name="no" value="${res.no}">
 												<button class="btn btn-outline-info my-2 my-sm-0"
-													id="removeBtn" type="submit">삭제</button>
+													id="removeBtn" type="submit" data-resNo="${res.no }">삭제</button>
 											</form>
 										</div>
 									</c:if>

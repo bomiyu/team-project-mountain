@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.zerock.domain.LikeVO;
-import org.zerock.service.LikeService;
-import org.zerock.service.RestaurantService;
+import org.zerock.domain.restaurant.LikeVO;
+import org.zerock.service.like.LikeService;
+import org.zerock.service.restaurant.RestaurantService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -24,12 +24,6 @@ public class LikeController {
 	@ResponseBody
 	@PostMapping(value = "/like", produces = "application/json")
 	public String like(LikeVO like, HttpServletRequest req, RedirectAttributes rttr) {
-		log.info("********* clickLike *****************" + req.getAttribute("likeno")
-				+ "******************************");
-		log.info("********* clickDislike *****************" + req.getAttribute("dislikeno")
-				+ "******************************");
-		log.info("********* resno *****************" + req.getAttribute("resno") + "******************************");
-		log.info("********* userno *****************" + req.getAttribute("userno") + "******************************");
 
 		int resLike = likeSvc.getLike(like.getUserno(), like.getResno());
 		int resDislike = likeSvc.getDislike(like.getUserno(), like.getResno());

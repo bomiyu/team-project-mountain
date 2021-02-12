@@ -77,7 +77,7 @@
 						<script
 							src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 						<script type="text/javascript"
-							src="${root }/resources/js/addressAPI.js"></script>
+							src="${root }/resources/js/restaurant/addressAPI.js"></script>
 					</div>
 					<div class="form-group">
 						<label for="input4">연락처</label> <input type="text"

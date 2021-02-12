@@ -1,7 +1,7 @@
 package org.zerock.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.zerock.domain.LikeVO;
+import org.zerock.domain.restaurant.LikeVO;
 
 public interface LikeMapper {
 	

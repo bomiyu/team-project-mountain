@@ -28,7 +28,7 @@ SELECT no FROM mountain WHERE mname LIKE '%' || #{mname} || '%'
 	</where>
 </sql>
 
-<select id="getListPaging" resultType="org.zerock.domain.RestaurantVO">
+<select id="getListPaging" resultType="org.zerock.domain.restaurant.RestaurantVO">
 <![CDATA[SELECT no, mountain_no, rname, rloc, contact, menu, description, likecnt, dislikecnt, mname
 FROM
 (SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, mountain_no, rname, rloc, contact, menu, description, 
@@ -41,7 +41,7 @@ likecnt, dislikecnt, mname FROM res_view
 WHERE rn BETWEEN (#{pageNo} -1) * #{amount} + 1 AND #{pageNo} * #{amount}]]> 
 </select>
 
-<select id="getList" resultType="org.zerock.domain.RestaurantVO">
+<select id="getList" resultType="org.zerock.domain.restaurant.RestaurantVO">
 <![CDATA[SELECT*FROM restaurant WHERE no > 0]]>
 </select>
 
@@ -63,14 +63,14 @@ update restaurant set mountain_no= (<include refid="mountain_no"></include>), rn
 description= #{description} where no = #{no}
 </update>
 
-<select id="read" resultType="org.zerock.domain.RestaurantVO">
+<select id="read" resultType="org.zerock.domain.restaurant.RestaurantVO">
 SELECT no, mountain_no, rname, rloc, contact, menu, description, likecnt, dislikecnt, mname FROM
 (SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, mountain_no, rname, rloc, contact, menu, description, likecnt, dislikecnt, mname FROM res_view)
 WHERE no = #{no}
 </select>
 
 <select id="getTotalCnt" resultType="int">
-	SELECT count(*) FROM restaurant <include refid="criteria"></include>
+	SELECT count(*) FROM res_view <include refid="criteria"></include>
 </select>
 
 </mapper>

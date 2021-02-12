@@ -12,9 +12,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.Rcriteria;
-import org.zerock.domain.RestaurantVO;
+import org.zerock.domain.restaurant.Rcriteria;
+import org.zerock.domain.restaurant.RestaurantVO;
 import org.zerock.mapper.RestaurantMapper;
+import org.zerock.service.restaurant.RestaurantService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;

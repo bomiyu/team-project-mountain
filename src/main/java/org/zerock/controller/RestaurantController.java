@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.zerock.domain.AddressVO;
-import org.zerock.domain.LikeVO;
-import org.zerock.domain.Rcriteria;
-import org.zerock.domain.RestaurantVO;
-import org.zerock.domain.RpageDTO;
-import org.zerock.service.LikeService;
-import org.zerock.service.RestaurantService;
+import org.zerock.domain.restaurant.AddressVO;
+import org.zerock.domain.restaurant.LikeVO;
+import org.zerock.domain.restaurant.Rcriteria;
+import org.zerock.domain.restaurant.RestaurantVO;
+import org.zerock.domain.restaurant.RpageDTO;
+import org.zerock.service.like.LikeService;
+import org.zerock.service.restaurant.RestaurantService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -54,7 +54,7 @@ public class RestaurantController {
 		log.info("**************************" + restaurant+ "******************************");
 		service.register(restaurant);
 		rttr.addFlashAttribute("result", restaurant.getNo());
-		rttr.addFlashAttribute("message", "상호 " + restaurant.getNo() + "번 글이 등록되었습니다");
+		rttr.addFlashAttribute("message", restaurant.getNo() + "번 글이 등록되었습니다");
 		
 		return "redirect:/restaurant/list";
 	}
@@ -75,11 +75,11 @@ public class RestaurantController {
 	@PostMapping("/remove")
 	// manager 세션 가져오기
 	public String remove(Long no, RedirectAttributes rttr, Rcriteria cri, HttpServletRequest req) throws Exception {
-		
-		if(service.remove(no)) {
-			rttr.addFlashAttribute("result", "success");
-			rttr.addFlashAttribute("message", no + "번 글이 삭제되었습니다");
-		}
+//		if(service.remove(no)) {
+//			rttr.addFlashAttribute("result", "success");
+//			rttr.addFlashAttribute("message", no + "번 글이 삭제되었습니다");
+//		}
+		service.remove(no);
 		rttr.addAttribute("pageNo", cri.getPageNo());
 		rttr.addAttribute("amount", cri.getAmount());
 		rttr.addAttribute("type", cri.getType());
@@ -91,7 +91,7 @@ public class RestaurantController {
 	@PostMapping("/modify")
 	// manager 세션 가져오기
 	public String modify(RestaurantVO restaurant, RedirectAttributes rttr, Rcriteria cri, HttpServletRequest req, AddressVO addr) throws Exception {
-		String address = addr.getAddress1() + ", " + addr.getAddress2();
+		String address = addr.getAddress1() + " " + addr.getAddress2();
 		log.info(restaurant);
 		log.info("****************    address   **********" + address + "******************************");
 		restaurant.setRloc(address);
