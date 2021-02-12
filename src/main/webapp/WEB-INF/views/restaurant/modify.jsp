@@ -71,7 +71,9 @@
   </div>
         <div class="form-group">
     <label for="input6">설명</label>
-    <input type="text" class="form-control" id="input6" name="description" value="${restaurant.description }">
+    						<label for="input6">설명</label><textarea class="form-control" name="description" id="input6"
+						rows="6" >${restaurant.description }</textarea>
+
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

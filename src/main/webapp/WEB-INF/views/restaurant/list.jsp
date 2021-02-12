@@ -7,6 +7,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">
+	var root = '${root}';
+	var userno = '${authUser.no}';
+</script>
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -17,6 +21,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script type="text/javascript"
+	src="${root }/resources/js/LikeDislike.js"></script>
 <script>
 	$(document).ready(
 			function() {
@@ -60,39 +66,8 @@
 				// 새로고침으로 카운트 반영
 				// 게시글 like 별로 클릭할 수 있게 변경
 				// modify 확인
-			
-				$(".like-img").click(function() {
-					var userno = 1;
-					var resno = $(this).attr("data-resNo");
-					console.log(resno);
-					$(".like-img").prop("src", "${root}/resources/like_full.png");
-					$(".dislike-img").prop("src", "${root}/resources/dislike_empty.png");
-					$.ajax({
-						url : '${root}/restaurant/like',
-						type : 'post',
-						data : {'userno' : userno, 'resno': resno, 'likeno' : 1, 'dislikeno' : 0},
-						success : function(data) {
-							console.log("성공");
 
-// 						}, error : function() {
-// 							console.log("실패");
-// 							alert("회원만 이용 가능합니다.");
-						}
-					});
-				});
 
-				$(".dislike-img").click(function() {
-					var userno = 1;
-					var resno = $(this).attr("data-resNo");
-					$(".dislike-img").prop("src", "${root}/resources/dislike_full.png");
-					$(".like-img").prop("src", "${root}/resources/like_empty2.png");
-					$.ajax({
-						url : '${root}/restaurant/like',
-						type : 'post',
-						data : {'userno' : userno, 'resno': resno, 'likeno' : 0, 'dislikeno' : 1},
-					});
-				});
-				
 			});
 </script>
 <style type="text/css">
@@ -143,7 +118,7 @@
 					<button class="btn btn-outline-info my-2 my-sm-0 p-2 bd-highlight"
 						type="submit">Search</button>
 				</form>
-				<c:forEach items="${list }" var="res">
+				<c:forEach items="${list }" var="res" varStatus="status">
 					<div class="card mb-3">
 						<div class="row no-gutters">
 							<div class="col-sm-4">
@@ -155,18 +130,24 @@
 									<h5 class="card-title">${res.rname }</h5>
 									<p class="card-text">
 										<input type="hidden" name="resno" value="${res.no }"
-											id="resno" /> ${res.mname }<br> ${res.rloc }<br>
+											id="resno" /><c:out value="${res.mname }"/> <br> <c:out value="${res.rloc }"/><br>
 									</p>
 									<p class="card-text">
-										<small class="text-muted">${res.description }<br>${res.contact }</small><br>
+										<small class="text-muted"><c:out value="${res.description }"/><br><c:out value="${res.contact }"/></small><br>
 									</p>
-									<div class="d-flex justify-content-end align-items-center mb-1">
-<!-- 								 $(this).attr("data-resNo"); -->
-							<img data-resNo="${res.no }" class="like-img" src="${root }/resources/like_empty2.png" width="25px" height="25px"><span>&nbsp; ${res.likecnt } &nbsp;</span>
-		                    <img data-resNo="${res.no }" class="dislike-img" src="${root }/resources/dislike_empty.png" width="25px" height="25px"><span>&nbsp;${res.dislikecnt }</span>
+									<div class="d-flex justify-content-end align-items-center mb-1 likeDislike">
+										<!-- 								 $(this).attr("data-resNo"); -->
+										<img data-resNo="${res.no }" id="like-img${status.count }"
+											src="${root }/resources/like_empty2.png" width="25px"
+											height="25px"><span>&nbsp; ${res.likecnt }
+											&nbsp;</span> <img data-resNo="${res.no }"
+											id="dislike-img${status.count }"
+											src="${root }/resources/dislike_empty.png" width="25px"
+											height="25px"><span>&nbsp;${res.dislikecnt }</span>
 
 									</div>
-									<c:if test="${true }"> <!--  ${authUser.manager == 1} -->
+									<c:if test="${true }">
+										<!--  ${authUser.manager == 1} -->
 										<div class="d-flex justify-content-end">
 											<c:url value="/restaurant/modify" var="modifyLink">
 												<c:param name="no" value="${res.no }"></c:param>
