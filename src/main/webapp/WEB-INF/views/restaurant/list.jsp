@@ -140,7 +140,7 @@
 		<div class="row">
 			<div class="col-1 col-sm-2"></div>
 			<div class="col-10 col-sm-8 mt-3">
-<h1>${authUser.id}</h1>
+			<h1>${authUser.no }</h1>
 				<form action="${root }/restaurant/list" id="searchForm"
 					class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
 					<div class="mr-auto p-2 bd-highlight">
