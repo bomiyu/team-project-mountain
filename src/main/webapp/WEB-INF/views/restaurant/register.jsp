@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%-- <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%> --%>
 
 <!DOCTYPE html>
@@ -17,7 +18,9 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script>
 
+</script>
 <style type="text/css">
 .address-form #sample3_address {
 	width: 370px;
@@ -39,7 +42,7 @@
 		<div class="row">
 			<div class="col-1 col-md-2"></div>
 			<div class="col-10 col-md-8">
-				<form action="${root }/restaurant/register" method="post">
+				<form action="${root }/restaurant/register" method="post" name="register">
 					<div class="form-group">
 						<label for="input1">산</label> <select name="mname"
 							class="custom-select my-1 mr-sm-2 bd-highlight"
@@ -55,6 +58,7 @@
 					<div class="form-group">
 						<label for="input2">상호</label> <input type="text"
 							class="form-control" id="input2" name="rname">
+							<c:if test="${errors.rname }"><small>${errors.rname }</small><br/></c:if>
 					</div>
 					<div class="form-group address-form">
 						<label for="input3">지역</label>
@@ -66,6 +70,7 @@
 								type="hidden" name="address3" id="sample3_extraAddress"
 								placeholder="참고항목"> <input type="button"
 								onclick="sample3_execDaumPostcode()" value="검색" id="input3"><br>
+								<small>${errors.address1 }</small><br/>
 						</p>
 						<div id="wrap"
 							style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
@@ -82,16 +87,18 @@
 					<div class="form-group">
 						<label for="input4">연락처</label> <input type="text"
 							class="form-control" id="input4" name="contact">
+							<small>${errors.contact }</small><br/>
 					</div>
 					<div class="form-group">
 						<label for="input5">메뉴</label> <input type="text"
 							class="form-control" id="input5" name="menu">
+							<small>${errors.menu }</small><br/>
 					</div>
 					<div class="form-group">
-						<label for="input6">설명</label><textarea class="form-control" name="description" id="input6"
+						<label for="input6">설명</label><small>${errors.description }</small><textarea class="form-control" name="description" id="input6"
 						rows="6" ></textarea>
 					</div>
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-primary">등록</button>
 				</form>
 			</div>
 			<div class="col-1 col-md-2"></div>

@@ -75,7 +75,14 @@
 						rows="6" >${restaurant.description }</textarea>
 
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">확인</button>
+  								<c:url value="/restaurant/list" var="listLink">
+									<c:param name="pageNo" value="${cri.pageNo}" />
+									<c:param name="amount" value="${cri.amount }" />
+									<c:param name="type" value="${cri.type }" />
+									<c:param name="keyword" value="${cri.keyword }" />
+								</c:url>
+    <a href="${listLink }"><button type="button" class="btn btn-secondary">취소</button></a>
 </form>
 			</div>
 			<div class="col-1 col-md-2"></div>

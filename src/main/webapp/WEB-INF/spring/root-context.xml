@@ -16,15 +16,15 @@
 
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:oracle:thin:@db202101121035_high?TNS_ADMIN=/myworkspace/home/opc/wallet"></property>
-<!-- 				<property name="jdbcUrl"   -->
-<!-- 			value="jdbc:log4jdbc:oracle:thin:@db202102021120_high?TNS_ADMIN=/myworkspace//home/opc/wallet2"></property> -->
+<!-- 		<property name="jdbcUrl" -->
+<!-- 			value="jdbc:log4jdbc:oracle:thin:@db202101121035_high?TNS_ADMIN=/myworkspace/home/opc/wallet"></property> -->
+				<property name="jdbcUrl"  
+			value="jdbc:log4jdbc:oracle:thin:@db202102021120_high?TNS_ADMIN=/myworkspace//home/opc/wallet2"></property>
 <!-- 		<property name="jdbcUrl" -->
 <!-- 		value="jdbc:log4jdbc:oracle:thin:@db202101121035_high?TNS_ADMIN=/home/opc/wallet"></property> -->
 		<property name="username" value="admin"></property>
-		<property name="password" value="Asdfghjkl123"></property>
-<!-- 				<property name="password" value="Fivefivefive5"></property> -->
+<!-- 		<property name="password" value="Asdfghjkl123"></property> -->
+				<property name="password" value="Fivefivefive5"></property>
 		<property name="maximumPoolSize" value="1"></property>
 	</bean>
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
@@ -36,7 +36,9 @@
 		<constructor-arg ref="dataSource" />
 	</bean>
 
+<!-- 유효성검사 -->
 
+<bean id ="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>

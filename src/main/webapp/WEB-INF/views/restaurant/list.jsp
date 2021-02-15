@@ -46,7 +46,7 @@
 						swal(message, "","success");
 					}
 				}
-
+				
 				var actionForm = $("#actionForm");
 				$(".pagination a").click(
 						function(e) {

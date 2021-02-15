@@ -1,23 +1,25 @@
 
 	$(document).ready(function() {
-	
-	function refreshList() {
-		location.reload();
-	}
+
 	
 				$("[id^=like-img]").on('click', function(event) {
+
 					event.preventDefault();
+					if(userno == null || userno == '') {
+						swal("로그인 후에 이용 가능합니다.", "","warning");
+					} else {			
+
 					var id = $(this).attr("id");
 					console.log(id);
 					if (this.id == 'like-img1') {
-						var userno = 1;
+						var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/like_full.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'html',
+							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -31,14 +33,14 @@
 						
 					}
 						if (this.id == 'like-img2') {
-						var userno = 1;
+						var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/like_full.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'html',
+							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -52,14 +54,14 @@
 						
 					}
 						else if (this.id == 'like-img3') {
-						var userno = 1;
+						var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/like_full.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'html',
+							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -73,14 +75,14 @@
 						
 					}
 						else if (this.id == 'like-img4') {
-						var userno = 1;
+						var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/like_full.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'html',
+							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -94,14 +96,14 @@
 						
 					}
 						else if (this.id == 'like-img5') {
-						var userno = 1;
+						var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/like_full.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'html',
+							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -124,14 +126,14 @@
 							var id = $(this).attr("id");
 							console.log(id);
 								if (this.id == 'dislike-img1') {
-						var userno = 1;
+						var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/dislike_full.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'html',
+							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -145,14 +147,14 @@
 							});
 						
 					} else if (this.id == 'dislike-img2') {
-						var userno = 1;
+						var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/dislike_full.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'html',
+							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -166,14 +168,14 @@
 							});
 						
 					} else if (this.id == 'dislike-img3') {
-						var userno = 1;
+						var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/dislike_full.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'html',
+							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -187,14 +189,14 @@
 							});
 						
 					} else if (this.id == 'dislike-img4') {
-						var userno = 1;
+						var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/dislike_full.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'html',
+							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -208,14 +210,14 @@
 							});
 						
 					} else if (this.id == 'dislike-img5') {
-						var userno = 1;
+						var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/dislike_full.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'html',
+							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -228,6 +230,7 @@
 	
 							});
 						
+					}
 					}
 							});
 									});
