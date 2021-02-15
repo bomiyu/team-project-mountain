@@ -1,14 +1,39 @@
 
 	$(document).ready(function() {
-
-	
 				$("[id^=like-img]").on('click', function(event) {
-
 					event.preventDefault();
-					if(userno == null || userno == '') {
-						swal("로그인 후에 이용 가능합니다.", "","warning");
-					} else {			
 
+					console.log("로그인해야함" + userno);
+					if(userno == null) {
+					console.log("로그인해야함");
+					console.log("로그인해야함" + userno);
+							swal({
+									  title: "로그인 후에 이용할 수 있습니다",
+									  icon: "warning",
+									  buttons: {
+											  confirm : {
+								  text : '로그인',
+								  value : true,
+								  className : 'btn btn-info'
+							  },
+							  cancle : {
+								  text : '취소',
+								  value : false,s
+								  className : 'btn btn-secondary'
+							  }
+									  }
+								
+								}).then((result) => {
+									console.log(result);
+									if(result) {
+									 location.href = root + '/member/login';
+									}
+								});
+
+
+					} else {
+					console.log("로그인 된 상태");
+					console.log("로그인 된 상태" + userno);
 					var id = $(this).attr("id");
 					console.log(id);
 					if (this.id == 'like-img1') {
@@ -26,7 +51,7 @@
 								'likeno' : 1,
 								'dislikeno' : 0
 							}
-						}).done(function() {
+						}).done(function(data) {
 								console.log("like성공");
 								location.reload();
 							});
@@ -116,13 +141,36 @@
 							});
 						
 					};
+					}
 
 				});
 
-				$("[id^=dislike-img]").on(
-						'click',
-						function(event) {
+				$("[id^=dislike-img]").on('click', function(event) {
 							event.preventDefault();
+						if(userno == '' || userno == null) {
+										swal({
+									  title: "로그인 후에 이용할 수 있습니다",
+									  icon: "warning",
+									  buttons: {
+											  confirm : {
+								  text : '로그인',
+								  value : true,
+								  className : 'btn btn-info'
+							  },
+							  cancle : {
+								  text : '취소',
+								  value : false,
+								  className : 'btn btn-secondary'
+							  }
+									  }
+								
+								}).then((result) => {
+									console.log(result);
+									if(result) {
+									 location.href = root + '/member/login';
+									}
+								});
+					} else {
 							var id = $(this).attr("id");
 							console.log(id);
 								if (this.id == 'dislike-img1') {

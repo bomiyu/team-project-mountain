@@ -36,7 +36,9 @@
 <!-- </beans:bean> -->
 
 	<context:component-scan base-package="org.zerock.controller" />
-	
+	<!-- MessageSource -->
+
+
 	
 	
 </beans:beans>

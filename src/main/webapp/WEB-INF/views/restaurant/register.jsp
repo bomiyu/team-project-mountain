@@ -57,20 +57,18 @@
 					</div>
 					<div class="form-group">
 						<label for="input2">상호</label> <input type="text"
-							class="form-control" id="input2" name="rname">
-							<c:if test="${errors.rname }"><small>${errors.rname }</small><br/></c:if>
+							class="form-control" id="input2" name="rname" required placeholder="상호를 작성하세요">
 					</div>
 					<div class="form-group address-form">
 						<label for="input3">지역</label>
 						<p>
 							<input type="hidden" id="sample3_postcode" placeholder="우편번호">
 							<input type="text" name="address1" id="sample3_address"
-								placeholder="주소"> <input type="text" name="address2"
+								required placeholder="주소를 작성하세요"> <input type="text" name="address2"
 								id="sample3_detailAddress" placeholder="상세주소"> <input
 								type="hidden" name="address3" id="sample3_extraAddress"
 								placeholder="참고항목"> <input type="button"
 								onclick="sample3_execDaumPostcode()" value="검색" id="input3"><br>
-								<small>${errors.address1 }</small><br/>
 						</p>
 						<div id="wrap"
 							style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
@@ -86,17 +84,15 @@
 					</div>
 					<div class="form-group">
 						<label for="input4">연락처</label> <input type="text"
-							class="form-control" id="input4" name="contact">
-							<small>${errors.contact }</small><br/>
+							class="form-control" id="input4" name="contact" required placeholder="연락처를 작성하세요">
 					</div>
 					<div class="form-group">
 						<label for="input5">메뉴</label> <input type="text"
-							class="form-control" id="input5" name="menu">
-							<small>${errors.menu }</small><br/>
+							class="form-control" id="input5" name="menu" required placeholder="메뉴를 작성하세요">
 					</div>
 					<div class="form-group">
-						<label for="input6">설명</label><small>${errors.description }</small><textarea class="form-control" name="description" id="input6"
-						rows="6" ></textarea>
+						<label for="input6">설명</label><textarea class="form-control" name="description" id="input6"
+						rows="6" required placeholder="설명을 작성하세요"></textarea>
 					</div>
 					<button type="submit" class="btn btn-primary">등록</button>
 				</form>

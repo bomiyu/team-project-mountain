@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript">
+<script>
 	var root = '${root}';
 	var userno = '${authUser.no}';
 </script>
@@ -19,6 +19,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript"
@@ -58,6 +59,7 @@
 							actionForm.submit();
 
 						});
+				
 				var removeForm = $("#removeForm");
 
 				$("#removeBtn").on('click', function(e) {
@@ -106,6 +108,7 @@
 							
 						});
 				});
+				
 			});
 </script>
 <style type="text/css">
@@ -137,12 +140,12 @@
 		<div class="row">
 			<div class="col-1 col-sm-2"></div>
 			<div class="col-10 col-sm-8 mt-3">
-
+<h1>${authUser.id}</h1>
 				<form action="${root }/restaurant/list" id="searchForm"
 					class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
 					<div class="mr-auto p-2 bd-highlight">
 						<a href="${root }/restaurant/list"><button
-								class="btn btn-outline-info my-2 my-sm-0" type="button">목록</button></a>
+								class="btn btn-outline-info my-2 my-sm-0" type="button"><i class="far fa-list"></i>목록</button></a>
 						<a href="${root }/restaurant/register"><button
 								class="btn btn-outline-info my-2 my-sm-0" type="button">등록</button></a>
 					</div>
@@ -163,7 +166,13 @@
 					<button class="btn btn-outline-info my-2 my-sm-0 p-2 bd-highlight"
 						type="submit">Search</button>
 				</form>
+				<c:if test="${empty list}">
+				<span style="font-size: 1em; color: Tomato;">
+				<i class="fas fa-exclamation-triangle"></i>검색한 결과가 없습니다.
+				</span></c:if>
 				<c:forEach items="${list }" var="res" varStatus="status">
+
+
 					<div class="card mb-3">
 						<div class="row no-gutters">
 							<div class="col-sm-4">
@@ -182,6 +191,7 @@
 									</p>
 									<div class="d-flex justify-content-end align-items-center mb-1 likeDislike">
 										<!-- 								 $(this).attr("data-resNo"); -->
+
 										<img data-resNo="${res.no }" id="like-img${status.count }"
 											src="${root }/resources/like_empty2.png" width="25px"
 											height="25px"><span>&nbsp; ${res.likecnt }

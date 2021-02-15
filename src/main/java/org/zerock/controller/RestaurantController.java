@@ -38,22 +38,18 @@ public class RestaurantController {
 		// req.getSession().getAttribute("authUser").getUserno();
 		int total = service.getTotal(cri);
 		RpageDTO dto = new RpageDTO(cri, total);
-
+		log.info("*****************" + list + "********************");
 		model.addAttribute("list", list);
 		model.addAttribute("page", dto);
 
 	}
 
 	@PostMapping("/register")
-	public String register(@Valid RestaurantVO restaurant, BindingResult result, RedirectAttributes rttr, @Valid AddressVO addr, HttpSession session)
-			throws Exception {
+	public String register(RestaurantVO restaurant, BindingResult result, RedirectAttributes rttr, AddressVO addr, HttpSession session) {
 		// manager == 1 세션 가져오기
 		// User authUser = (User) req.getSession().getAttribute("authUser");
 //		MemberVO user = (MemberVO) session.getAttribute("authUser");
 		
-		if(result.hasErrors()) {
-			return "/restaurant/register";
-		}
 		log.info("*************** m.name ***********" + restaurant.getMname() + "******************************");
 
 		String address = addr.getAddress1() + " " + addr.getAddress2();
