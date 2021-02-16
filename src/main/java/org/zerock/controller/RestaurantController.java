@@ -7,12 +7,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.member.MemberVO;
 import org.zerock.domain.restaurant.AddressVO;
 import org.zerock.domain.restaurant.Rcriteria;
 import org.zerock.domain.restaurant.RestaurantVO;
@@ -44,43 +44,69 @@ public class RestaurantController {
 	}
 
 	@PostMapping("/register")
-	public String register(RestaurantVO restaurant, BindingResult result, RedirectAttributes rttr, AddressVO addr, HttpSession session) {
+	public String register(RestaurantVO restaurant, BindingResult result, RedirectAttributes rttr, AddressVO addr, HttpSession session) throws Exception {
 		// manager == 1 세션 가져오기
 		// User authUser = (User) req.getSession().getAttribute("authUser");
 //		MemberVO user = (MemberVO) session.getAttribute("authUser");
 		
 		log.info("*************** m.name ***********" + restaurant.getMname() + "******************************");
-
-		String address = addr.getAddress1() + " " + addr.getAddress2();
-		log.info("**************************" + address + "******************************");
+		MemberVO user = (MemberVO) session.getAttribute("authUser");
 		
-		
-		
-//		if (user.getManager() == 1) {
+		if (user.getManager() == 1) {
+			String address = addr.getAddress1() + " " + addr.getAddress2();
+			log.info("**************************" + address + "******************************");
 			restaurant.setRloc(address);
 			log.info("**************************" + restaurant + "******************************");
 			service.register(restaurant);
-			rttr.addFlashAttribute("result", restaurant.getNo());
+			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", restaurant.getNo() + "번 글이 등록되었습니다");
-//		}
+		}
 
 		return "redirect:/restaurant/list";
 	}
 
 
 	@GetMapping("/register")
-	public void register(@ModelAttribute("cri") Rcriteria cri) {
-
+	public String register(@ModelAttribute("cri") Rcriteria cri, RedirectAttributes rttr, HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("authUser");
+		try {
+		if(user.getManager() == 0 || user == null) {
+			rttr.addFlashAttribute("message2", "관리자만이용 가능합니다");
+			return "redirect:/restaurant/list";
+		}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			rttr.addFlashAttribute("message2", "관리자만이용 가능합니다");
+			return "redirect:/restaurant/list";
+		}
+		return "/restaurant/register";
 	}
 
-	@GetMapping("/modify")
-	public void get(Long no, Model model, @ModelAttribute("cri") Rcriteria cri) {
+	@GetMapping("/remove")
+	public String remove(RedirectAttributes rttr) {
+		rttr.addFlashAttribute("message2", "페이지가 존재하지 않습니다");
+		return "redirect:/restaurant/list";
+	}
 
+	
+	@GetMapping("/modify")
+	public String get(Long no, Model model, @ModelAttribute("cri") Rcriteria cri,RedirectAttributes rttr, HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("authUser");
+		try {
+		if(user.getManager() == 0 || user == null) {
+			rttr.addFlashAttribute("message2", "관리자만이용 가능합니다");
+			return "redirect:/restaurant/list";
+		}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			rttr.addFlashAttribute("message2", "관리자만이용 가능합니다");
+			return "redirect:/restaurant/list";
+		}
 		RestaurantVO vo = service.read(no);
 		log.info("********* modify get *************" + vo.getRloc() + "*******************");
 
 		model.addAttribute("restaurant", vo);
-
+		return "/restaurant/modify";
 	}
 
 	@PostMapping("/remove")

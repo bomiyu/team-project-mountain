@@ -8,6 +8,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+var manager = '${authUser.manager}';
+</script>
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -18,9 +21,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-<script>
-
-</script>
 <style type="text/css">
 .address-form #sample3_address {
 	width: 370px;
@@ -43,6 +43,7 @@
 			<div class="col-1 col-md-2"></div>
 			<div class="col-10 col-md-8">
 				<form action="${root }/restaurant/register" method="post" name="register">
+				<h1>${authUser.manager }</h1>
 					<div class="form-group">
 						<label for="input1">산</label> <select name="mname"
 							class="custom-select my-1 mr-sm-2 bd-highlight"
@@ -95,21 +96,21 @@
 						rows="6" required placeholder="설명을 작성하세요"></textarea>
 					</div>
 					<div>
- <label for="file-img">이미지</label>
- <input type="file" id="file-img" name="file" />
- <div class="select_img"><img src="" /></div>
+<!--  <label for="file-img">이미지</label> -->
+<!--  <input type="file" id="file-img" name="file" /> -->
+<!--  <div class="select_img"><img src="" /></div> -->
  
- <script>
-  $("#file-img").change(function(){
-   if(this.files && this.files[0]) {
-    var reader = new FileReader;
-    reader.onload = function(data) {
-     $(".select_img img").attr("src", data.target.result).width(500);        
-    }
-    reader.readAsDataURL(this.files[0]);
-   }
-  });
- </script>
+<!--  <script> -->
+//   $("#file-img").change(function(){
+//    if(this.files && this.files[0]) {
+//     var reader = new FileReader;
+//     reader.onload = function(data) {
+//      $(".select_img img").attr("src", data.target.result).width(500);        
+//     }
+//     reader.readAsDataURL(this.files[0]);
+//    }
+//   });
+<!--  </script> -->
 </div>
 					<button type="submit" class="btn btn-primary">등록</button>
 				</form>

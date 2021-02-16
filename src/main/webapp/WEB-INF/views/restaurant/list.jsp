@@ -29,12 +29,12 @@
 	$(document).ready(
 			function() {
 
-				var result = '${result}';
 				var message = '${message}';
-				//checkModal(result);
+				var message2 = '${message2}';
+				checkModal(message2);
 				checkModal2(message);
 
-	//			history.replaceState({}, null, null);
+				history.replaceState({}, null, null);
 				history.pushState(null, document.title, location.href);  // push 
 				window.addEventListener('popstate', function(event) {    //  뒤로가기 이벤트 등록
 				    // 특정 페이지로 가고싶다면 location.href = '';
@@ -47,7 +47,11 @@
 						swal(message, "","success");
 					}
 				}
-				
+				function checkModal(message2) {
+					if (message2 && history.state == null) {
+						swal(message2, "","warning");
+					}
+				}
 				var actionForm = $("#actionForm");
 				$(".pagination a").click(
 						function(e) {
@@ -145,8 +149,10 @@
 					<div class="mr-auto p-2 bd-highlight">
 						<a href="${root }/restaurant/list"><button
 								class="btn btn-outline-info my-2 my-sm-0" type="button"><i class="far fa-list"></i>목록</button></a>
+								<c:if test="${authUser.manager == 1 }">
 						<a href="${root }/restaurant/register"><button
 								class="btn btn-outline-info my-2 my-sm-0" type="button">등록</button></a>
+								</c:if>
 					</div>
 					<select name="type" class="custom-select my-1 mr-sm-2 bd-highlight"
 						id="inlineFormCustomSelectPref">
@@ -201,7 +207,7 @@
 											height="25px"><span>&nbsp;${res.dislikecnt }</span>
 
 									</div>
-									<c:if test="${true }">
+									<c:if test="${authUser.manager == 1}">
 										<!--  ${authUser.manager == 1} -->
 										<div class="d-flex justify-content-end">
 											<c:url value="/restaurant/modify" var="modifyLink">
