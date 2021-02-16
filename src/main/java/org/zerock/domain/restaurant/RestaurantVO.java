@@ -1,6 +1,5 @@
 package org.zerock.domain.restaurant;
 
-import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 
@@ -13,7 +12,7 @@ public class RestaurantVO {
 	private String contact;
 	private String menu;
 	private String description;
-	private String img;
+	private String filename;
 	private String mname;
 	private Long likecnt;
 	private Long dislikecnt;

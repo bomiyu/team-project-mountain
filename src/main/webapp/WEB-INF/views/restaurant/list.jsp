@@ -140,7 +140,6 @@
 		<div class="row">
 			<div class="col-1 col-sm-2"></div>
 			<div class="col-10 col-sm-8 mt-3">
-			<h1>${authUser.no }</h1>
 				<form action="${root }/restaurant/list" id="searchForm"
 					class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
 					<div class="mr-auto p-2 bd-highlight">
@@ -177,7 +176,7 @@
 					<div class="card mb-3">
 						<div class="row no-gutters">
 							<div class="col-sm-4">
-								<img src="${root }/${res.img }" class="card-img" alt="..."
+								<img src="" class="card-img" alt="..."
 									style="width: 250px; height: 225px;">
 							</div>
 							<div class="col-sm-8">

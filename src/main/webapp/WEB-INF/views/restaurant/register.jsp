@@ -94,6 +94,23 @@
 						<label for="input6">설명</label><textarea class="form-control" name="description" id="input6"
 						rows="6" required placeholder="설명을 작성하세요"></textarea>
 					</div>
+					<div>
+ <label for="file-img">이미지</label>
+ <input type="file" id="file-img" name="file" />
+ <div class="select_img"><img src="" /></div>
+ 
+ <script>
+  $("#file-img").change(function(){
+   if(this.files && this.files[0]) {
+    var reader = new FileReader;
+    reader.onload = function(data) {
+     $(".select_img img").attr("src", data.target.result).width(500);        
+    }
+    reader.readAsDataURL(this.files[0]);
+   }
+  });
+ </script>
+</div>
 					<button type="submit" class="btn btn-primary">등록</button>
 				</form>
 			</div>

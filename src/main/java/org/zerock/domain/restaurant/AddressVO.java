@@ -1,6 +1,5 @@
 package org.zerock.domain.restaurant;
 
-import javax.validation.constraints.NotEmpty;
 
 import org.springframework.stereotype.Service;
 

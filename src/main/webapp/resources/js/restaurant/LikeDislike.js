@@ -2,11 +2,7 @@
 	$(document).ready(function() {
 				$("[id^=like-img]").on('click', function(event) {
 					event.preventDefault();
-
-					console.log("로그인해야함" + userno);
 					if(userno == '' || userno == null) {
-					console.log("로그인해야함");
-					console.log("로그인해야함" + userno);
 							swal({
 									  title: "로그인 후에 이용할 수 있습니다",
 									  icon: "warning",
@@ -30,20 +26,17 @@
 									}
 								});
 
-
 					} else {
-					console.log("로그인 된 상태");
-					console.log("로그인 된 상태" + userno);
 					var id = $(this).attr("id");
 					console.log(id);
 					if (this.id == 'like-img1') {
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/like_full.png");
+						$("[id^=dislike-img]").attr("src", root+"/resources/dislike_empty.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -60,10 +53,10 @@
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/like_full.png");
+						$("[id^=dislike-img]").attr("src", root+"/resources/dislike_empty.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -80,10 +73,10 @@
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/like_full.png");
+						$("[id^=dislike-img]").attr("src", root+"/resources/dislike_empty.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -100,10 +93,10 @@
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/like_full.png");
+						$("[id^=dislike-img]").attr("src", root+"/resources/dislike_empty.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -120,10 +113,10 @@
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/like_full.png");
+						$("[id^=dislike-img]").attr("src", root+"/resources/dislike_empty.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -174,14 +167,14 @@
 							var id = $(this).attr("id");
 							console.log(id);
 								if (this.id == 'dislike-img1') {
-						var userno = userno;
+						//var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/dislike_full.png");
+						$("[id^=like-img]").attr("src", root+"/resources/like_empty2.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -198,10 +191,10 @@
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/dislike_full.png");
+						$("[id^=like-img]").attr("src", root+"/resources/like_empty2.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -218,10 +211,10 @@
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/dislike_full.png");
+						$("[id^=like-img]").attr("src", root+"/resources/like_empty2.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -238,10 +231,10 @@
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/dislike_full.png");
+						$("[id^=like-img]").attr("src", root+"/resources/like_empty2.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,
@@ -255,14 +248,13 @@
 							});
 						
 					} else if (this.id == 'dislike-img5') {
-						var userno = userno;
 						var resno = $(this).attr("data-resNo");
 						console.log(resno);
 						$(this).attr("src", root+"/resources/dislike_full.png");
+						$("[id^=like-img]").attr("src", root+"/resources/like_empty2.png");
 						$.ajax({
 							url : root + '/restaurant/like',
 							type : 'post',
-							dataType : 'json',
 							data : {
 								'userno' : userno,
 								'resno' : resno,

@@ -8,7 +8,10 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-
+		<!-- 파일 전송 -->
+		<bean id="ociConfigPath" class="java.lang.String">
+			<constructor-arg value="D:/myworkspace/home/oci/config"></constructor-arg>
+		</bean>
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 
 		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
@@ -36,9 +39,6 @@
 		<constructor-arg ref="dataSource" />
 	</bean>
 
-<!-- 유효성검사 -->
-
-<bean id ="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
