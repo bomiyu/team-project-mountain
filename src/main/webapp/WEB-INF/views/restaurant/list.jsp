@@ -167,7 +167,8 @@
 						type="submit">Search</button>
 				</form>
 				<c:if test="${empty list}">
-				<span style="font-size: 1em; color: Tomato;">
+
+				<span style="font-size: 2em; color: darkgray; text-align: center">
 				<i class="fas fa-exclamation-triangle"></i>검색한 결과가 없습니다.
 				</span></c:if>
 				<c:forEach items="${list }" var="res" varStatus="status">
