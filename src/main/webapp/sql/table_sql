@@ -213,7 +213,7 @@ CREATE TABLE CONQUEST (
 
 -- restaurant view
 
-CREATE VIEW res_view AS SELECT r.no, r.mountain_no, r.rname, r.rloc, r.contact, r.menu, r.description, r.likecnt, r.dislikecnt, m.mname 
+CREATE VIEW res_view AS SELECT r.no, r.mountain_no, r.rname, r.rloc, r.contact, r.menu, r.description, r.filename, r.likecnt, r.dislikecnt, m.mname 
 FROM restaurant r, mountain m WHERE r.mountain_no = m.no;
 
 DROP view res_view;
@@ -235,3 +235,6 @@ ALTER TABLE restaurant
 add (likecnt NUMBER DEFAULT 0 not null, dislikecnt number DEFAULT 0 not null);
 
 
+-- 파일첨부 추가
+ALTER TABLE restaurant 
+add (filename varchar2(200));

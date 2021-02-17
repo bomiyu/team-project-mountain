@@ -10,12 +10,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" data-auto-replace-svg="nest"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 var result = '${result }';
 var logined = ('${authUser}' != 0);// T, F
-var isManager = ('${authUser.manager}' == 1);
+var isManager = ('${authUser.manager}' == 1);// T, F
+var canReply = ('${notice.reply}' == 1);// T, F
 
 var root = '${root}';
 var no = '${notice.no }';
@@ -31,7 +32,7 @@ var no = '${notice.no }';
 		<div class="col-12 col-md-6 offset-md-3">
 			<h3 class="text-center">공지/이벤트</h3>
 			<br>
-			<form id="deleteForm" action="${root }/notice/delete?no=${notice.no}" method="post">
+			<form id="removeForm" action="${root }/notice/remove?no=${notice.no}" method="post">
 			<%--
 			  <div class="form-group">
 			    <label for="no">글 번호</label>
@@ -74,24 +75,96 @@ var no = '${notice.no }';
 			    <label for="content">내용</label>
 			    <textarea class="form-control" name="content" id="content" rows="10" readonly>${notice.content }</textarea>
 			  </div>
-			  <button id="deleteBtn" class="btn btn-danger float-right">삭제</button>
+			  <button id="removeBtn" class="btn btn-danger float-right">삭제</button>
 			</form>	
-			<a id="modifyBtn" class="btn btn-primary float-right mr-1">수정</a>
-			<a href="${root }/notice/list" class="btn btn-success">목록</a>
+			
+			<input type="hidden" id="keyword" value="${cri.keyword }" />
+			<input type="hidden" id="curPage" value="${cri.curPage }" />
+			<input type="hidden" id="amount" value="${cri.amount }" />			
+			
+			<c:url var="modUrl" value="/notice/modify">
+				<c:param name="no" value="${notice.no }"></c:param>
+				<c:param name="category" value="${cri.category }"></c:param>
+				<c:param name="keyword" value="${cri.keyword }"></c:param>
+				<c:param name="curPage" value="${cri.curPage }"></c:param>
+				<c:param name="amount" value="${cri.amount }"></c:param>
+			</c:url>
+			<a id="modifyBtn" href="${modUrl }" class="btn btn-primary float-right mr-1">수정</a>
+			
+			<c:url var="listUrl" value="/notice/list">
+				<c:param name="no" value="${notice.no }"></c:param>
+				<c:param name="category" value="${cri.category }"></c:param>
+				<c:param name="keyword" value="${cri.keyword }"></c:param>
+				<c:param name="curPage" value="${cri.curPage }"></c:param>
+				<c:param name="amount" value="${cri.amount }"></c:param>
+			</c:url>
+			<a href="${listUrl }" class="btn btn-success">목록</a>
 		</div>
 	</div>
 	
 	<hr>
-	<%-- Reply --%>
+	<%-- new Reply --%>
 	<div class="row m-3">
 		<div class="col-md-8 offset-md-2">
-			<form method="post" id="replyForm">
+			<form id="replyForm" action="${root }/nreplies/new" method="post">
 			  <div class="d-flex justify-content-between align-items-center">
-				<label for="content">${authUser.nickname }</label>
+				<label for="reply">${authUser.nickname }</label>
 				<input type="text" class="form-control mx-1" name="reply" id="reply">
-				<button class="btn btn-light float-right" id="newReplyBtn">등록</button>
+				<input type="hidden" name="notice_no" id="notice_no" value="${notice.no }">
+				<input type="hidden" name="member_no" id="member_no" value="${authUser.no }">
+				<%--
+				<input type="hidden" id="keyword" value="${cri.keyword }" />
+				<input type="hidden" id="curPage" value="${cri.curPage }" />
+				<input type="hidden" id="amount" value="${cri.amount }" />
+				 --%>
 			  </div>
 			</form>
+			<button class="btn btn-light float-right" id="newReplyBtn">등록</button>
+		</div>
+	</div>
+	<%-- Reply List --%>
+	<div class="row m-3" id="replyList">
+		<div class="col-md-8 offset-md-2">
+			<table class="table">
+			  <tbody id="replyTable">
+			  
+			  <!--
+			 
+			    <tr>
+			      <td>
+			      	<div>닉네임<small class="float-right">5일 전</small></div>
+			      	<div>댓글 ㅇ어쩌고 저쩌고</div>
+			      	<div> <%-- 대댓글존 --%>
+			      		<hr>
+		      			<div><i class="fas fa-reply mr-2" data-fa-transform="rotate-180" style="color:lightgrey"></i>미요<small class="float-right">5일 전</small></div>
+		      			<div>대댓글임</div>
+			      		<hr>
+			      		<div><i class="fas fa-reply" data-fa-transform="rotate-180" style="color:lightgrey"></i>하이<small class="float-right">4일 전</small></div>
+		      			<div>나도임</div>
+			      	</div>
+			      </td>
+			    </tr>
+			    
+			    <tr>
+			      <td>
+			      	<div>닉네임<small class="float-right">3시간 전</small></div>
+			      	<div>댓글 ㅇ어쩌고 저쩌고</div>
+			      	<div> <%-- 대댓글존 --%>
+			      		<hr>
+		      			<div><i class="fas fa-reply" data-fa-transform="rotate-180" style="color:lightgrey"></i>미요<small class="float-right">3시간 전</small></div>
+		      			<div>대댓글임</div>
+		      			<div class="ml-2">
+		      				<hr>
+				      		<div><i class="fas fa-reply" data-fa-transform="rotate-180" style="color:lightgrey"></i>하이<small class="float-right">1시간 전</small></div>
+			      			<div>나는 대대댓글</div>		      			
+		      			</div>
+			      	</div>
+			      </td>
+			    </tr>
+			      -->
+			      
+			  </tbody>
+			</table>
 		</div>
 	</div>
 </div>

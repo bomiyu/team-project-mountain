@@ -50,7 +50,7 @@
     <label for="input3">지역</label>
 <p>
 <input type="hidden" id="sample3_postcode" placeholder="우편번호">
-<input type="text" name="address1" id="sample3_address" value="${restaurant.rloc }">
+<input type="text" name="address1" id="sample3_address" value="${restaurant.rloc }" required/>
 <input type="text" name="address2" id="sample3_detailAddress" value="">
 <input type="hidden" name="address3" id="sample3_extraAddress" placeholder="참고항목">
 <input type="button" onclick="sample3_execDaumPostcode()" id="address_btn" value="검색" id="input3"><br>
@@ -63,18 +63,33 @@
   </div>
     <div class="form-group">
     <label for="input4">연락처</label>
-    <input type="text" class="form-control" id="input4" name="contact" value="${restaurant.contact }">
+    <input type="text" class="form-control" id="input4" name="contact" value="${restaurant.contact }" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" required>
   </div>
       <div class="form-group">
     <label for="input5">메뉴</label>
-    <input type="text" class="form-control" id="input5" name="menu" value="${restaurant.menu }">
+    <input type="text" class="form-control" id="input5" name="menu" value="${restaurant.menu }"  required>
   </div>
         <div class="form-group">
     <label for="input6">설명</label>
     						<label for="input6">설명</label><textarea class="form-control" name="description" id="input6"
-						rows="6" >${restaurant.description }</textarea>
+						rows="6"   required>${restaurant.description }</textarea>
 
   </div>
+   <label for="file-img">이미지</label> 
+ <input type="file" id="file-img" name="file" />
+ <div class="select_img"><img src="" /></div> 
+ <script> 
+   $("#file-img").change(function(){
+    if(this.files && this.files[0]) {
+     var reader = new FileReader;
+     reader.onload = function(data) {
+      $(".select_img img").attr("src", data.target.result).width(200);        
+     }
+    reader.readAsDataURL(this.files[0]);
+    }
+  });
+  </script> 
+</div>
   <button type="submit" class="btn btn-primary">확인</button>
   								<c:url value="/restaurant/list" var="listLink">
 									<c:param name="pageNo" value="${cri.pageNo}" />

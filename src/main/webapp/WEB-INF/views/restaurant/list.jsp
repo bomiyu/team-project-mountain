@@ -148,7 +148,7 @@
 					class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
 					<div class="mr-auto p-2 bd-highlight">
 						<a href="${root }/restaurant/list"><button
-								class="btn btn-outline-info my-2 my-sm-0" type="button"><i class="far fa-list"></i>목록</button></a>
+								class="btn btn-outline-info my-2 my-sm-0" type="button">목록</button></a>
 								<c:if test="${authUser.manager == 1 }">
 						<a href="${root }/restaurant/register"><button
 								class="btn btn-outline-info my-2 my-sm-0" type="button">등록</button></a>
@@ -182,7 +182,7 @@
 					<div class="card mb-3">
 						<div class="row no-gutters">
 							<div class="col-sm-4">
-								<img src="" class="card-img" alt="..."
+								<img src="${staticPath }/${res.filename}" class="card-img" alt="..."
 									style="width: 250px; height: 225px;">
 							</div>
 							<div class="col-sm-8">

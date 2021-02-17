@@ -42,8 +42,7 @@ var manager = '${authUser.manager}';
 		<div class="row">
 			<div class="col-1 col-md-2"></div>
 			<div class="col-10 col-md-8">
-				<form action="${root }/restaurant/register" method="post" name="register">
-				<h1>${authUser.manager }</h1>
+				<form action="${root }/restaurant/register" method="post" name="register" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="input1">산</label> <select name="mname"
 							class="custom-select my-1 mr-sm-2 bd-highlight"
@@ -85,7 +84,7 @@ var manager = '${authUser.manager}';
 					</div>
 					<div class="form-group">
 						<label for="input4">연락처</label> <input type="text"
-							class="form-control" id="input4" name="contact" required placeholder="연락처를 작성하세요">
+							class="form-control" id="input4" name="contact" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" required placeholder="ex) 000-0000-0000로 작성하세요">
 					</div>
 					<div class="form-group">
 						<label for="input5">메뉴</label> <input type="text"
@@ -96,21 +95,20 @@ var manager = '${authUser.manager}';
 						rows="6" required placeholder="설명을 작성하세요"></textarea>
 					</div>
 					<div>
-<!--  <label for="file-img">이미지</label> -->
-<!--  <input type="file" id="file-img" name="file" /> -->
-<!--  <div class="select_img"><img src="" /></div> -->
- 
-<!--  <script> -->
-//   $("#file-img").change(function(){
-//    if(this.files && this.files[0]) {
-//     var reader = new FileReader;
-//     reader.onload = function(data) {
-//      $(".select_img img").attr("src", data.target.result).width(500);        
-//     }
-//     reader.readAsDataURL(this.files[0]);
-//    }
-//   });
-<!--  </script> -->
+ <label for="file-img">이미지</label> 
+ <input type="file" id="file-img" name="file" />
+ <div class="select_img"><img src="" /></div> 
+ <script> 
+   $("#file-img").change(function(){
+    if(this.files && this.files[0]) {
+     var reader = new FileReader;
+     reader.onload = function(data) {
+      $(".select_img img").attr("src", data.target.result).width(200);        
+     }
+    reader.readAsDataURL(this.files[0]);
+    }
+  });
+  </script> 
 </div>
 					<button type="submit" class="btn btn-primary">등록</button>
 				</form>

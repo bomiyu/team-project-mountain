@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.member.MemberVO;
 import org.zerock.domain.restaurant.AddressVO;
 import org.zerock.domain.restaurant.Rcriteria;
 import org.zerock.domain.restaurant.RestaurantVO;
 import org.zerock.domain.restaurant.RpageDTO;
+import org.zerock.service.like.LikeService;
+import org.zerock.service.restaurant.RFileUpService;
 import org.zerock.service.restaurant.RestaurantService;
 
 import lombok.AllArgsConstructor;
@@ -28,6 +31,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class RestaurantController {
 	private RestaurantService service;
+	private RFileUpService fileUpSvc;
 
 	@GetMapping("/list")
 	public void list(Model model, @ModelAttribute("cri") Rcriteria cri) {
@@ -44,7 +48,7 @@ public class RestaurantController {
 	}
 
 	@PostMapping("/register")
-	public String register(RestaurantVO restaurant, BindingResult result, RedirectAttributes rttr, AddressVO addr, HttpSession session) throws Exception {
+	public String register(RestaurantVO restaurant, MultipartFile file, RedirectAttributes rttr, AddressVO addr, HttpSession session) throws Exception {
 		// manager == 1 세션 가져오기
 		// User authUser = (User) req.getSession().getAttribute("authUser");
 //		MemberVO user = (MemberVO) session.getAttribute("authUser");
@@ -52,12 +56,22 @@ public class RestaurantController {
 		log.info("*************** m.name ***********" + restaurant.getMname() + "******************************");
 		MemberVO user = (MemberVO) session.getAttribute("authUser");
 		
+		restaurant.setFilename("");
 		if (user.getManager() == 1) {
 			String address = addr.getAddress1() + " " + addr.getAddress2();
 			log.info("**************************" + address + "******************************");
 			restaurant.setRloc(address);
 			log.info("**************************" + restaurant + "******************************");
 			service.register(restaurant);
+			if(file != null) {
+				restaurant.setFilename("restaurant_"+restaurant.getNo()+"_"+file.getOriginalFilename());
+				service.modify(restaurant);
+				try {
+					fileUpSvc.transfer(file, restaurant.getFilename());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+			}
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", restaurant.getNo() + "번 글이 등록되었습니다");
 		}
@@ -116,10 +130,11 @@ public class RestaurantController {
 //			rttr.addFlashAttribute("result", "success");
 //			rttr.addFlashAttribute("message", no + "번 글이 삭제되었습니다");
 //		}
-//		MemberVO user = (MemberVO) session.getAttribute("authUser");
-//		if (user.getManager() == 1) {
+		MemberVO user = (MemberVO) session.getAttribute("authUser");
+		if (user.getManager() == 1) {
 			service.remove(no);
-//		}
+
+			}
 			rttr.addAttribute("pageNo", cri.getPageNo());
 			rttr.addAttribute("amount", cri.getAmount());
 			rttr.addAttribute("type", cri.getType());

@@ -31,7 +31,9 @@ public class MountainListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce)  { 
     	// Context Root -> Application 영역에 추가
     	ServletContext application = sce.getServletContext();
+    	
     	application.setAttribute("root", application.getContextPath());
+    	application.setAttribute("staticPath", "https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnkghg76rfem/b/bucket-20210216-1420/o");
     }
 	
 }
