@@ -30,6 +30,14 @@
       <li class="nav-item">
         <a class="nav-link" href="${root}/restaurant/list">맛집게시판</a>
       </li>
+           <li class="nav-item">
+        <a class="nav-link" href="${root}/place/list">명소게시판</a>
+      </li>
+      <c:if test="${authUser.manager == 1 }">
+                 <li class="nav-item">
+        <a class="nav-link" href="${root}/admin/index">관리자페이지</a>
+      </li>
+      </c:if>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

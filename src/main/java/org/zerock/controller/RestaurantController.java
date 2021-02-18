@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.member.MemberVO;
-import org.zerock.domain.restaurant.AddressVO;
+import org.zerock.domain.restaurant.RAddressVO;
 import org.zerock.domain.restaurant.Rcriteria;
 import org.zerock.domain.restaurant.RestaurantVO;
 import org.zerock.domain.restaurant.RpageDTO;
-import org.zerock.service.like.LikeService;
 import org.zerock.service.restaurant.RFileUpService;
 import org.zerock.service.restaurant.RestaurantService;
 
@@ -49,7 +47,7 @@ public class RestaurantController {
 	}
 
 	@PostMapping("/register")
-	public String register(RestaurantVO restaurant, MultipartFile file, RedirectAttributes rttr, AddressVO addr, HttpSession session) throws Exception {
+	public String register(RestaurantVO restaurant, MultipartFile file, RedirectAttributes rttr, RAddressVO addr, HttpSession session) throws Exception {
 		// manager == 1 세션 가져오기
 		// User authUser = (User) req.getSession().getAttribute("authUser");
 //		MemberVO user = (MemberVO) session.getAttribute("authUser");
@@ -147,7 +145,7 @@ public class RestaurantController {
 	@PostMapping("/modify")
 	// manager 세션 가져오기
 	public String modify(RestaurantVO restaurant, RedirectAttributes rttr, Rcriteria cri, HttpSession session,
-			AddressVO addr, MultipartFile file, HttpServletRequest req) throws Exception {
+			RAddressVO addr, MultipartFile file, HttpServletRequest req) throws Exception {
 		String address = addr.getAddress1() + " " + addr.getAddress2();
 		RestaurantVO vo = new RestaurantVO();
 		vo = service.read(restaurant.getNo());

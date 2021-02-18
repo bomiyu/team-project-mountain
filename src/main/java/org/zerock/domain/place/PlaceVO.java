@@ -5,9 +5,10 @@ import lombok.Data;
 @Data
 public class PlaceVO {
 	private Long no;
-	private String ename;
+	private String pname;
 	private String description;
 	private String ploc;
 	private Long mountain_no;
 	private String filename;
+	private String mname;
 }

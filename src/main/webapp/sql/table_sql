@@ -238,3 +238,19 @@ add (likecnt NUMBER DEFAULT 0 not null, dislikecnt number DEFAULT 0 not null);
 -- 파일첨부 추가
 ALTER TABLE restaurant 
 add (filename varchar2(200));
+
+ALTER TABLE place
+add (filename varchar2(200));
+
+-- place view 추가
+CREATE VIEW place_view AS SELECT p.no, p.mountain_no, p.pname, p.ploc, p.description, p.filename, m.mname 
+FROM place p, mountain m WHERE p.mountain_no = m.no;
+
+CREATE TABLE place(
+no number primary key not null,
+pname varchar2(45) not null,
+description varchar2(1000) not null,
+ploc varchar2(200) not null,
+filename varchar2(200),
+mountain_no number not null
+);

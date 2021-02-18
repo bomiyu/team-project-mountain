@@ -23,18 +23,10 @@ var manager = '${authUser.manager}';
 <link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
 <script type="text/javascript">
 history.replaceState({}, null, null);
-history.pushState(null, null, location.href);
 
 
 </script>
 <style type="text/css">
-.address-form #sample3_address {
-	width: 370px;
-}
-
-.address-form #sample3_detailAddress {
-	width: none;
-}
 
 #wrap {
 	width: 350px;
@@ -49,7 +41,7 @@ history.pushState(null, null, location.href);
 
 		<div class="row">
 			<div class="col-12 col-sm-6 offset-sm-3">
-				<form action="${root }/restaurant/register" method="post" name="register" enctype="multipart/form-data">
+				<form action="${root }/place/register" method="post" name="register" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="input1">산</label> <select name="mname"
 							class="custom-select my-1 mr-sm-2 bd-highlight"
@@ -63,42 +55,16 @@ history.pushState(null, null, location.href);
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="input2">상호</label> <input type="text"
-							class="form-control" id="input2" name="rname" required placeholder="상호를 작성하세요">
+						<label for="input2">명소</label> <input type="text"
+							class="form-control" id="input2" name="pname" required placeholder="명소이름을 작성하세요">
 					</div>
 					<div class="form-group address-form">
-						<label for="sample3_address">주소</label>
-						<p>
-							<input type="hidden" id="sample3_postcode" placeholder="우편번호">
-							<input type="text" name="address1" id="sample3_address"
-								required placeholder="주소를 작성하세요"> <input type="text" name="address2"
-								id="sample3_detailAddress" placeholder="상세주소"> <input
-								type="hidden" name="address3" id="sample3_extraAddress"
-								placeholder="참고항목"> <input type="button"
-								onclick="sample3_execDaumPostcode()" value="주소찾기" id="input3"><br>
-						</p>
-						<div id="wrap"
-							style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
-							<img src="//t1.daumcdn.net/postcode/resource/images/close.png"
-								id="btnFoldWrap"
-								style="cursor: pointer; position: absolute; right: 0px; top: -1px; z-index: 1"
-								onclick="foldDaumPostcode()" alt="접기 버튼">
+						<label for="input3">주소</label>
+						<input type="text"
+							class="form-control" id="input3" name="ploc" required placeholder="주소를 작성하세요">
 						</div>
-						<script
-							src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-						<script type="text/javascript"
-							src="${root }/resources/js/restaurant/addressAPI.js"></script>
-					</div>
 					<div class="form-group">
-						<label for="input4">연락처</label> <input type="text"
-							class="form-control" id="input4" name="contact" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" required placeholder="ex) 000-0000-0000로 작성하세요">
-					</div>
-					<div class="form-group">
-						<label for="input5">메뉴</label> <input type="text"
-							class="form-control" id="input5" name="menu" required placeholder="메뉴를 작성하세요">
-					</div>
-					<div class="form-group">
-						<label for="input6">설명</label><textarea class="form-control" name="description" id="input6"
+						<label for="input4">설명</label><textarea class="form-control" name="description" id="input4"
 						rows="6" required placeholder="설명을 작성하세요"></textarea>
 					</div>
 					<div>
