@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%-- <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%> --%>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -24,6 +24,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript"
 	src="${root }/resources/js/restaurant/LikeDislike.js"></script>
+	<link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
 
 <script>
 	$(document).ready(
@@ -137,13 +138,14 @@
 }
 
 </style>
-<title>Insert title here</title>
+<title>산산산</title>
 </head>
 <body>
-	<div class="container-sm mt-3">
+		<u:topNav/>
+	<div class="container-sm">
+
 		<div class="row">
-			<div class="col-1 col-sm-2"></div>
-			<div class="col-10 col-sm-8 mt-3">
+			<div class="col-12 col-sm-6 offset-sm-3">
 				<form action="${root }/restaurant/list" id="searchForm"
 					class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
 					<div class="mr-auto p-2 bd-highlight">
@@ -249,7 +251,6 @@
 									<c:param name="keyword" value="${page.cri.keyword }" />
 								</c:url>
 								<li class="page-item">
-									<%-- <a class="page-link" href="${prevLink }">Previous</a> --%>
 									<a class="page-link" href="${page.startPage -1 }">Previous</a>
 								</li>
 							</c:if>
@@ -263,7 +264,6 @@
 									<c:param name="keyword" value="${page.cri.keyword }" />
 								</c:url>
 								<li class="page-item ${page.cri.pageNo eq num ? 'active' : '' }">
-									<%-- <a class="page-link" href="${pageLink }">${num }</a> --%>
 									<a class="page-link" href="${num }">${num }</a>
 								</li>
 							</c:forEach>
@@ -276,8 +276,7 @@
 									<c:param name="keyword" value="${page.cri.keyword }" />
 								</c:url>
 								<li class="page-item">
-									<%-- <a class="page-link" href="${nextLink }">Next</a> --%> <a
-									class="page-link" href="${page.endPage +1 }">Next</a>
+									<a class="page-link" href="${page.endPage +1 }">Next</a>
 								</li>
 							</c:if>
 						</ul>
@@ -315,6 +314,7 @@
 				value="${page.cri.type }" /> <input name="keyword"
 				value="${page.cri.keyword }" /> <input type="submit" />
 		</form>
+		</div>
 	</div>
 	</div>
 </body>

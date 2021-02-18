@@ -2,6 +2,7 @@ package org.zerock.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -118,7 +119,7 @@ public class RestaurantController {
 		}
 		RestaurantVO vo = service.read(no);
 		log.info("********* modify get *************" + vo.getRloc() + "*******************");
-
+		log.info("********* modify get *************" + vo.getFilename() + "*******************");
 		model.addAttribute("restaurant", vo);
 		return "/restaurant/modify";
 	}
@@ -146,20 +147,34 @@ public class RestaurantController {
 	@PostMapping("/modify")
 	// manager 세션 가져오기
 	public String modify(RestaurantVO restaurant, RedirectAttributes rttr, Rcriteria cri, HttpSession session,
-			AddressVO addr) throws Exception {
+			AddressVO addr, MultipartFile file, HttpServletRequest req) throws Exception {
 		String address = addr.getAddress1() + " " + addr.getAddress2();
+		RestaurantVO vo = new RestaurantVO();
+		vo = service.read(restaurant.getNo());
 		log.info(restaurant);
 		log.info("****************    address   **********" + address + "******************************");
-//		MemberVO user = (MemberVO) session.getAttribute("authUser");
-//		if (user.getManager() == 1) {
-
+		log.info("****************    filename   **********" + file.getOriginalFilename() + "******************************");
+		log.info("****************    vo.filename   **********" + vo.getFilename() + "******************************");
+		MemberVO user = (MemberVO) session.getAttribute("authUser");
+		if (user.getManager() == 1) {
 			restaurant.setRloc(address);
-
-			if (service.modify(restaurant)) {
+			if(file.getOriginalFilename() != null || file.getOriginalFilename() != "" || file.getOriginalFilename().equals(vo.getFilename())) {
+				restaurant.setFilename("restaurant_"+restaurant.getNo()+"_"+file.getOriginalFilename());
+				service.modify(restaurant);
+				rttr.addFlashAttribute("result", "success");
+				rttr.addFlashAttribute("message", restaurant.getNo() + "번 글이 수정되었습니다");
+				try {
+					fileUpSvc.transfer(file, restaurant.getFilename());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+			} else {
+				restaurant.setFilename(vo.getFilename());
+				service.modify(restaurant);
 				rttr.addFlashAttribute("result", "success");
 				rttr.addFlashAttribute("message", restaurant.getNo() + "번 글이 수정되었습니다");
 			}
-//		}
+		}
 		rttr.addAttribute("pageNo", cri.getPageNo());
 		rttr.addAttribute("amount", cri.getAmount());
 		rttr.addAttribute("type", cri.getType());

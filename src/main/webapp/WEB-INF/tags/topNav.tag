@@ -25,10 +25,10 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">자유게시판</a>
+        <a class="nav-link" href="${root }/freeboard/list">자유게시판</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">맛집게시판</a>
+        <a class="nav-link" href="${root}/restaurant/list">맛집게시판</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
