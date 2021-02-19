@@ -36,7 +36,6 @@
 				checkModal2(message);
 
 				history.replaceState({}, null, null);
-				history.pushState(null, null, location.href);
 				
 				function checkModal2(message) {
 					if (message && history.state == null) {
@@ -57,7 +56,6 @@
 									$(this).attr('href'));
 
 							actionForm.submit();
-
 						});
 				
 				var removeForm = $("#removeForm");
@@ -115,7 +113,6 @@
 .card mb-3 div {
 	max-width: auto;
 	max-height: 250px;
-	"
 }
 
 .col-md-4 {

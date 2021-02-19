@@ -34,12 +34,6 @@
 				checkModal2(message);
 
 				history.replaceState({}, null, null);
-				history.pushState(null, document.title, location.href);  // push 
-				window.addEventListener('popstate', function(event) {    //  뒤로가기 이벤트 등록
-				    // 특정 페이지로 가고싶다면 location.href = '';
-				   history.pushState(null, document.title, location.href);  // 다시 push함으로 뒤로가기 Block
-				   location.href = root + '/place/list';
-				});
 
 				function checkModal2(message) {
 					if (message && history.state == null) {

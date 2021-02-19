@@ -23,7 +23,6 @@ var manager = '${authUser.manager}';
 <link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
 <script type="text/javascript">
 history.replaceState({}, null, null);
-history.pushState(null, null, location.href);
 
 
 </script>
@@ -71,7 +70,7 @@ history.pushState(null, null, location.href);
 						<p>
 							<input type="hidden" id="sample3_postcode" placeholder="우편번호">
 							<input type="text" name="address1" id="sample3_address"
-								required placeholder="주소를 작성하세요"> <input type="text" name="address2"
+								required placeholder="주소를 작성하세요" style="width: 100%;"> <input type="text" name="address2"
 								id="sample3_detailAddress" placeholder="상세주소"> <input
 								type="hidden" name="address3" id="sample3_extraAddress"
 								placeholder="참고항목"> <input type="button"

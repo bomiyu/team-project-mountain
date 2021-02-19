@@ -77,7 +77,7 @@ history.replaceState({}, null, null);
 						<p>
 							<input type="hidden" id="sample3_postcode" placeholder="우편번호">
 							<input type="text" name="address1" id="sample3_address"
-								value="${restaurant.rloc }" required /> <input type="text"
+								value="${restaurant.rloc }" required style="width: 100%;"/> <input type="text"
 								name="address2" id="sample3_detailAddress" value=""> <input
 								type="hidden" name="address3" id="sample3_extraAddress"
 								placeholder="참고항목"> <input type="button"
