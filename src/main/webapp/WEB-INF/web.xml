@@ -13,6 +13,7 @@
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
+		<listener-class>org.zerock.listener.VisiteSessionListener</listener-class>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>

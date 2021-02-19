@@ -32,6 +32,8 @@ $(document).ready(function() {
    <div class="row">
       <div class="col-12 col-sm-6 offset-sm-3">
 	<header>
+	총방문 : ${sessionScope.totalCnt }
+	오늘 방문 : ${sessionScope.todayCnt }
 	<ul class="nav nav-tabs">
   <li class="nav-item">
    <button class="nav-link" data-href="${root }/notice/register">공지 등록</button>
