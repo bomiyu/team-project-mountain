@@ -20,6 +20,9 @@ SELECT no FROM mountain WHERE mname LIKE '%' || #{mname} || '%'
 				<when test="type == 'L'.toString()">
 					ploc LIKE '%' || #{keyword} || '%'
 				</when>
+				<when test="type == 'D'.toString()">
+					description LIKE '%' || #{keyword} || '%'
+				</when>
 			</choose>
 		</foreach>
 	</where>

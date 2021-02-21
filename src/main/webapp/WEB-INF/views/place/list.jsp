@@ -139,7 +139,7 @@
 
 		<div class="row">
 			<div class="col-12 col-sm-6 offset-sm-3">
-				<form action="${root }/restaurant/list" id="searchForm"
+				<form action="${root }/place/list" id="searchForm"
 					class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
 					<div class="mr-auto p-2 bd-highlight">
 						<a href="${root }/restaurant/list"><button
@@ -154,7 +154,7 @@
 						aria-label="Search" required="required"> <input
 						type="hidden" name="pageNo" value="1" /> <input type="hidden"
 						name="amount" value="${page.cri.amount }" /> <input type="hidden"
-						name="type" value="MNL" />
+						name="type" value="MNLD" />
 
 					<button class="btn btn-outline-info my-2 my-sm-0 p-2 bd-highlight"
 						type="submit">검색</button>

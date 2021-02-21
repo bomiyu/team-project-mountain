@@ -254,3 +254,6 @@ ploc varchar2(200) not null,
 filename varchar2(200),
 mountain_no number not null
 );
+
+-- 방문자 수
+CREATE TABLE visit (vdate DATE NOT NULL);

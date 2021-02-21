@@ -148,19 +148,12 @@
 								class="btn btn-outline-info my-2 my-sm-0" type="button">등록</button></a>
 								</c:if>
 					</div>
-					<select name="type" class="custom-select my-1 mr-sm-2 bd-highlight"
-						id="inlineFormCustomSelectPref">
-						<option value="M" ${page.cri.type eq 'M' ? 'selected' : ''}>산</option>
-						<option value="L" ${page.cri.type eq 'L' ? 'selected' : ''}>지역</option>
-						<option value="ML" ${page.cri.type eq 'ML' ? 'selected' : ''}>산
-							+ 지역</option>
-						<option value="N" ${page.cri.type eq 'N' ? 'selected' : ''}>상호</option>
-						<option value="F" ${pager.cri.type eq 'F' ? 'selected' : ''}>메뉴</option>
-					</select> <input class="form-control mr-sm-2 p-2 bd-highlight" type="search"
+						<input class="form-control mr-sm-2 p-2 bd-highlight" type="search"
 						name="keyword" value="${page.cri.keyword }" placeholder="Search"
 						aria-label="Search" required="required"> <input
 						type="hidden" name="pageNo" value="1" /> <input type="hidden"
 						name="amount" value="${page.cri.amount }" />
+						<input type="hidden" name="type" value="MNLFD" />
 
 					<button class="btn btn-outline-info my-2 my-sm-0 p-2 bd-highlight"
 						type="submit">검색</button>
@@ -236,12 +229,6 @@
 						<ul class="pagination">
 
 							<c:if test="${page.prev }">
-								<c:url value="/restaurant/list" var="prevLink">
-									<c:param value="${page.startPage -1 }" name="pageNo" />
-									<c:param value="${page.cri.amount }" name="amount" />
-									<c:param name="type" value="${page.cri.type }" />
-									<c:param name="keyword" value="${page.cri.keyword }" />
-								</c:url>
 								<li class="page-item">
 									<a class="page-link" href="${page.startPage -1 }">Previous</a>
 								</li>
@@ -249,24 +236,14 @@
 
 							<c:forEach var="num" begin="${page.startPage }"
 								end="${page.endPage }">
-								<c:url value="/restaurant/list" var="pageLink">
-									<c:param name="pageNo" value="${num }" />
-									<c:param name="amount" value="${page.cri.amount }" />
-									<c:param name="type" value="${page.cri.type }" />
-									<c:param name="keyword" value="${page.cri.keyword }" />
-								</c:url>
+
 								<li class="page-item ${page.cri.pageNo eq num ? 'active' : '' }">
 									<a class="page-link" href="${num }">${num }</a>
 								</li>
 							</c:forEach>
 
 							<c:if test="${page.next }">
-								<c:url value="/restaurant/list" var="nextLink">
-									<c:param name="pageNo" value="${page.endPage +1 }" />
-									<c:param name="amount" value="${page.cri.amount }" />
-									<c:param name="type" value="${page.cri.type }" />
-									<c:param name="keyword" value="${page.cri.keyword }" />
-								</c:url>
+
 								<li class="page-item">
 									<a class="page-link" href="${page.endPage +1 }">Next</a>
 								</li>

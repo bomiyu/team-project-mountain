@@ -50,6 +50,9 @@ $(document).ready(function() {
     <li class="nav-item">
     <button class="nav-link" data-href="${root }/restaurant/register">맛집 등록</button>
   </li>
+      <li class="nav-item">
+    <button class="nav-link" data-href="${root }/admin/list">회원 조회</button>
+  </li>
 </ul>
 	</header>
 	<section>
