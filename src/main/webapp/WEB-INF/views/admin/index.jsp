@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="cu" tagdir="/WEB-INF/tags/admin"%>
 
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,7 @@ $(document).ready(function() {
 		console.log(link);
 		$("#iframe-link").attr("src", link);
 	});
-	
+
 });
 
 </script>
@@ -32,7 +33,7 @@ $(document).ready(function() {
    <div class="row">
       <div class="col-12 col-sm-6 offset-sm-3">
 	<header>
-	총방문 : ${total }&nbsp;&nbsp;오늘 방문 : ${today }
+	총 방문자 : ${total }&nbsp;&nbsp;오늘 방문자 : ${today }&nbsp;&nbsp;총 회원수 : ${memberCnt }
 	<ul class="nav nav-tabs">
   <li class="nav-item">
    <button class="nav-link" data-href="${root }/notice/register">공지 등록</button>
@@ -55,9 +56,10 @@ $(document).ready(function() {
 </ul>
 	</header>
 	<section>
-		<div class="mt-2" id="container_box">
+ 		<div class="mt-2" id="container_box"> 
 		<iframe src="" id="iframe-link" width="100%" height="900px" 
 		frameborder="0" framespacing="0" marginheight="0" marginwidth="0" vspace="0"></iframe>
+
 		</div>
 	</section>
       </div>

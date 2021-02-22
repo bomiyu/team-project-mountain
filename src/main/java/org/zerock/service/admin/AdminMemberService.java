@@ -11,4 +11,7 @@ public interface AdminMemberService {
 	public int getTotal(Acriteria cri);
 	
 	public AdminMemberVO getMember(Long no);
+	
+	public int getMemberCnt();
+
 }

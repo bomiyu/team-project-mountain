@@ -16,7 +16,7 @@ import lombok.extern.log4j.Log4j;
 public class AdminMemberServiceImpl implements AdminMemberService {
 
 	private AdminMemberMapper mapper;
-	
+
 	@Override
 	public List<AdminMemberVO> getList(Acriteria cri) {
 		return mapper.getMemberListPaging(cri);
@@ -30,6 +30,12 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	@Override
 	public AdminMemberVO getMember(Long no) {
 		return mapper.getMember(no);
+	}
+
+	@Override
+	public int getMemberCnt() {
+		return mapper.getMemberCnt();
+
 	}
 
 }

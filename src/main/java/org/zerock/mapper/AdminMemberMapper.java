@@ -12,5 +12,8 @@ public interface AdminMemberMapper {
 	public AdminMemberVO getMember(Long no);
 	
 	public int getMemberTotalCnt(Acriteria cri);
+
+	public int getMemberCnt();
+
 	
 }

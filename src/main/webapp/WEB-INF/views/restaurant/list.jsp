@@ -149,7 +149,7 @@
 								</c:if>
 					</div>
 						<input class="form-control mr-sm-2 p-2 bd-highlight" type="search"
-						name="keyword" value="${page.cri.keyword }" placeholder="Search"
+						name="keyword" value="${page.cri.keyword }" 
 						aria-label="Search" required="required"> <input
 						type="hidden" name="pageNo" value="1" /> <input type="hidden"
 						name="amount" value="${page.cri.amount }" />
@@ -169,7 +169,7 @@
 					<div class="card mb-3">
 						<div class="row">
 							<div class="col-sm-4 d-flex align-items-center"">
-								<img src="${staticPath }/${res.filename}" class="card-img" alt="..."
+								<img src="${staticPath }/${res.filename}" class="card-img img-fluid"
 									style="width: 180px; height: 185px;">
 							</div>
 							<div class="col-sm-8">
@@ -180,7 +180,8 @@
 											id="resno" /><c:out value="${res.mname }"/> <br> <c:out value="${res.rloc }"/><br>
 									</p>
 									<p class="card-text">
-										<small class="text-muted"><c:out value="${res.description }"/><br><c:out value="${res.contact }"/></small><br>
+									대표메뉴 : <c:out value="${res.menu }"/><br>
+										<small class="text-muted"><c:out value="${res.description }"/><br>전화 : <c:out value="${res.contact }"/></small><br>
 									</p>
 									<div class="d-flex justify-content-end align-items-center mb-1 likeDislike">
 										<!-- 								 $(this).attr("data-resNo"); -->

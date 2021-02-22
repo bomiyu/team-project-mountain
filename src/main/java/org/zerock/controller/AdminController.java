@@ -49,10 +49,12 @@ public class AdminController {
 		
          int today = visitSvc.getToday();
          int total = visitSvc.getTotal();
+         int memberCnt = memberSvc.getMemberCnt();
          log.info("*****************today*****" + today);
          log.info("*****************total*****" + total);
          model.addAttribute("today", today);
          model.addAttribute("total", total);
+         model.addAttribute("memberCnt", memberCnt);
 		
 			return "/admin/index";
 		}

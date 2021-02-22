@@ -25,4 +25,5 @@ public class VisitServiceImpl implements VisitService {
 	public int getToday() {
 		return mapper.getToday();
 	}
+
 }

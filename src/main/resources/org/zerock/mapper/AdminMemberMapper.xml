@@ -40,4 +40,9 @@ SELECT no, id, email, password, name, nickname, loc FROM member WHERE no = #{no}
 <select id="getMemberTotalCnt" resultType="int">
 	SELECT count(*) FROM member <include refid="criteria"></include>
 </select>
+
+<select id="getMemberCnt" resultType="int">
+	SELECT count(*) FROM member
+</select>
+
 </mapper>

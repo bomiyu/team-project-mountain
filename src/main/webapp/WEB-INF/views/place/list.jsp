@@ -172,8 +172,8 @@
 					<div class="card mb-3">
 						<div class="row">
 							<div class="col-sm-4 d-flex align-items-center">
-								<img src="${staticPath }/${place.filename}" class="card-img"
-									alt="..." style="width: 180px; height: 185px;">
+								<img src="${staticPath }/${place.filename}" class="card-img img-fluid"
+									style="width: 180px; height: 185px;">
 							</div>
 							<div class="col-sm-8">
 								<div class="card-body">
