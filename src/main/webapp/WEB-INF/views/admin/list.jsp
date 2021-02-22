@@ -43,9 +43,8 @@ tr th {
       <div class="col-12 col-sm-6 offset-sm-3">
       				<form action="${root }/admin/list" id="searchForm" class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
  					<input type="hidden" name="type" value="ICN"/>
-						<input type="text" value="id+별명+이름"/>
-					<input class="form-control mr-sm-2 p-2 bd-highlight" type="search"
-						name="keyword" value="${page.cri.keyword }" placeholder="Search"
+					<input class="form-control mr-sm-2 p-2 d-flex bd-highlight" type="search"
+						name="keyword" value="${page.cri.keyword }" placeholder="id, 별명, 이름으로 검색 가능합니다."
 						aria-label="Search" required="required"> <input
 						type="hidden" name="pageNo" value="1" /> <input type="hidden"
 						name="amount" value="${page.cri.amount }" />
@@ -73,7 +72,7 @@ tr th {
   <c:forEach items="${memberList }" var="memberList">
 
     <tr>
-      <td rowspan="2" class="text-center" style="">${memberList.no }</td>
+      <td rowspan="2" class="text-center" style="vertical-align: middle">${memberList.no }</td>
       <td>${memberList.id }</td>
       <td>${memberList.password }</td>
        <td>${memberList.email }</td>

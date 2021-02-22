@@ -26,35 +26,18 @@ $(document).ready(function() {
 });
 
 </script>
+<style type="text/css">
+span {
+text-align: right;
+}
+</style>
 </head>
 <body>
-<u:topNav/>
+	<u:adminNav/>
 <div class="container-sm">
    <div class="row">
       <div class="col-12 col-sm-6 offset-sm-3">
-	<header>
-	총 방문자 : ${total }&nbsp;&nbsp;오늘 방문자 : ${today }&nbsp;&nbsp;총 회원수 : ${memberCnt }
-	<ul class="nav nav-tabs">
-  <li class="nav-item">
-   <button class="nav-link" data-href="${root }/notice/register">공지 등록</button>
-  </li>
-  <li class="nav-item">
-    <button class="nav-link" data-href="${root }/board/register">산정보 등록</button>
-  </li>
-  <li class="nav-item">
-    <button class="nav-link" data-href="${root }/festival/register">축제 등록</button>
-  </li>
-    <li class="nav-item">
-    <button class="nav-link" data-href="${root }/place/register">명소 등록</button>
-  </li>
-    <li class="nav-item">
-    <button class="nav-link" data-href="${root }/restaurant/register">맛집 등록</button>
-  </li>
-      <li class="nav-item">
-    <button class="nav-link" data-href="${root }/admin/list">회원 조회</button>
-  </li>
-</ul>
-	</header>
+
 	<section>
  		<div class="mt-2" id="container_box"> 
 		<iframe src="" id="iframe-link" width="100%" height="900px" 
