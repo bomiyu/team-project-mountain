@@ -74,14 +74,14 @@ tr th {
   <c:forEach items="${memberList }" var="memberList">
 
     <tr>
-      <td rowspan="2" class="text-center">${memberList.no }</td>
+      <td rowspan="2" class="text-center" style="vertical-align: middle;">${memberList.no }</td>
       <td>${memberList.id }</td>
       <td>${memberList.password }</td>
        <td>${memberList.email }</td>
 
       </tr>
       <tr>
-              <td>${memberList.name }</td>
+      <td>${memberList.name }</td>
       <td>${memberList.nickname }</td>
       <td colspan="2">${memberList.loc }</td>
     </tr>

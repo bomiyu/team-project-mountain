@@ -1,22 +1,18 @@
 package org.zerock.listener;
 
-import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.zerock.service.restaurant.RestaurantService;
+import org.zerock.mapper.VisitMapper;
 import org.zerock.service.visit.VisitService;
 
 /**
  * Application Lifecycle Listener implementation class VisiteSessionListener
  *
  */
-@WebListener
+//@WebListener
 public class VisiteSessionListener implements HttpSessionListener {
 	private VisitService service;
 	
@@ -30,8 +26,18 @@ public class VisiteSessionListener implements HttpSessionListener {
 	/**
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
      */
-	public void sessionCreated(HttpSessionEvent arg0)  {
-		if(arg0.getSession().isNew()) {
+    @Override
+    public void sessionCreated(HttpSessionEvent se) {
+    	ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(se.getSession().getServletContext());
+    	VisitMapper mapper = ctx.getBean(VisitMapper.class); // Bean을 주입
+    	mapper.insert();
+    	System.out.println("session created");
+    }
+    
+    
+    /*
+	public void sessionCreated(HttpSessionEvent se)  {
+		if(se.getSession().isNew()) {
 		
 		try {
 			//전체 방문자 수 증가
@@ -43,7 +49,7 @@ public class VisiteSessionListener implements HttpSessionListener {
 			System.out.println("*****total ********" +total);
 			System.out.println("*****today ********" +today);
 			
-			HttpSession session = arg0.getSession();
+			HttpSession session = se.getSession();
 			session.setAttribute("totalCnt", total);
 			session.setAttribute("todayCnt", today);
 
@@ -56,13 +62,14 @@ public class VisiteSessionListener implements HttpSessionListener {
 		
 
     }
+    */
 
 		
 
 	/**
      * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
      */
-    public void sessionDestroyed(HttpSessionEvent arg0)  { 
+    public void sessionDestroyed(HttpSessionEvent se)  { 
          // TODO Auto-generated method stub
     }
 	

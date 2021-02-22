@@ -19,8 +19,15 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
 <script>
-history.replaceState({}, null, null);
-
+$(document).ready(function() {
+	console.log(history.state);
+	if (history.state != null) {
+		document.getElementById("placeModifyForm").reset();
+	}
+	
+	history.replaceState({}, null, null);
+	
+});
 </script>
 <style type="text/css">
 .address-form #sample3_address {
@@ -52,7 +59,7 @@ history.replaceState({}, null, null);
 		<div class="row">
 			<div class="col-12 col-sm-6 offset-sm-3">
 
-				<form action="${root }/place/modify" method="post" enctype="Multipart/form-data">
+				<form action="${root }/place/modify" method="post" id ="placeModifyForm" enctype="Multipart/form-data">
 					<input type="hidden" name="no" value="${param.no }"> <input
 						type="hidden" name="mountain_no"
 						value="${place.mountain_no }">

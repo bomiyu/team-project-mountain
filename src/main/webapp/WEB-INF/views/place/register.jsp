@@ -22,7 +22,15 @@ var manager = '${authUser.manager}';
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
 <script type="text/javascript">
-history.replaceState({}, null, null);
+$(document).ready(function() {
+	console.log(history.state);
+	if (history.state != null) {
+		document.getElementById("placeRegisterForm").reset();
+	}
+	
+	history.replaceState({}, null, null);
+	
+});
 
 
 </script>
@@ -41,7 +49,7 @@ history.replaceState({}, null, null);
 
 		<div class="row">
 			<div class="col-12 col-sm-6 offset-sm-3">
-				<form action="${root }/place/register" method="post" name="register" enctype="multipart/form-data">
+				<form  id="placeRegisterForm" action="${root }/place/register" method="post" name="register" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="input1">산</label> <select name="mname"
 							class="custom-select my-1 mr-sm-2 bd-highlight"
@@ -84,7 +92,8 @@ history.replaceState({}, null, null);
   </script> 
 </div>
 <div class="d-flex justify-content-end">
-					<button type="submit" class="btn btn-primary">등록</button></div>
+
+					<button type="submit" class="btn btn-primary" onclick="">등록</button></div>
 				</form>
 					</div>
 	</div>

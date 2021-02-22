@@ -14,9 +14,11 @@ import org.zerock.domain.admin.Acriteria;
 import org.zerock.domain.admin.AdminFreeBoardVO;
 import org.zerock.domain.admin.AdminMemberVO;
 import org.zerock.domain.admin.ApageDTO;
+import org.zerock.domain.admin.VisitVO;
 import org.zerock.domain.member.MemberVO;
 import org.zerock.service.admin.AdminFreeBoardService;
 import org.zerock.service.admin.AdminMemberService;
+import org.zerock.service.visit.VisitService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -27,11 +29,12 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class AdminController {
 	
+	private VisitService visitSvc;
 	private AdminMemberService memberSvc;
 	// private AdminFreeBoardService boardSvc;
 	
 	@GetMapping("/index")
-	public String index(RedirectAttributes rttr, HttpSession session) {
+	public String index(RedirectAttributes rttr, HttpSession session, Model model) {
 		MemberVO user = (MemberVO) session.getAttribute("authUser");
 		try {
 			if(user.getManager() == 0 || user == null) {
@@ -43,7 +46,14 @@ public class AdminController {
 				rttr.addFlashAttribute("message2", "관리자만이용 가능합니다");
 				return "redirect:/index.jsp";
 			}
-
+		
+         int today = visitSvc.getToday();
+         int total = visitSvc.getTotal();
+         log.info("*****************today*****" + today);
+         log.info("*****************total*****" + total);
+         model.addAttribute("today", today);
+         model.addAttribute("total", total);
+		
 			return "/admin/index";
 		}
 	

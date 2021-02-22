@@ -22,9 +22,15 @@ var manager = '${authUser.manager}';
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
 <script type="text/javascript">
-history.replaceState({}, null, null);
-
-
+$(document).ready(function() {
+	console.log(history.state);
+	if (history.state != null) {
+		document.getElementById("restaurantRegisterForm").reset();
+	}
+	
+	history.replaceState({}, null, null);
+	
+});
 </script>
 <style type="text/css">
 .address-form #sample3_address {
@@ -48,7 +54,7 @@ history.replaceState({}, null, null);
 
 		<div class="row">
 			<div class="col-12 col-sm-6 offset-sm-3">
-				<form action="${root }/restaurant/register" method="post" name="register" enctype="multipart/form-data">
+				<form action="${root }/restaurant/register" method="post" name="register" enctype="multipart/form-data" id="restaurantRegisterForm">
 					<div class="form-group">
 						<label for="input1">산</label> <select name="mname"
 							class="custom-select my-1 mr-sm-2 bd-highlight"
