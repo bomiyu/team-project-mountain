@@ -145,18 +145,20 @@ public class RestaurantController {
 	@PostMapping("/modify")
 	// manager 세션 가져오기
 	public String modify(RestaurantVO restaurant, RedirectAttributes rttr, Rcriteria cri, HttpSession session,
-			RAddressVO addr, MultipartFile file, HttpServletRequest req) throws Exception {
+			RAddressVO addr, MultipartFile file) throws Exception {
 		String address = addr.getAddress1() + " " + addr.getAddress2();
 		RestaurantVO vo = new RestaurantVO();
 		vo = service.read(restaurant.getNo());
 		log.info(restaurant);
-		log.info("****************    address   **********" + address + "******************************");
 		log.info("****************    filename   **********" + file.getOriginalFilename() + "******************************");
 		log.info("****************    vo.filename   **********" + vo.getFilename() + "******************************");
 		MemberVO user = (MemberVO) session.getAttribute("authUser");
 		if (user.getManager() == 1) {
 			restaurant.setRloc(address);
-			if(file.getOriginalFilename() != null || file.getOriginalFilename() != "" || file.getOriginalFilename().equals(vo.getFilename())) {
+			restaurant.setFilename(vo.getFilename());
+			service.modify(restaurant);
+			// 파일이 null이 아닐때
+			if(file != null && file.getSize() > 0) {
 				restaurant.setFilename("restaurant_"+restaurant.getNo()+"_"+file.getOriginalFilename());
 				service.modify(restaurant);
 				rttr.addFlashAttribute("result", "success");
@@ -166,17 +168,16 @@ public class RestaurantController {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-			} else {
-				restaurant.setFilename(vo.getFilename());
-				service.modify(restaurant);
-				rttr.addFlashAttribute("result", "success");
-				rttr.addFlashAttribute("message", restaurant.getNo() + "번 글이 수정되었습니다");
-			}
+			  } 
+
+			rttr.addFlashAttribute("result", "success");
+			rttr.addFlashAttribute("message", restaurant.getNo() + "번 글이 수정되었습니다");
 		}
 		rttr.addAttribute("pageNo", cri.getPageNo());
 		rttr.addAttribute("amount", cri.getAmount());
 		rttr.addAttribute("type", cri.getType());
 		rttr.addAttribute("keyword", cri.getKeyword());
+
 
 		return "redirect:/restaurant/list";
 	}

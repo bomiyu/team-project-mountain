@@ -126,7 +126,7 @@ public class PlaceController {
 
 	@PostMapping("/modify")
 	public String modify(PlaceVO place, RedirectAttributes rttr, Pcriteria cri, HttpSession session,
-			 MultipartFile file, HttpServletRequest req) throws Exception {
+			 MultipartFile file) throws Exception {
 		PlaceVO vo = new PlaceVO();
 		vo = service.read(place.getNo());
 		log.info(place);
@@ -134,8 +134,10 @@ public class PlaceController {
 		log.info("****************    vo.filename   **********" + vo.getFilename() + "******************************");
 		MemberVO user = (MemberVO) session.getAttribute("authUser");
 		if (user.getManager() == 1) {
-			if(file.getOriginalFilename() != null || file.getOriginalFilename() != "" || file.getOriginalFilename().equals(vo.getFilename())) {
-				place.setFilename("restaurant_"+place.getNo()+"_"+file.getOriginalFilename());
+			place.setFilename(vo.getFilename());
+			service.modify(place);
+			if(file != null && file.getSize() > 0) {
+				place.setFilename("place_"+place.getNo()+"_"+file.getOriginalFilename());
 				service.modify(place);
 				rttr.addFlashAttribute("result", "success");
 				rttr.addFlashAttribute("message", place.getNo() + "번 글이 수정되었습니다");
@@ -144,12 +146,11 @@ public class PlaceController {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-			} else {
-				place.setFilename(vo.getFilename());
-				service.modify(place);
+			}
+			
 				rttr.addFlashAttribute("result", "success");
 				rttr.addFlashAttribute("message", place.getNo() + "번 글이 수정되었습니다");
-			}
+
 		}
 		rttr.addAttribute("pageNo", cri.getPageNo());
 		rttr.addAttribute("amount", cri.getAmount());

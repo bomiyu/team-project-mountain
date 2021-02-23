@@ -109,10 +109,14 @@
 			});
 </script>
 <style type="text/css">
+.cardimg {
+	display: block;
+	margin: 0px auto;
+}
+
 .card mb-3 div {
 	max-width: auto;
 	max-height: 250px;
-	"
 }
 
 .col-md-4 {
@@ -142,26 +146,27 @@
 				<form action="${root }/place/list" id="searchForm"
 					class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
 					<div class="mr-auto p-2 bd-highlight">
-						<a href="${root }/restaurant/list"><button
+						<a href="${root }/place/list"><button
 								class="btn btn-outline-info my-2 my-sm-0" type="button">목록</button></a>
 						<c:if test="${authUser.manager == 1 }">
 							<a href="${root }/place/register"><button
 									class="btn btn-outline-info my-2 my-sm-0" type="button">등록</button></a>
 						</c:if>
 					</div>
+						<div class="d-flex p-1 bd-highlight align-items-center">
 					<input class="form-control mr-sm-2 p-2 bd-highlight" type="search"
-						name="keyword" value="${page.cri.keyword }" placeholder="Search"
+						name="keyword" value="${page.cri.keyword }"
 						aria-label="Search" required="required"> <input
 						type="hidden" name="pageNo" value="1" /> <input type="hidden"
 						name="amount" value="${page.cri.amount }" /> <input type="hidden"
 						name="type" value="MNLD" />
-
-					<button class="btn btn-outline-info my-2 my-sm-0 p-2 bd-highlight"
+					</div>
+					<button class="btn btn-outline-info my-2 my-sm-0"
 						type="submit">검색</button>
 				</form>
 				<c:if test="${empty list}">
 					<div class="text-center">
-						<span style="font-size: 2em; color: darkgray;"> <i
+						<span style="font-size: 2em; color: darkgray; text-align: center;"> <i
 							class="fas fa-exclamation-triangle"></i>검색한 결과가 없습니다.
 						</span>
 					</div>
@@ -170,12 +175,8 @@
 
 
 					<div class="card mb-3">
-						<div class="row">
-							<div class="col-sm-4 d-flex align-items-center">
-								<img src="${staticPath }/${place.filename}" class="card-img img-fluid"
-									style="width: 180px; height: 185px;">
-							</div>
-							<div class="col-sm-8">
+								<img src="${staticPath }/${place.filename}" class="card-img img-fluid cardimg mt-2"
+									style="width: 250px;">
 								<div class="card-body">
 									<h5 class="card-title">${place.pname }</h5>
 									<p class="card-text">
@@ -187,13 +188,13 @@
 										<br>
 									</p>
 									<p class="card-text">
-										<small class="text-muted"><c:out
+										<small class="text-muted"><u:pre
 												value="${place.description }" /></small><br>
 									</p>
 									
 									<c:if test="${authUser.manager == 1}">
 										<!--  ${authUser.manager == 1} -->
-										<div class="d-flex justify-content-end align-items-center">
+										<div class="d-flex justify-content-end">
 											<c:url value="/place/modify" var="modifyLink">
 												<c:param name="no" value="${place.no }"></c:param>
 												<c:param name="pageNo" value="${cri.pageNo }"></c:param>
@@ -202,23 +203,18 @@
 												<c:param name="keyword" value="${cri.keyword }"></c:param>
 											</c:url>
 											<a href="${modifyLink }">
-												<button class="btn btn-outline-info my-3 my-sm-0"
+												<button class="btn btn-outline-info m-1 my-sm-0"
 													type="submit">수정</button>
 											</a>
-											<div></div>
 											<form action="${root }/place/remove" method="post"
 												id="removeForm">
 												<input type="hidden" name="no" value="${place.no}">
-												<button class="btn btn-outline-info my-2 my-sm-0"
+												<button class="btn btn-outline-info m-1 my-sm-0"
 													id="removeBtn" type="submit" data-pNo="${place.no }">삭제</button>
 											</form>
 										</div>
 									</c:if>
-								</div>
-
-							</div>
-
-						</div>
+									</div>
 					</div>
 				</c:forEach>
 			</div>
@@ -228,7 +224,7 @@
 						<ul class="pagination">
 
 							<c:if test="${page.prev }">
-								<c:url value="/restaurant/list" var="prevLink">
+								<c:url value="/place/list" var="prevLink">
 									<c:param value="${page.startPage -1 }" name="pageNo" />
 									<c:param value="${page.cri.amount }" name="amount" />
 									<c:param name="type" value="${page.cri.type }" />
@@ -240,7 +236,7 @@
 
 							<c:forEach var="num" begin="${page.startPage }"
 								end="${page.endPage }">
-								<c:url value="/restaurant/list" var="pageLink">
+								<c:url value="/place/list" var="pageLink">
 									<c:param name="pageNo" value="${num }" />
 									<c:param name="amount" value="${page.cri.amount }" />
 									<c:param name="type" value="${page.cri.type }" />

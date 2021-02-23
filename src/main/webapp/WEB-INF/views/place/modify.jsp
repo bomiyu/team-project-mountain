@@ -76,7 +76,7 @@ $(document).ready(function() {
 					</div>
 					<div class="form-group">
 						<label for="input2">명소</label> <input type="text"
-							class="form-control" id="input2" name="rname"
+							class="form-control" id="input2" name="pname"
 							value="${place.pname }" required>
 					</div>
 					<div class="form-group address-form">
@@ -95,8 +95,8 @@ $(document).ready(function() {
 						name="file" />
 					<div class="select_img my-2">
 						<img src="${staticPath }/${place.filename}" />
-						  <input type="hidden" name="file" value="${place.filename}" />
-						  ${place.filename}
+						  <input type="hidden" name="file" value="" />
+
 					</div>
 					<script>
 						$("#file-img").change(
@@ -113,15 +113,19 @@ $(document).ready(function() {
 								});
 					</script></div>
 					<div class="d-flex justify-content-end">
-			<button type="submit" class="btn btn-primary">확인</button>
-			<c:url value="/restaurant/list" var="listLink">
+									<input type="hidden" name="pageNo" value="${cri.pageNo}" />
+						<input type="hidden" name="amount" value="${cri.amount }" />
+							<input type="hidden" name="type" value="${cri.type }" />
+								<input type="hidden" name="keyword" value="${cri.keyword }" />
+			<button type="submit" class="btn btn-primary m-1">확인</button>
+			<c:url value="/place/list" var="listLink">
 				<c:param name="pageNo" value="${cri.pageNo}" />
 				<c:param name="amount" value="${cri.amount }" />
 				<c:param name="type" value="${cri.type }" />
 				<c:param name="keyword" value="${cri.keyword }" />
 			</c:url>
 			<a href="${listLink }"><button type="button"
-					class="btn btn-secondary">취소</button></a></div>
+					class="btn btn-secondary m-1">취소</button></a></div>
 			</form>
 
 		</div>

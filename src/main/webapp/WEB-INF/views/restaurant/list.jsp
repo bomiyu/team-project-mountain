@@ -110,6 +110,10 @@
 			});
 </script>
 <style type="text/css">
+.cardimg {
+	display: block;
+	margin: 0px auto;
+}
 .card mb-3 div {
 	max-width: auto;
 	max-height: 250px;
@@ -146,16 +150,16 @@
 								<c:if test="${authUser.manager == 1 }">
 						<a href="${root }/restaurant/register"><button
 								class="btn btn-outline-info my-2 my-sm-0" type="button">등록</button></a>
-								</c:if>
-					</div>
-						<input class="form-control mr-sm-2 p-2 bd-highlight" type="search"
+								</c:if></div>
+								<div class="d-flex p-1 bd-highlight align-items-center">
+						<input class="form-control" type="search"
 						name="keyword" value="${page.cri.keyword }" 
 						aria-label="Search" required="required"> <input
 						type="hidden" name="pageNo" value="1" /> <input type="hidden"
 						name="amount" value="${page.cri.amount }" />
 						<input type="hidden" name="type" value="MNLFD" />
-
-					<button class="btn btn-outline-info my-2 my-sm-0 p-2 bd-highlight"
+</div>
+					<button class="btn btn-outline-info"
 						type="submit">검색</button>
 				</form>
 				<c:if test="${empty list}">
@@ -167,21 +171,17 @@
 
 
 					<div class="card mb-3">
-						<div class="row">
-							<div class="col-sm-4 d-flex align-items-center"">
-								<img src="${staticPath }/${res.filename}" class="card-img img-fluid"
-									style="width: 180px; height: 185px;">
-							</div>
-							<div class="col-sm-8">
+								<img src="${staticPath }/${res.filename}" class="card-img-top img-fluid cardimg mt-2"
+									style="width: 250px;">
 								<div class="card-body">
-									<h5 class="card-title">${res.rname }</h5>
+									<h5 class="card-title" style="font-weight: bold;">${res.rname }</h5>
 									<p class="card-text">
 										<input type="hidden" name="resno" value="${res.no }"
 											id="resno" /><c:out value="${res.mname }"/> <br> <c:out value="${res.rloc }"/><br>
 									</p>
 									<p class="card-text">
 									대표메뉴 : <c:out value="${res.menu }"/><br>
-										<small class="text-muted"><c:out value="${res.description }"/><br>전화 : <c:out value="${res.contact }"/></small><br>
+										<small class="text-muted"><u:pre value="${res.description }"/><br>전화 : <c:out value="${res.contact }"/></small><br>
 									</p>
 									<div class="d-flex justify-content-end align-items-center mb-1 likeDislike">
 										<!-- 								 $(this).attr("data-resNo"); -->
@@ -206,21 +206,17 @@
 												<c:param name="keyword" value="${cri.keyword }"></c:param>
 											</c:url>
 											<a href="${modifyLink }">
-												<button class="btn btn-outline-info my-2 my-sm-0"
+												<button class="btn btn-outline-info m-1 my-sm-0"
 													type="submit">수정</button>
 											</a>
 											<form action="${root }/restaurant/remove" method="post" id="removeForm">
 												<input type="hidden" name="no" value="${res.no}">
-												<button class="btn btn-outline-info my-2 my-sm-0"
+												<button class="btn btn-outline-info m-1 my-sm-0"
 													id="removeBtn" type="submit" data-resNo="${res.no }">삭제</button>
 											</form>
 										</div>
 									</c:if>
 								</div>
-
-							</div>
-
-						</div>
 					</div>
 				</c:forEach>
 			</div>

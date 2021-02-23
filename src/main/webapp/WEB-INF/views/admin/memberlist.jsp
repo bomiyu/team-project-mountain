@@ -82,6 +82,9 @@ $(document).ready(function() {
 tr th {
 	color: white;
 }
+input {
+	width: 100%;
+}
 </style>
 
 <title>산산산</title>
@@ -94,8 +97,8 @@ tr th {
       <h3 style="text-align: center">회원 정보</h3>
       				<form action="${root }/admin/memberlist" id="searchForm" class="form-inline my-2 my-lg-0 mb-3 mt-3 justify-content-end">
  					<input type="hidden" name="type" value="ICN"/>
- 					<div class="d-flex searchBox mt-2">
-					<input class="form-control mr-sm-2 p-2 d-flex bd-highlight" type="search"
+ 					<div class="d-flex searchBox mt-2 align-items-center">
+					<input class="form-control mr-sm-2 p-2 d-flex" type="search"
 						name="keyword" value="${page.cri.keyword }" placeholder="id, 별명, 이름으로 검색 가능"
 						aria-label="Search" required="required" size=resize> <input
 						type="hidden" name="pageNo" value="1" /> <input type="hidden"
