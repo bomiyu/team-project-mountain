@@ -33,8 +33,15 @@
 WHERE rn BETWEEN (#{pageNo} -1) * #{amount} + 1 AND #{pageNo} * #{amount}]]> 
 </select>
 
+<select id="getAdminListPaging" resultType="org.zerock.domain.admin.AdminMemberVO">
+<![CDATA[SELECT no, id, email, password, name, nickname, loc FROM
+(SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, no, id, email, password, name, nickname, loc FROM member
+WHERE manager = 1)
+WHERE rn BETWEEN (#{pageNo} -1) * #{amount} + 1 AND #{pageNo} * #{amount}]]> 
+</select>
+
 <select id="getMember" resultType="org.zerock.domain.admin.AdminMemberVO">
-SELECT no, id, email, password, name, nickname, loc FROM member WHERE no = #{no}
+SELECT no, id, email, password, name, nickname, loc, manager FROM member WHERE no = #{no}
 </select>
 
 <select id="getMemberTotalCnt" resultType="int">
@@ -44,5 +51,17 @@ SELECT no, id, email, password, name, nickname, loc FROM member WHERE no = #{no}
 <select id="getMemberCnt" resultType="int">
 	SELECT count(*) FROM member
 </select>
+
+<select id="getAdminCnt" resultType="int">
+	SELECT count(*) FROM member WHERE manager = 1
+</select>
+
+<update id="managerChange">
+update member set manager = 1 WHERE no = #{no}
+</update>
+
+<update id="generalMemberChange">
+update member set manager = 0 WHERE no = #{no}
+</update>
 
 </mapper>

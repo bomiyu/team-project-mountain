@@ -15,5 +15,11 @@ public interface AdminMemberMapper {
 
 	public int getMemberCnt();
 
+	public List<AdminMemberVO> getAdminListPaging(Acriteria cri);
 	
+	public int getAdminCnt();
+	
+	public int managerChange(Long no);
+	
+	public int generalMemberChange(Long no);
 }

@@ -14,4 +14,11 @@ public interface AdminMemberService {
 	
 	public int getMemberCnt();
 
+	public List<AdminMemberVO> getAdminList(Acriteria cri);
+	
+	public int getAdminCnt();
+	
+	public boolean managerChange(Long no);
+	
+	public boolean generalMemberChange(Long no);
 }

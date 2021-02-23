@@ -38,4 +38,22 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 
 	}
 
+	@Override
+	public List<AdminMemberVO> getAdminList(Acriteria cri) {
+		return mapper.getAdminListPaging(cri);
+	}
+
+	@Override
+	public int getAdminCnt() {
+		return mapper.getAdminCnt();
+	}
+	@Override
+	public boolean managerChange(Long no) {
+		return mapper.managerChange(no) == 1;
+	}
+	
+	@Override
+	public boolean generalMemberChange(Long no) {
+		return mapper.generalMemberChange(no) == 1;
+	}
 }

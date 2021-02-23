@@ -11,4 +11,5 @@ public class AdminMemberVO {
 	private String password;
 	private String email;
 	private String loc;	
+	private int manager;
 }
