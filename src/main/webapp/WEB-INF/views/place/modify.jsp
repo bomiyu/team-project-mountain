@@ -117,7 +117,7 @@ $(document).ready(function() {
 						<input type="hidden" name="amount" value="${cri.amount }" />
 							<input type="hidden" name="type" value="${cri.type }" />
 								<input type="hidden" name="keyword" value="${cri.keyword }" />
-			<button type="submit" class="btn btn-primary m-1">확인</button>
+			<button type="submit" class="btn btn-outline-sucess m-1">확인</button>
 			<c:url value="/place/list" var="listLink">
 				<c:param name="pageNo" value="${cri.pageNo}" />
 				<c:param name="amount" value="${cri.amount }" />
@@ -125,7 +125,7 @@ $(document).ready(function() {
 				<c:param name="keyword" value="${cri.keyword }" />
 			</c:url>
 			<a href="${listLink }"><button type="button"
-					class="btn btn-secondary m-1">취소</button></a></div>
+					class="btn btn-outline-secondary m-1">취소</button></a></div>
 			</form>
 
 		</div>

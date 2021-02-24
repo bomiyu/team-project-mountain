@@ -109,14 +109,14 @@
 			});
 </script>
 <style type="text/css">
-.cardimg {
-	display: block;
-	margin: 0px auto;
-}
 
-.card mb-3 div {
-	max-width: auto;
-	max-height: 250px;
+.cardimg {
+    display: inline-block;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
 .col-md-4 {
@@ -139,18 +139,18 @@
 </head>
 <body>
 	<u:topNav />
-	<div class="container-sm">
+<div class="container-fluid my-5">
+   <div class="row">
+      <div class="col-12 col-md-8 offset-md-2 table-responsive"> 
 
-		<div class="row">
-			<div class="col-12 col-sm-6 offset-sm-3">
 				<form action="${root }/place/list" id="searchForm"
 					class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
 					<div class="mr-auto p-2 bd-highlight">
 						<a href="${root }/place/list"><button
-								class="btn btn-outline-info my-2 my-sm-0" type="button">목록</button></a>
+								class="btn btn-outline-success my-2 my-sm-0" type="button">목록</button></a>
 						<c:if test="${authUser.manager == 1 }">
 							<a href="${root }/place/register"><button
-									class="btn btn-outline-info my-2 my-sm-0" type="button">등록</button></a>
+									class="btn btn-outline-success my-2 my-sm-0" type="button">등록</button></a>
 						</c:if>
 					</div>
 						<div class="d-flex p-1 bd-highlight align-items-center">
@@ -161,7 +161,7 @@
 						name="amount" value="${page.cri.amount }" /> <input type="hidden"
 						name="type" value="MNLD" />
 					</div>
-					<button class="btn btn-outline-info my-2 my-sm-0"
+					<button class="btn btn-outline-success my-2 my-sm-0"
 						type="submit">검색</button>
 				</form>
 				<c:if test="${empty list}">
@@ -171,12 +171,20 @@
 						</span>
 					</div>
 				</c:if>
+				<div class="row">
 				<c:forEach items="${list }" var="place" varStatus="status">
+				<div class="col-sm-6">
 
-
-					<div class="card mb-3">
-								<img src="${staticPath }/${place.filename}" class="card-img img-fluid cardimg mt-2"
-									style="width: 250px;">
+					<div class="card h-100">
+						<div class="img-item"> 
+								<img 
+								<c:if test="${empty place.filename}">
+								src="${root }/resources/img/place/placedefault.png" alt="기본이미지입니다"
+								</c:if>
+								<c:if test="${not empty place.filename}">
+								src="${staticPath }/${place.filename}" 
+								</c:if>
+								class="card-img cardimg"></div>
 								<div class="card-body">
 									<h5 class="card-title">${place.pname }</h5>
 									<p class="card-text">
@@ -188,13 +196,12 @@
 										<br>
 									</p>
 									<p class="card-text">
-										<small class="text-muted"><u:pre
-												value="${place.description }" /></small><br>
+										<u:pre value="${place.description }" /><br>
 									</p>
 									
 									<c:if test="${authUser.manager == 1}">
 										<!--  ${authUser.manager == 1} -->
-										<div class="d-flex justify-content-end">
+										<div class="d-flex justify-content-end btnbox">
 											<c:url value="/place/modify" var="modifyLink">
 												<c:param name="no" value="${place.no }"></c:param>
 												<c:param name="pageNo" value="${cri.pageNo }"></c:param>
@@ -203,20 +210,24 @@
 												<c:param name="keyword" value="${cri.keyword }"></c:param>
 											</c:url>
 											<a href="${modifyLink }">
-												<button class="btn btn-outline-info m-1 my-sm-0"
+												<button class="btn btn-outline-success m-1 my-sm-0"
 													type="submit">수정</button>
 											</a>
 											<form action="${root }/place/remove" method="post"
 												id="removeForm">
 												<input type="hidden" name="no" value="${place.no}">
-												<button class="btn btn-outline-info m-1 my-sm-0"
+												<button class="btn btn-outline-success m-1 my-sm-0"
 													id="removeBtn" type="submit" data-pNo="${place.no }">삭제</button>
 											</form>
 										</div>
 									</c:if>
 									</div>
+									
 					</div>
+					</div>
+					
 				</c:forEach>
+					</div>
 			</div>
 			<div class="container-sm mt-3">
 				<div class="row justify-content-center">

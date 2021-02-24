@@ -23,7 +23,7 @@ import lombok.extern.log4j.Log4j;
 public class LikeController {
 	private LikeService likeSvc;
 
-	@PostMapping(value = "/like", produces = "application/json")
+	@PostMapping(value = "/like")
 	public String like(LikeVO like, HttpSession session) {
 		
 		int resLike = likeSvc.getLike(like.getUserno(), like.getResno());

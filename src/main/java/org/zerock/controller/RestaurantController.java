@@ -2,7 +2,6 @@ package org.zerock.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,7 @@ import org.zerock.domain.restaurant.RAddressVO;
 import org.zerock.domain.restaurant.Rcriteria;
 import org.zerock.domain.restaurant.RestaurantVO;
 import org.zerock.domain.restaurant.RpageDTO;
-import org.zerock.service.restaurant.RFileUpService;
+import org.zerock.service.file.FileUpService;
 import org.zerock.service.restaurant.RestaurantService;
 
 import lombok.AllArgsConstructor;
@@ -30,10 +29,16 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class RestaurantController {
 	private RestaurantService service;
-	private RFileUpService fileUpSvc;
+	private FileUpService fileUpSvc;
 
 	@GetMapping("/list")
-	public void list(Model model, @ModelAttribute("cri") Rcriteria cri) {
+	public void list(Model model, @ModelAttribute("cri") Rcriteria cri, HttpSession session) {
+		Object o = session.getAttribute("authUser");
+		
+		if (o != null) {
+			MemberVO authUser = (MemberVO) o;
+			cri.setUserno(authUser.getNo());
+		}
 		List<RestaurantVO> list = service.getList(cri);
 		// userno 세션 가져오기
 		// int userno = (authUser)
@@ -62,7 +67,7 @@ public class RestaurantController {
 			restaurant.setRloc(address);
 			log.info("**************************" + restaurant + "******************************");
 			service.register(restaurant);
-			if(file != null) {
+			if(file != null && file.getSize() > 0) {
 				restaurant.setFilename("restaurant_"+restaurant.getNo()+"_"+file.getOriginalFilename());
 				service.modify(restaurant);
 				try {

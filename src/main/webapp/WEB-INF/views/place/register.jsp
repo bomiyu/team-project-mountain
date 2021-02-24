@@ -90,7 +90,9 @@ $(document).ready(function() {
 </div>
 <div class="d-flex justify-content-end">
 
-					<button type="submit" class="btn btn-primary" onclick="">등록</button></div>
+					<button type="submit" class="btn btn-outline-success">등록</button>
+					<button type="button" class="btn btn-outline-secondary">취소</button>
+					</div>
 				</form>
 					</div>
 	</div>

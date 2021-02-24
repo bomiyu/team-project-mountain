@@ -257,3 +257,44 @@ mountain_no number not null
 
 -- 방문자 수
 CREATE TABLE visit (vdate DATE NOT NULL);
+
+
+
+
+-- 샘이 해준거
+SELECT * FROM res_like WHERE userno = 241;
+
+select * from res_view;
+
+CREATE OR REPLACE FORCE EDITIONABLE VIEW "ADMIN"."RES_VIEW" ("NO", "MOUNTAIN_NO", "RNAME", "RLOC", "CONTACT", "MENU", "DESCRIPTION", "FILENAME", "LIKECNT", "DISLIKECNT", "MNAME") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT r.no, r.mountain_no, r.rname, r.rloc, r.contact, r.menu, r.description, r.filename, r.likecnt, r.dislikecnt, m.mname 
+FROM restaurant r, mountain m WHERE r.mountain_no = m.no
+;
+
+SELECT r.rname, r.likecnt, r.dislikecnt, m.mname, mem.nickname, mem.name, rl.likeno, rl.dislikeno
+FROM 
+restaurant r, mountain m, member mem, res_like rl
+WHERE 
+r.mountain_no = m.no
+and rl.resno(+) = r.no
+and rl.userno = mem.no;
+
+  SELECT r.no, r.mountain_no, r.rname, r.rloc, r.contact, r.menu, r.description, r.filename, r.likecnt, r.dislikecnt, m.mname 
+FROM restaurant r, mountain m WHERE r.mountain_no = m.no
+;
+
+
+SELECT r.no, r.rname, r.likecnt, r.dislikecnt,rl.userno, rl.likeno, rl.dislikeno
+FROM 
+restaurant r, mountain m, res_like rl
+WHERE 
+r.mountain_no = m.no
+and rl.resno(+) = r.no;
+
+
+
+SELECT ROW_NUMBER() OVER (ORDER BY no DESC) rn, rv.no, rv.mountain_no, rv.rname, rv.rloc, rv.contact, rv.menu, rv.description,
+rv.likecnt, rv.filename, rv.mname, rv.dislikecnt, nvl(rl.likeno, 0) likeClick, nvl(rl.dislikeno, 0) dislikeClick FROM
+(SELECT r.no, r.mountain_no, r.rloc, r.rname, r.contact, r.menu, r.filename, m.mname, r.description, r.likecnt, r.dislikecnt FROM restaurant r, mountain m WHERE r.mountain_no = m.no) rv,
+(SELECT resno, userno, likeno, dislikeno FROM res_like WHERE userno = null) rl
+WHERE rv.no = rl.resno(+);

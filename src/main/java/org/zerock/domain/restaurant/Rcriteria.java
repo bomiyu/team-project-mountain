@@ -12,6 +12,7 @@ public class Rcriteria {
 	private int amount;
 	private String type;
 	private String keyword;
+	private Long userno;
 
 	public Rcriteria() {
 		this(1, 5);

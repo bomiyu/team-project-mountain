@@ -33,7 +33,7 @@ text-align: right;
 </style>
 </head>
 <body>
-	<u:adminNav/>
+	<cu:adminNav/>
 <div class="container-sm">
    <div class="row">
       <div class="col-12 col-sm-6 offset-sm-3">

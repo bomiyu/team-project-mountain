@@ -138,18 +138,18 @@
 </head>
 <body>
 		<u:topNav/>
-	<div class="container-sm">
+<div class="container-fluid my-5">
+   <div class="row">
+      <div class="col-12 col-md-8 offset-md-2 table-responsive"> 
 
-		<div class="row">
-			<div class="col-12 col-sm-6 offset-sm-3">
 				<form action="${root }/restaurant/list" id="searchForm"
 					class="form-inline my-2 my-lg-0 d-flex bd-highlight mb-3">
 					<div class="mr-auto p-2 bd-highlight">
 						<a href="${root }/restaurant/list"><button
-								class="btn btn-outline-info my-2 my-sm-0" type="button">목록</button></a>
+								class="btn btn-outline-success my-2 my-sm-0" type="button">목록</button></a>
 								<c:if test="${authUser.manager == 1 }">
 						<a href="${root }/restaurant/register"><button
-								class="btn btn-outline-info my-2 my-sm-0" type="button">등록</button></a>
+								class="btn btn-outline-success my-2 my-sm-0" type="button">등록</button></a>
 								</c:if></div>
 								<div class="d-flex p-1 bd-highlight align-items-center">
 						<input class="form-control" type="search"
@@ -159,7 +159,7 @@
 						name="amount" value="${page.cri.amount }" />
 						<input type="hidden" name="type" value="MNLFD" />
 </div>
-					<button class="btn btn-outline-info"
+					<button class="btn btn-outline-success"
 						type="submit">검색</button>
 				</form>
 				<c:if test="${empty list}">
@@ -167,12 +167,20 @@
 				<span style="font-size: 2em; color: darkgray; text-align: center">
 				<i class="fas fa-exclamation-triangle"></i>검색한 결과가 없습니다.
 				</span></div></c:if>
+				<div class="row">
 				<c:forEach items="${list }" var="res" varStatus="status">
+				<div class="col-sm-6">
 
-
-					<div class="card mb-3">
-								<img src="${staticPath }/${res.filename}" class="card-img-top img-fluid cardimg mt-2"
-									style="width: 250px;">
+					<div class="card h-100">
+								<img 
+								<c:if test="${empty res.filename}">
+								src="${root }/resources/img/restaurant/restaurantdefault.png" alt="기본이미지입니다"
+								</c:if>
+								<c:if test="${not empty res.filename}">
+								src="${staticPath }/${res.filename}" 
+								</c:if>
+								class="card-img-top img-fluid cardimg"
+									>
 								<div class="card-body">
 									<h5 class="card-title" style="font-weight: bold;">${res.rname }</h5>
 									<p class="card-text">
@@ -181,17 +189,35 @@
 									</p>
 									<p class="card-text">
 									대표메뉴 : <c:out value="${res.menu }"/><br>
-										<small class="text-muted"><u:pre value="${res.description }"/><br>전화 : <c:out value="${res.contact }"/></small><br>
+										<u:pre value="${res.description }"/><br>전화 : <c:out value="${res.contact }"/><br>
 									</p>
 									<div class="d-flex justify-content-end align-items-center mb-1 likeDislike">
 										<!-- 								 $(this).attr("data-resNo"); -->
 
 										<img data-resNo="${res.no }" id="like-img${status.count }"
-											src="${root }/resources/like_empty2.png" width="25px"
+											
+											<c:if test="${res.likeClick eq 1 }" >
+											src="${root }/resources/img/like/like_full.png"
+											</c:if>
+											
+											<c:if test="${res.likeClick eq 0 }" >
+											src="${root }/resources/img/like/like_empty2.png" 
+											</c:if>								
+											
+											width="25px"
 											height="25px"><span>&nbsp; ${res.likecnt }
 											&nbsp;</span> <img data-resNo="${res.no }"
 											id="dislike-img${status.count }"
-											src="${root }/resources/dislike_empty.png" width="25px"
+											
+											<c:if test="${res.dislikeClick eq 1 }" >
+											src="${root }/resources/img/like/dislike_full.png" 
+											</c:if>
+											
+											<c:if test="${res.dislikeClick eq 0 }" >
+											src="${root }/resources/img/like/dislike_empty.png" 
+											</c:if>
+											
+											width="25px"
 											height="25px"><span>&nbsp;${res.dislikecnt }</span>
 
 									</div>
@@ -206,17 +232,17 @@
 												<c:param name="keyword" value="${cri.keyword }"></c:param>
 											</c:url>
 											<a href="${modifyLink }">
-												<button class="btn btn-outline-info m-1 my-sm-0"
+												<button class="btn btn-outline-success m-1 my-sm-0"
 													type="submit">수정</button>
 											</a>
 											<form action="${root }/restaurant/remove" method="post" id="removeForm">
 												<input type="hidden" name="no" value="${res.no}">
-												<button class="btn btn-outline-info m-1 my-sm-0"
+												<button class="btn btn-outline-success m-1 my-sm-0"
 													id="removeBtn" type="submit" data-resNo="${res.no }">삭제</button>
 											</form>
 										</div>
 									</c:if>
-								</div>
+							</div>	</div>
 					</div>
 				</c:forEach>
 			</div>

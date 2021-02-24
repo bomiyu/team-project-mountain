@@ -2,7 +2,6 @@ package org.zerock.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,7 @@ import org.zerock.domain.member.MemberVO;
 import org.zerock.domain.place.Pcriteria;
 import org.zerock.domain.place.PlaceVO;
 import org.zerock.domain.place.PpageDTO;
-import org.zerock.service.place.PFileUpService;
+import org.zerock.service.file.FileUpService;
 import org.zerock.service.place.PlaceService;
 
 import lombok.AllArgsConstructor;
@@ -29,7 +28,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class PlaceController {
 	private PlaceService service;
-	private PFileUpService fileUpSvc;
+	private FileUpService fileUpSvc;
 
 	@GetMapping("/list")
 	public void list(Model model, @ModelAttribute("cri") Pcriteria cri) {
@@ -50,7 +49,7 @@ public class PlaceController {
 		place.setFilename("");
 		if (user.getManager() == 1) {
 			service.register(place);
-			if(file != null) {
+			if(file != null  && file.getSize() > 0) {
 				place.setFilename("place_"+place.getNo()+"_"+file.getOriginalFilename());
 				service.modify(place);
 				try {

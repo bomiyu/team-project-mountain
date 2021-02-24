@@ -27,6 +27,8 @@ $(document).ready(function() {
 	
 	history.replaceState({}, null, null);
 	
+
+	
 });
 </script>
 <style type="text/css">
@@ -105,22 +107,25 @@ $(document).ready(function() {
 					</div>
 					<div>
  <label for="file-img">이미지</label> 
- <input type="file" id="file-img" name="file" />
+ <input type="file" id="file-img" name="file" accept="png, jpeg, jpg"/>
  <div class="select_img my-2"><img src="" /></div> 
  <script> 
    $("#file-img").change(function(){
     if(this.files && this.files[0]) {
      var reader = new FileReader;
      reader.onload = function(data) {
-      $(".select_img img").attr("src", data.target.result).width(200);        
+      $(".select_img img").attr("src", data.target.result).width(200);    
      }
     reader.readAsDataURL(this.files[0]);
     }
   });
+
   </script> 
 </div>
 <div class="d-flex justify-content-end">
-					<button type="submit" class="btn btn-primary">등록</button></div>
+					<button type="submit" class="btn btn-outline-success">등록</button>
+					<a href="${root }/restaurant/list"><button type="button" class="btn btn-outline-secondary">취소</button></a>
+					</div>
 				</form>
 					</div>
 	</div>
