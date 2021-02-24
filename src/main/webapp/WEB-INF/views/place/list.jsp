@@ -20,7 +20,7 @@
 <!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<link rel="stylesheet" type="text/css" href="${root }/resources/css/place/list.css">
 <link rel="stylesheet" type="text/css"
 	href="${root }/resources/css/font.css">
 
@@ -108,38 +108,12 @@
 				
 			});
 </script>
-<style type="text/css">
-
-.cardimg {
-    display: inline-block;
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-    object-fit: cover;
-    border-radius: 5px;
-}
-
-.col-md-4 {
-	float: right;
-}
-
-.col-md-8 {
-	float: left;
-}
-
-.swal-footer {
-	text-align: center;
-}
-
-.swal {
-	position: top-start;
-}
-</style>
 <title>산산산</title>
 </head>
 <body>
 	<u:topNav />
 <div class="container-fluid my-5">
+<h3>산 명 소</h3>
    <div class="row">
       <div class="col-12 col-md-8 offset-md-2 table-responsive"> 
 
@@ -173,13 +147,13 @@
 				</c:if>
 				<div class="row">
 				<c:forEach items="${list }" var="place" varStatus="status">
-				<div class="col-sm-6">
+				<div class="col-sm-6 p-1">
 
 					<div class="card h-100">
 						<div class="img-item"> 
 								<img 
 								<c:if test="${empty place.filename}">
-								src="${root }/resources/img/place/placedefault.png" alt="기본이미지입니다"
+								src="${root }/resources/img/place/placedefault.png"
 								</c:if>
 								<c:if test="${not empty place.filename}">
 								src="${staticPath }/${place.filename}" 
@@ -188,8 +162,6 @@
 								<div class="card-body">
 									<h5 class="card-title">${place.pname }</h5>
 									<p class="card-text">
-										<input type="hidden" name="resno" value="${place.no }"
-											id="resno" />
 										<c:out value="${place.mname }" />
 										<br>
 										<c:out value="${place.ploc }" />
@@ -232,7 +204,7 @@
 			<div class="container-sm mt-3">
 				<div class="row justify-content-center">
 					<nav aria-label="Page navigation example">
-						<ul class="pagination">
+						<ul class="pagination my">
 
 							<c:if test="${page.prev }">
 								<c:url value="/place/list" var="prevLink">

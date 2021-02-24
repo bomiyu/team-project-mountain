@@ -22,9 +22,9 @@
 <!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript"
-	src="${root }/resources/js/restaurant/LikeDislike.js"></script>
+<script type="text/javascript" src="${root }/resources/js/restaurant/LikeDislike.js"></script>
 	<link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
+		<link rel="stylesheet" type="text/css" href="${root }/resources/css/place/list.css">
 
 <script>
 	$(document).ready(
@@ -109,36 +109,12 @@
 				
 			});
 </script>
-<style type="text/css">
-.cardimg {
-	display: block;
-	margin: 0px auto;
-}
-.card mb-3 div {
-	max-width: auto;
-	max-height: 250px;
-}
-
-.col-md-4 {
-	float: right;
-}
-
-.col-md-8 {
-	float: left;
-}
-.swal-footer {
-	text-align: center;
-}
-.swal {
-    position : top-start;
-}
-
-</style>
 <title>산산산</title>
 </head>
 <body>
 		<u:topNav/>
 <div class="container-fluid my-5">
+<h3>맛  집</h3>
    <div class="row">
       <div class="col-12 col-md-8 offset-md-2 table-responsive"> 
 
@@ -169,18 +145,17 @@
 				</span></div></c:if>
 				<div class="row">
 				<c:forEach items="${list }" var="res" varStatus="status">
-				<div class="col-sm-6">
+				<div class="col-sm-6 p-1">
 
 					<div class="card h-100">
 								<img 
 								<c:if test="${empty res.filename}">
-								src="${root }/resources/img/restaurant/restaurantdefault.png" alt="기본이미지입니다"
+								src="${root }/resources/img/restaurant/restaurantdefault.png"
 								</c:if>
 								<c:if test="${not empty res.filename}">
 								src="${staticPath }/${res.filename}" 
 								</c:if>
-								class="card-img-top img-fluid cardimg"
-									>
+								class="card-img-top img-fluid cardimg">
 								<div class="card-body">
 									<h5 class="card-title" style="font-weight: bold;">${res.rname }</h5>
 									<p class="card-text">
@@ -245,15 +220,16 @@
 							</div>	</div>
 					</div>
 				</c:forEach>
+				</div>
 			</div>
 			<div class="container-sm mt-3">
 				<div class="row justify-content-center">
 					<nav aria-label="Page navigation example">
-						<ul class="pagination">
+						<ul class="pagination my">
 
 							<c:if test="${page.prev }">
 								<li class="page-item">
-									<a class="page-link" href="${page.startPage -1 }">Previous</a>
+									<a class="page-link" href="${page.startPage -1 }"><<</a>
 								</li>
 							</c:if>
 
@@ -268,7 +244,7 @@
 							<c:if test="${page.next }">
 
 								<li class="page-item">
-									<a class="page-link" href="${page.endPage +1 }">Next</a>
+									<a class="page-link" href="${page.endPage +1 }">>></a>
 								</li>
 							</c:if>
 						</ul>

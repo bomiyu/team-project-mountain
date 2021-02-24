@@ -15,7 +15,7 @@ public class Rcriteria {
 	private Long userno;
 
 	public Rcriteria() {
-		this(1, 5);
+		this(1, 4);
 	}
 
 	public Rcriteria(int pageNo, int amount) {

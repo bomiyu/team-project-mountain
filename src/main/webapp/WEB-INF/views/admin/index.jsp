@@ -34,9 +34,9 @@ text-align: right;
 </head>
 <body>
 	<cu:adminNav/>
-<div class="container-sm">
+<div class="container-fluid my-5">
    <div class="row">
-      <div class="col-12 col-sm-6 offset-sm-3">
+      <div class="col-12 col-md-8 offset-md-2 table-responsive"> 
 
 	<section>
  		<div class="mt-2" id="container_box"> 
