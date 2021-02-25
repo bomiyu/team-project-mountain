@@ -160,6 +160,7 @@
 								</c:if>
 								class="card-img cardimg"></div>
 								<div class="card-body">
+								<div class="pb-3" style="height: 90%;">
 									<h5 class="card-title">${place.pname }</h5>
 									<p class="card-text">
 										<c:out value="${place.mname }" />
@@ -170,10 +171,11 @@
 									<p class="card-text">
 										<u:pre value="${place.description }" /><br>
 									</p>
-									
-									<c:if test="${authUser.manager == 1}">
+																	
+								</div>
 										<!--  ${authUser.manager == 1} -->
-										<div class="d-flex justify-content-end btnbox">
+										<div class="d-flex justify-content-end align-items-center btnbox" style="height: 10%;">
+										<c:if test="${authUser.manager == 1}">
 											<c:url value="/place/modify" var="modifyLink">
 												<c:param name="no" value="${place.no }"></c:param>
 												<c:param name="pageNo" value="${cri.pageNo }"></c:param>
@@ -182,17 +184,18 @@
 												<c:param name="keyword" value="${cri.keyword }"></c:param>
 											</c:url>
 											<a href="${modifyLink }">
-												<button class="btn btn-outline-success m-1 my-sm-0"
+												<button class="btn btn-outline-success" 
 													type="submit">수정</button>
 											</a>
 											<form action="${root }/place/remove" method="post"
 												id="removeForm">
 												<input type="hidden" name="no" value="${place.no}">
-												<button class="btn btn-outline-success m-1 my-sm-0"
+												<button class="btn btn-outline-success"
 													id="removeBtn" type="submit" data-pNo="${place.no }">삭제</button>
-											</form>
+											</form>		
+											</c:if>
 										</div>
-									</c:if>
+							
 									</div>
 									
 					</div>
