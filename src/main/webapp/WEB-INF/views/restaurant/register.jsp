@@ -17,6 +17,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script type="text/javascript" src="${root }/resources/js/restaurant/maxlength.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${root }/resources/css/font.css">
 <script type="text/javascript">
 $(document).ready(function() {
@@ -26,56 +28,31 @@ $(document).ready(function() {
 	}
 	
 	history.replaceState({}, null, null);
-
-	/* 글자수 제한 */
-	function maxLengthCheck(id, title, maxLength){
-	     var obj = $("#"+id);
-	     if(maxLength == null) {
-	         maxLength = obj.attr("maxLength") != null ? obj.attr("maxLength") : 1000;
-	     }
-	     
-	     if(Number(byteCheck(obj)) > Number(maxLength)) {
-	         alert(title + "이(가) 입력가능문자수를 초과하였습니다.\n(영문, 숫자, 일반 특수문자 : " + maxLength + " / 한글, 한자, 기타 특수문자 : " + parseInt(maxLength/2, 10) + ").");
-	         obj.focus();
-	         return false;
-	     } else {
-	         return true;
-	    }
-	}
-	 
-	/*
-	 * 바이트수 반환  
-	 */
-	function byteCheck(el){
-	    var codeByte = 0;
-	    for (var idx = 0; idx < el.val().length; idx++) {
-	        var oneChar = escape(el.val().charAt(idx));
-	        if ( oneChar.length == 1 ) {
-	            codeByte ++;
-	        } else if (oneChar.indexOf("%u") != -1) {
-	            codeByte += 2;
-	        } else if (oneChar.indexOf("%") != -1) {
-	            codeByte ++;
-	        }
-	    }
-	    return codeByte;
-	}
 	
-    function byteMaxLengthCheck(){
-        if(!maxLengthCheck("textarea1", "textarea1 태그", "10")){
+    $("#submitBtn").click(function byteMaxLengthCheck(){
+        if(!maxLengthCheck("input2", "상호", "45")){
             return false;
         }
-        if(!maxLengthCheck("textarea2", "textarea2 태그")){
+        if(!maxLengthCheck("input4", "연락처", "45")){
             return false;
         }
-        if(!maxLengthCheck("input1", "input1 태그", "10")){
+        if(!maxLengthCheck("input5", "메뉴", "500")){
             return false;
         }
-    }
+        if(!maxLengthCheck("input6", "설명", "1000")){
+            return false;
+        }
+        if(!maxLengthCheck("file-img", "파일명", "175")){
+            return false;
+        }
+    });
 	
 });
 </script>
 <style type="text/css">
+.swal-title {
+  font-size: 20px;
+}
 .address-form #sample3_address {
 	width: 370px;
 }
@@ -163,11 +140,10 @@ $(document).ready(function() {
     reader.readAsDataURL(this.files[0]);
     }
   });
-
   </script> 
 </div>
 <div class="d-flex justify-content-end">
-					<button type="submit" class="btn btn-outline-success">등록</button>
+					<button type="submit" class="btn btn-outline-success" id="submitBtn">등록</button>
 					<a href="${root }/restaurant/list"><button type="button" class="btn btn-outline-secondary">취소</button></a>
 					</div>
 				</form>
